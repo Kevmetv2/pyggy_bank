@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "407240313093",
+    "firebase_url": "https://pyggy-bank.firebaseio.com",
+    "project_id": "pyggy-bank",
+    "storage_bucket": "pyggy-bank.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:407240313093:android:b322e11cc2818c5d808f6c",
+        "android_client_info": {
+          "package_name": "com.example.pyggybank"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "407240313093-hfj9uuja8f98ngsbrsln79foird9k191.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.pyggybank",
+            "certificate_hash": "971455627e62f3f64fdd283d954e05a2c7f7433f"
+          }
+        },
+        {
+          "client_id": "407240313093-ac91g0avh7ko744k1h15n2gf440fqjak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD9Kg8AJLoatKcSf7V-TDbFlS8nO0L6EVc"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "407240313093-ac91g0avh7ko744k1h15n2gf440fqjak.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
