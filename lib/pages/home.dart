@@ -7,8 +7,8 @@ import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/create_account.dart';
 import 'package:pyggybank/pages/profile.dart';
 import 'package:pyggybank/widgets/already_have_an_account.dart';
+import 'package:pyggybank/widgets/input_field.dart';
 import 'package:pyggybank/widgets/rounded_button.dart';
-import 'package:pyggybank/widgets/rounded_input_field.dart';
 import 'package:pyggybank/widgets/rounded_password_field.dart';
 import 'package:pyggybank/widgets/sign_up_background.dart';
 import 'package:pyggybank/widgets/sign_up_divider.dart';
@@ -139,6 +139,49 @@ class _HomeState extends State<Home> {
     );
   }
 
+//  Scaffold buildNonAuthScreen() {
+//    return Scaffold(
+//      body: Container(
+//        decoration: BoxDecoration(
+//          gradient: LinearGradient(
+//              begin: Alignment.topRight,
+//              end: Alignment.bottomLeft,
+//              colors: [
+//                Theme.of(context).accentColor,
+//                Theme.of(context).primaryColor,
+//              ]),
+//        ),
+//        alignment: Alignment.center,
+//        child: Column(
+//          mainAxisAlignment: MainAxisAlignment.center,
+//          crossAxisAlignment: CrossAxisAlignment.center,
+//          children: [
+//            Text(
+//              "Pyggy Bank",
+//              style: TextStyle(
+//                fontFamily: "Signatra",
+//                fontSize: 70,
+//                color: Colors.white,
+//              ),
+//            ),
+//            GestureDetector(
+//              child: Container(
+//                width: 260,
+//                height: 60,
+//                decoration: BoxDecoration(
+//                    image: DecorationImage(
+//                        image: AssetImage(
+//                            "assets/images/google_signin_button.png"))),
+//              ),
+//              onTap: () {
+//                login();
+//              },
+//            ),
+//          ],
+//        ),
+//      ),
+//    );
+//  }
   Scaffold buildNonAuthScreen() {
     final Size size = MediaQuery.of(context).size;
     return Scaffold(
