@@ -5,6 +5,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/create_account.dart';
+import 'package:pyggybank/pages/intro_slider.dart';
 import 'package:pyggybank/pages/profile.dart';
 import 'package:pyggybank/widgets/already_have_an_account.dart';
 import 'package:pyggybank/widgets/input_field.dart';
@@ -51,9 +52,10 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  handleSignIn(GoogleSignInAccount account) {
+  handleSignIn(GoogleSignInAccount account) async {
     if (account != null) {
-      createUserInFirestore();
+//      await Navigator.push(context, MaterialPageRoute(builder: (context) => Intro()));
+      await createUserInFirestore();
       setState(() {
         isAuth = true;
       });
@@ -71,6 +73,11 @@ class _HomeState extends State<Home> {
     DocumentSnapshot doc = await usersRef.document(user.id).get();
     // if user doesnt exist
     if (!doc.exists) {
+//      await Navigator.push(
+//          context, MaterialPageRoute(builder: (context) => Intro()));
+      await Navigator.push(
+          context, MaterialPageRoute(builder: (context) => Intro()));
+
       final username = await Navigator.push(
           context, MaterialPageRoute(builder: (context) => CreateAccount()));
 
