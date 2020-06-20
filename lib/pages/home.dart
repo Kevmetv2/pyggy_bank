@@ -1,10 +1,18 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/create_account.dart';
 import 'package:pyggybank/pages/profile.dart';
+import 'package:pyggybank/widgets/already_have_an_account.dart';
+import 'package:pyggybank/widgets/rounded_button.dart';
+import 'package:pyggybank/widgets/rounded_input_field.dart';
+import 'package:pyggybank/widgets/rounded_password_field.dart';
+import 'package:pyggybank/widgets/sign_up_background.dart';
+import 'package:pyggybank/widgets/sign_up_divider.dart';
+import 'package:pyggybank/widgets/social_icons.dart';
 
 final GoogleSignIn googleSignIn = GoogleSignIn();
 final usersRef = Firestore.instance.collection('users');
@@ -132,44 +140,69 @@ class _HomeState extends State<Home> {
   }
 
   Scaffold buildNonAuthScreen() {
+    final Size size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
-        decoration: BoxDecoration(
-          gradient: LinearGradient(
-              begin: Alignment.topRight,
-              end: Alignment.bottomLeft,
-              colors: [
-                Theme.of(context).accentColor,
-                Theme.of(context).primaryColor,
-              ]),
-        ),
-        alignment: Alignment.center,
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Pyggy Bank",
-              style: TextStyle(
-                fontFamily: "Signatra",
-                fontSize: 70,
-                color: Colors.white,
+      body: Sign_Background(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              Text(
+                "SIGNUP",
+                style: TextStyle(fontWeight: FontWeight.bold),
               ),
-            ),
-            GestureDetector(
-              child: Container(
-                width: 260,
-                height: 60,
-                decoration: BoxDecoration(
-                    image: DecorationImage(
-                        image: AssetImage(
-                            "assets/images/google_signin_button.png"))),
+              SizedBox(height: size.height * 0.03),
+              SvgPicture.asset(
+                "assets/icons/signup.svg",
+                height: size.height * 0.35,
               ),
-              onTap: () {
-                login();
-              },
-            ),
-          ],
+              RoundedInputField(
+                hintText: "Your Email",
+                onChanged: (value) {},
+              ),
+              RoundedPasswordField(
+                onChanged: (value) {},
+              ),
+              RoundedButton(
+                text: "SIGNUP",
+                press: () {},
+              ),
+              SizedBox(height: size.height * 0.03),
+              AlreadyHaveAnAccountCheck(
+                login: false,
+                press: () {
+//                Navigator.push(
+//                  context,
+//                  MaterialPageRoute(
+//                    builder: (context) {
+//                      return LoginScreen();
+//                    },
+//                  ),
+//                );
+                },
+              ),
+              OrDivider(),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  SocalIcon(
+                    iconSrc: "assets/icons/facebook.svg",
+                    press: () {},
+                  ),
+                  SocalIcon(
+                    iconSrc: "assets/icons/twitter.svg",
+                    press: () {},
+                  ),
+                  SocalIcon(
+                    iconSrc: "assets/icons/google-plus.svg",
+                    press: () {
+                      login();
+                    },
+                  ),
+                ],
+              )
+            ],
+          ),
         ),
       ),
     );
