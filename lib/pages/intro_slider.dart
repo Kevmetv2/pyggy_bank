@@ -11,10 +11,10 @@ class Intro extends StatelessWidget {
       // iconImageAssetPath: 'assets/air-hostess.png',
       bubble: Image.asset('assets/air-hostess.png'),
       body: Text(
-        'Haselfree  booking  of  flight  tickets  with  full  refund  on  cancelation',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit,',
       ),
       title: Text(
-        'Flights',
+        'Dummy title',
       ),
       titleTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
       bodyTextStyle: TextStyle(fontFamily: 'MyFont', color: Colors.white),
@@ -29,9 +29,9 @@ class Intro extends StatelessWidget {
       pageColor: const Color(0xFF8BC34A),
       iconImageAssetPath: 'assets/waiter.png',
       body: Text(
-        'We  work  for  the  comfort ,  enjoy  your  stay  at  our  beautiful  hotels',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',
       ),
-      title: Text('Hotels'),
+      title: Text('Dummy Title'),
 //      mainImage: Image.asset(
 //        'assets/hotel.png',
 //        height: 285.0,
@@ -45,9 +45,9 @@ class Intro extends StatelessWidget {
       pageColor: const Color(0xFF607D8B),
       iconImageAssetPath: 'assets/taxi-driver.png',
       body: Text(
-        'Easy  cab  booking  at  your  doorstep  with  cashless  payment  system',
+        'Lorem ipsum dolor sit amet, consectetur adipiscing elit, ',
       ),
-      title: Text('Cabs'),
+      title: Text('Dummy Title'),
 //      mainImage: Image.asset(
 //        'assets/taxi.png',
 //        height: 285.0,
@@ -65,6 +65,7 @@ class Intro extends StatelessWidget {
       body: Builder(
         builder: (context) => IntroViewsFlutter(
           pages,
+          fullTransition: 200,
           showNextButton: true,
           showBackButton: true,
           onTapDoneButton: () {

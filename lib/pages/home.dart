@@ -122,6 +122,7 @@ class _HomeState extends State<Home> {
             onPressed: logout,
           ),
           Profile(),
+          Intro(),
         ],
         controller: pageController,
         onPageChanged: onPageChanged,
