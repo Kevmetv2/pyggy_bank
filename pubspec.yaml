@@ -15,6 +15,7 @@ dependencies:
   firebase_auth: ^0.16.1
   flutter_svg: ^0.18.0
   intro_views_flutter: ^2.8.1
+  provider: ^3.2.0
 
 dev_dependencies:
   flutter_test:
@@ -26,8 +27,11 @@ flutter:
     - family: Signatra
       fonts:
         - asset: assets/fonts/Signatra.ttf
+    - family: OpenSans
+      fonts:
+        - asset: assets/fonts/OpenSans.ttf
+
   assets:
-    - assets/images/google_signin_button.png
     - assets/images/
     - assets/icons/
 

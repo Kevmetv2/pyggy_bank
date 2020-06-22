@@ -1,25 +1,17 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
-
 class User {
-  final String id;
-  final String username;
-  final String displayName;
-  final String photoUrl;
-  final String email;
-  User({
-    this.id,
-    this.username,
-    this.displayName,
-    this.photoUrl,
-    this.email,
-  });
+  String uid;
+  String email;
+  String photoUrl;
+  String displayName;
 
-  factory User.fromDocument(DocumentSnapshot doc) {
-    return User(
-        id: doc['id'],
-        email: doc['email'],
-        username: doc['username'],
-        photoUrl: doc['photoUrl'],
-        displayName: doc['displayName']);
+  User({this.uid, this.email, this.photoUrl, this.displayName});
+
+  Map toMap(User user) {
+    var data = Map<String, dynamic>();
+    data['uid'] = user.uid;
+    data['email'] = user.email;
+    data['photoUrl'] = user.photoUrl;
+    data['displayName'] = user.displayName;
+    return data;
   }
 }
