@@ -5,6 +5,7 @@ import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/services/constants.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
+import 'package:toast/toast.dart';
 
 class LogInScreen extends StatefulWidget {
   @override
@@ -63,6 +64,11 @@ class _LogInScreenState extends State<LogInScreen> {
           authenticateUser(user);
         } else {
           print("Error");
+          Toast.show("Password or Username Incorrect", context,
+              duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+          setState(() {
+            isLoading = true;
+          });
         }
       });
     }

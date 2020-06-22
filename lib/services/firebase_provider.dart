@@ -111,8 +111,12 @@ class FirebaseProvider {
     try {
       AuthResult authResult = await _auth.signInWithEmailAndPassword(
           email: email, password: password);
-      FirebaseUser user = authResult.user;
-      return user;
+      if (authResult != null) {
+        FirebaseUser user = authResult.user;
+        addDataToDb(user);
+        return user;
+      }
+      return null;
     } catch (e) {
       print(e);
     }
