@@ -121,4 +121,10 @@ class FirebaseProvider {
       print(e);
     }
   }
+
+  Future<User> fetchUserDetailsById(String uid) async {
+    DocumentSnapshot documentSnapshot =
+        await _firestore.collection("users").document(uid).get();
+    return User.fromMap(documentSnapshot.data);
+  }
 }

@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/services/firebase_provider.dart';
 
 class Repository {
@@ -17,4 +18,6 @@ class Repository {
       _firebaseProvider.signUpUser(context, name, email, password);
   Future<FirebaseUser> signInEmail(email, password) =>
       _firebaseProvider.signInEmail(email, password);
+  Future<User> fetchUserDetailsById(String uid) =>
+      _firebaseProvider.fetchUserDetailsById(uid);
 }

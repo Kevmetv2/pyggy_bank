@@ -12,7 +12,16 @@ PageController pageController;
 
 class _HomeScreenState extends State<HomeScreen> {
   var _repository = Repository();
+//  User currentUser;
+
   int _page = 0;
+//  void getData() async {
+//    FirebaseUser currentUser = await _repository.getCurrentUser();
+//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+//    setState(() {
+//      this.currentUser = user;
+//    });
+//  }
 
   void navigationTapped(int page) {
     //Animating Page
@@ -29,6 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     pageController = new PageController();
+//    getData();
   }
 
   @override
@@ -60,7 +70,8 @@ class _HomeScreenState extends State<HomeScreen> {
               ],
             ),
           ),
-//          new Container(color: Colors.white, child: SearchScreen()),
+//          new Container(
+//              color: Colors.white, child: Text(currentUser.displayName)),
 //          new Container(
 //            color: Colors.white,
 //            child: AddScreen(),
