@@ -264,9 +264,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     decoration: kBoxDecorationStyle,
                                     height: 60.0,
                                     child: TextFormField(
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'Please enter a valid name'
-                                          : null,
+                                      validator: (input) {
+                                        if (input.trim().isEmpty) return "";
+                                        if (input.length < 2)
+                                          return "Enter a valid name";
+                                        return null;
+                                      },
+//                                      => input.trim().isEmpty
+//                                          ? 'Please enter a valid name'
+//                                          : null,
                                       onSaved: (input) => _name = input,
                                       keyboardType: TextInputType.emailAddress,
                                       style: TextStyle(
@@ -281,7 +287,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Icons.email,
                                           color: Colors.white,
                                         ),
-                                        hintText: 'Enter your Email',
+                                        hintText: 'Enter your Name',
                                         hintStyle: kHintTextStyle,
                                       ),
                                     ),

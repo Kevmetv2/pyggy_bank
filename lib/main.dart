@@ -21,13 +21,15 @@ class MyAppState extends State<MyApp> {
     return MaterialApp(
         title: 'Pyggy Bank',
         debugShowCheckedModeBanner: false,
-//        theme: new ThemeData(
-//            primarySwatch: Colors.blue,
-//            primaryColor: Colors.black,
-//            primaryIconTheme: IconThemeData(color: Colors.black),
+        theme: new ThemeData(
+          primarySwatch: Colors.blue,
+          primaryColor: Color(0xFFa23e48),
+          accentColor: Color(0xFF14213d),
+          primaryIconTheme: IconThemeData(color: Colors.black),
 //            primaryTextTheme: TextTheme(
-//                title: TextStyle(color: Colors.black, fontFamily: "Aveny")),
-//            textTheme: TextTheme(title: TextStyle(color: Colors.black))),
+//                title: TextStyle(color: Colors.black, fontFamily: "Aveny"),),
+//            textTheme: TextTheme(title: TextStyle(color: Colors.black),),
+        ),
         home: FutureBuilder(
           future: _repository.getCurrentUser(),
           builder: (context, AsyncSnapshot<FirebaseUser> snapshot) {

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pyggybank/pages/group_page_build_screen.dart';
 import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 
@@ -52,24 +53,25 @@ class _HomeScreenState extends State<HomeScreen> {
     return Scaffold(
       body: new PageView(
         children: [
-          new Container(
-            color: Colors.white,
-            child: Row(
-              children: [
-                Text("Log out"),
-                RaisedButton(
-                  onPressed: () {
-                    _repository.signOut();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpScreen()));
-                  },
-                  child: Text("Log Out"),
-                )
-              ],
-            ),
-          ),
+          new Container(color: Colors.white, child: GroupScreen()),
+//          new Container(
+//            color: Colors.white,
+//            child: Row(
+//              children: [
+//                Text("Log out"),
+//                RaisedButton(
+//                  onPressed: () {
+//                    _repository.signOut();
+//                    Navigator.pushReplacement(
+//                        context,
+//                        MaterialPageRoute(
+//                            builder: (context) => SignUpScreen()));
+//                  },
+//                  child: Text("Log Out"),
+//                )
+//              ],
+//            ),
+//          ),
 //          new Container(
 //              color: Colors.white, child: Text(currentUser.displayName)),
 //          new Container(
