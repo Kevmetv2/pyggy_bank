@@ -1,7 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/services/repository.dart';
+import 'package:pyggybank/widgets/nav-drawer.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -29,6 +29,8 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     pageController = new PageController();
+    // controller= AnimationController(vsync: this,duration: duration);
+    //scaleAnimation =Tween<double>(begin:1,end: ).animate(controller)
   }
 
   @override
@@ -39,27 +41,30 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery
+        .of(context)
+        .size;
+
     return Scaffold(
+      drawer: NavDrawer(),
+      appBar: AppBar(
+        title: Text('Pyggy Bank'),
+      ),
       body: new PageView(
         children: [
           new Container(
             color: Colors.white,
             child: Row(
               children: [
-                Text("Log out"),
-                RaisedButton(
-                  onPressed: () {
-                    _repository.signOut();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpScreen()));
-                  },
-                  child: Text("Log Out"),
-                )
+                Text("Testing"),
+
               ],
+
             ),
+
           ),
+          // menu(context),
+          //dashboard(context)
 //          new Container(color: Colors.white, child: SearchScreen()),
 //          new Container(
 //            color: Colors.white,
@@ -109,4 +114,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
+
+
 }
+

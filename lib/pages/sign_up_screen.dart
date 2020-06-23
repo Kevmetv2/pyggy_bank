@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
     }
 
-    Widget _buildForgotPasswordBtn() {
+   /* Widget _buildForgotPasswordBtn() {
       return Container(
         alignment: Alignment.centerRight,
         child: FlatButton(
@@ -80,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
     }
-
+*/
     Widget _buildSignUpBtn() {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -281,7 +281,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           Icons.email,
                                           color: Colors.white,
                                         ),
-                                        hintText: 'Enter your Email',
+                                        hintText: 'Enter your name',
                                         hintStyle: kHintTextStyle,
                                       ),
                                     ),
@@ -366,7 +366,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                 ],
                               ),
-                              _buildForgotPasswordBtn(),
+                              //_buildForgotPasswordBtn(),
                               _buildSignUpBtn(),
                               _buildSignInWithText(),
                               _buildSocialBtnRow(),
