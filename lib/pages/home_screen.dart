@@ -1,9 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/pages/group_page_build_screen.dart';
-import 'package:pyggybank/pages/sign_up_screen.dart';
+import 'package:pyggybank/pages/placeHolder.dart';
+import 'package:pyggybank/pages/scan.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/nav-drawer.dart';
+
+import 'group_page_build_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -17,6 +20,7 @@ class _HomeScreenState extends State<HomeScreen> {
 //  User currentUser;
 
   int _page = 0;
+
 //  void getData() async {
 //    FirebaseUser currentUser = await _repository.getCurrentUser();
 //    User user = await _repository.fetchUserDetailsById(currentUser.uid);
@@ -25,22 +29,32 @@ class _HomeScreenState extends State<HomeScreen> {
 //    });
 //  }
 
+  final List<Widget> _children = [
+    GroupScreen(),
+    PlaceHolderWidget(Colors.redAccent),
+    ScanScreen(),
+    PlaceHolderWidget(Colors.green),
+    PlaceHolderWidget(Colors.pink)
+  ];
+  final PageController pageController = new PageController();
+
   void navigationTapped(int page) {
     //Animating Page
+    setState(() {
+      _page = page;
+    });
     pageController.jumpToPage(page);
   }
 
   void onPageChanged(int page) {
     setState(() {
-      this._page = page;
+      _page = page;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    pageController = new PageController();
-//    getData();
   }
 
   @override
@@ -53,41 +67,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavDrawer(),
-      appBar: AppBar(
-        title: Text('Pyggy Bank'),
-      ),
-      body: new PageView(
-        children: [
-          new Container(
-            color: Colors.white,
-            child: Row(
-              children: [
-                Text("Testing"),
+      body: _children[_page],
 
-              ],
-
-            ),
-
-          ),
-          // menu(context),
-          //dashboard(context)
-//          new Container(color: Colors.white, child: SearchScreen()),
-//          new Container(
-//            color: Colors.white,
-//            child: AddScreen(),
-//          ),
-//          new Container(
-//              color: Colors.white, child: ActivityScreen()),
-//          new Container(
-//              color: Colors.white,
-//              child: ProfileScreen()),
-        ],
-        controller: pageController,
-        physics: new NeverScrollableScrollPhysics(),
-        onPageChanged: onPageChanged,
-      ),
       bottomNavigationBar: new CupertinoTabBar(
-        activeColor: Colors.orange,
+
+
         items: <BottomNavigationBarItem>[
           new BottomNavigationBarItem(
               icon: new Icon(Icons.home,
@@ -100,7 +84,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
-              icon: new Icon(Icons.add_circle,
+              icon: new Icon(Icons.camera,
                   color: (_page == 2) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
@@ -117,7 +101,11 @@ class _HomeScreenState extends State<HomeScreen> {
         ],
         onTap: navigationTapped,
         currentIndex: _page,
+        activeColor: Colors.orange,
       ),
     );
   }
+
+
 }
+

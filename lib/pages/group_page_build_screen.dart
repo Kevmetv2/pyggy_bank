@@ -18,7 +18,9 @@ class _GroupScreenState extends State<GroupScreen> {
           icon: Icon(Icons.menu),
           iconSize: 30.0,
           color: Colors.white,
-          onPressed: () {},
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
         ),
         title: Text(
           'Chats',

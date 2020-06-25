@@ -4,6 +4,8 @@ import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/pages/log_in_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 
+import 'pages/log_in_screen.dart';
+
 void main() => runApp(MyApp());
 
 class MyApp extends StatefulWidget {
