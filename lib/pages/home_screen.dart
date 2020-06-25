@@ -4,7 +4,6 @@ import 'package:pyggybank/pages/group_page_build_screen.dart';
 import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 
-
 class HomeScreen extends StatefulWidget {
   @override
   _HomeScreenState createState() => _HomeScreenState();
