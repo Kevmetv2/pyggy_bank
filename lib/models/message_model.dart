@@ -19,10 +19,10 @@ class Message {
 
 // YOU - current user
 final User currentUser = User(
-  uid: "user id",
-  displayName: 'Current User',
-  photoUrl: 'https://i.pravatar.cc/150?img=3',
-);
+    uid: "user id",
+    displayName: 'Testino McTestin',
+    photoUrl: 'https://i.pravatar.cc/150?img=3',
+    email: "test@visa.ac.uk");
 
 // USERS
 final User greg = User(

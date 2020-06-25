@@ -2,6 +2,7 @@ import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
 
+import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
@@ -12,6 +13,7 @@ class GenScreen extends StatefulWidget {
 }
 
 var data2 = {"groupid": "Maria", "main": "maria", "time": "17/01/2020"};
+var hello = "Maria says help";
 var testdata = "testdata";
 GlobalKey globalKey = new GlobalKey();
 
@@ -43,7 +45,7 @@ class _GenState extends State<GenScreen> {
                 child: RepaintBoundary(
                   key: globalKey,
                   child: Image.network(
-                      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$data2"),
+                      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$hello"),
                 ),
               ),
               height: 300,
@@ -69,10 +71,11 @@ class _GenState extends State<GenScreen> {
       var pngBytes = byteData.buffer.asUint8List();
       var bs64 = base64Encode(pngBytes);
       debugPrint(bs64.length.toString());
-      //FlutterShareFile.shareImage(path, fileName)
-      return pngBytes;
+      await Share.file(
+          'esys image', 'esys.png', pngBytes.buffer.asUint8List(), 'image/png',
+          text: 'My optional text.');
     } catch (e) {
-      print(e.toString());
+      print('error: $e');
     }
   }
 }
