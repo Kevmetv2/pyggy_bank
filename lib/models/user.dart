@@ -14,4 +14,11 @@ class User {
     data['displayName'] = user.displayName;
     return data;
   }
+
+  User.fromMap(Map<String, dynamic> mapData) {
+    this.uid = mapData['uid'];
+    this.email = mapData['email'];
+    this.photoUrl = mapData['photoUrl'];
+    this.displayName = mapData['displayName'];
+  }
 }

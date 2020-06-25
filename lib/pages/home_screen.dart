@@ -1,5 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pyggybank/pages/group_page_build_screen.dart';
+import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/nav-drawer.dart';
 
@@ -12,7 +14,16 @@ PageController pageController;
 
 class _HomeScreenState extends State<HomeScreen> {
   var _repository = Repository();
+//  User currentUser;
+
   int _page = 0;
+//  void getData() async {
+//    FirebaseUser currentUser = await _repository.getCurrentUser();
+//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+//    setState(() {
+//      this.currentUser = user;
+//    });
+//  }
 
   void navigationTapped(int page) {
     //Animating Page
@@ -29,8 +40,7 @@ class _HomeScreenState extends State<HomeScreen> {
   void initState() {
     super.initState();
     pageController = new PageController();
-    // controller= AnimationController(vsync: this,duration: duration);
-    //scaleAnimation =Tween<double>(begin:1,end: ).animate(controller)
+//    getData();
   }
 
   @override
@@ -41,10 +51,6 @@ class _HomeScreenState extends State<HomeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    Size size = MediaQuery
-        .of(context)
-        .size;
-
     return Scaffold(
       drawer: NavDrawer(),
       appBar: AppBar(
@@ -114,7 +120,4 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
     );
   }
-
-
 }
-

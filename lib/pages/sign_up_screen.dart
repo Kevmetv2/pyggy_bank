@@ -67,7 +67,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
       });
     }
 
-   /* Widget _buildForgotPasswordBtn() {
+    Widget _buildForgotPasswordBtn() {
       return Container(
         alignment: Alignment.centerRight,
         child: FlatButton(
@@ -80,7 +80,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
         ),
       );
     }
-*/
+
     Widget _buildSignUpBtn() {
       return Container(
         padding: EdgeInsets.symmetric(vertical: 25.0),
@@ -264,9 +264,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                     decoration: kBoxDecorationStyle,
                                     height: 60.0,
                                     child: TextFormField(
-                                      validator: (input) => input.trim().isEmpty
-                                          ? 'Please enter a valid name'
-                                          : null,
+                                      validator: (input) {
+                                        if (input.trim().isEmpty) return "";
+                                        if (input.length < 2)
+                                          return "Enter a valid name";
+                                        return null;
+                                      },
+//                                      => input.trim().isEmpty
+//                                          ? 'Please enter a valid name'
+//                                          : null,
                                       onSaved: (input) => _name = input,
                                       keyboardType: TextInputType.emailAddress,
                                       style: TextStyle(
@@ -366,7 +372,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                   ),
                                 ],
                               ),
-                              //_buildForgotPasswordBtn(),
+                              _buildForgotPasswordBtn(),
                               _buildSignUpBtn(),
                               _buildSignInWithText(),
                               _buildSocialBtnRow(),
