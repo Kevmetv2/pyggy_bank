@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pyggybank/pages/group_page_build_screen.dart';
 import 'package:pyggybank/pages/placeHolder.dart';
 import 'package:pyggybank/pages/scan.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/nav-drawer.dart';
 
-import 'group_page_build_screen.dart';
+import 'group_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override

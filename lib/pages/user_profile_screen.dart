@@ -1,10 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pyggybank/bloc/drawer_bloc.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/widgets/nav-drawer.dart';
 
-class UserProfileScreen extends StatelessWidget with DrawerStates {
+class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
