@@ -1,8 +1,11 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/pages/home_screen.dart';
-import 'package:pyggybank/pages/sign_up_screen.dart';
+import 'package:pyggybank/pages/log_in_screen.dart';
 import 'package:pyggybank/services/repository.dart';
+
+import 'pages/log_in_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -36,7 +39,7 @@ class MyAppState extends State<MyApp> {
             if (snapshot.hasData) {
               return HomeScreen(); // home screen
             } else {
-              return SignUpScreen(); // login screen
+              return LogInScreen(); // login screen
             }
           },
         ));

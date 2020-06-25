@@ -1,8 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/pages/group_page_build_screen.dart';
-import 'package:pyggybank/pages/sign_up_screen.dart';
+import 'package:pyggybank/pages/group_screen.dart';
+import 'package:pyggybank/pages/placeholder_screen.dart';
+import 'package:pyggybank/pages/scan_screen.dart';
 import 'package:pyggybank/services/repository.dart';
+import 'package:pyggybank/widgets/nav_drawer.dart';
+
+import 'group_page_build_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -14,7 +19,14 @@ PageController pageController;
 class _HomeScreenState extends State<HomeScreen> {
   var _repository = Repository();
 //  User currentUser;
-
+  final List<Widget> _children = [
+    GroupScreenBuild(),
+    PlaceHolderWidget(Colors.redAccent),
+    ScanScreen(),
+    PlaceHolderWidget(Colors.green),
+    PlaceHolderWidget(Colors.pink)
+  ];
+  final PageController pageController = new PageController();
   int _page = 0;
 //  void getData() async {
 //    FirebaseUser currentUser = await _repository.getCurrentUser();
@@ -26,19 +38,22 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void navigationTapped(int page) {
     //Animating Page
+    setState(() {
+      _page = page;
+    });
     pageController.jumpToPage(page);
   }
 
   void onPageChanged(int page) {
     setState(() {
-      this._page = page;
+      _page = page;
     });
   }
 
   @override
   void initState() {
     super.initState();
-    pageController = new PageController();
+
 //    getData();
   }
 
@@ -51,43 +66,8 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: new PageView(
-        children: [
-          new Container(color: Colors.white, child: GroupScreenBuild()),
-          new Container(
-            color: Colors.white,
-            child: Row(
-              children: [
-                Text("Log out"),
-                RaisedButton(
-                  onPressed: () {
-                    _repository.signOut();
-                    Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpScreen()));
-                  },
-                  child: Text("Log Out"),
-                )
-              ],
-            ),
-          ),
-//          new Container(
-//              color: Colors.white, child: Text(currentUser.displayName)),
-//          new Container(
-//            color: Colors.white,
-//            child: AddScreen(),
-//          ),
-//          new Container(
-//              color: Colors.white, child: ActivityScreen()),
-//          new Container(
-//              color: Colors.white,
-//              child: ProfileScreen()),
-        ],
-        controller: pageController,
-        physics: new NeverScrollableScrollPhysics(),
-        onPageChanged: onPageChanged,
-      ),
+      drawer: NavDrawer(),
+      body: _children[_page],
       bottomNavigationBar: new CupertinoTabBar(
         activeColor: Colors.orange,
         items: <BottomNavigationBarItem>[
@@ -102,17 +82,17 @@ class _HomeScreenState extends State<HomeScreen> {
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
-              icon: new Icon(Icons.add_circle,
+              icon: new Icon(Icons.camera,
                   color: (_page == 2) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
-              icon: new Icon(Icons.star,
+              icon: new Icon(Icons.add_circle_outline,
                   color: (_page == 3) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
-              icon: new Icon(Icons.person,
+              icon: new Icon(Icons.star,
                   color: (_page == 4) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
