@@ -105,7 +105,7 @@ class _GroupScreenBuildState extends State<GroupScreenBuild> {
           icon: Icon(Icons.menu),
           iconSize: 30.0,
           color: Colors.white,
-          onPressed: () {},
+          onPressed: () {Scaffold.of(context).openDrawer();},
         ),
         title: Text(
           'Pyggy Banks',
