@@ -54,7 +54,7 @@ class NavDrawer extends StatelessWidget {
               ),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () => {
-                Navigator.pushReplacement(
+                Navigator.push(
                     context,
                     MaterialPageRoute(
                         builder: (context) => UserProfileScreen()))
@@ -107,7 +107,7 @@ class NavDrawer extends StatelessWidget {
               ),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () => {
-                Navigator.pushReplacement(context,
+                Navigator.push(context,
                     MaterialPageRoute(builder: (context) => GenScreen()))
               },
             ),
