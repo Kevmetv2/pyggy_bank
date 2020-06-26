@@ -53,7 +53,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Text(
             message.text,
             style: TextStyle(
-              color: Colors.blueGrey,
+              color: isMe ? Colors.white : Colors.blueGrey,
               fontSize: 16.0,
               fontWeight: FontWeight.w600,
             ),
@@ -122,9 +122,7 @@ class _ChatScreenState extends State<ChatScreen> {
         title: Text(
           widget.user.displayName,
           style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
-          ),
+              fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.white),
         ),
         elevation: 0.0,
         actions: <Widget>[

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/pages/generate_screen.dart';
 import 'package:pyggybank/pages/sign_up_screen.dart';
@@ -85,9 +86,9 @@ class NavDrawer extends StatelessWidget {
               onTap: () => {Navigator.of(context).pop()},
             ),
             ListTile(
-              leading: Icon(Icons.message),
+              leading: Icon(Icons.credit_card),
               title: Text(
-                'Messages',
+                'Payment methods',
                 style: TextStyle(
                     fontSize: 22.0,
                     fontWeight: FontWeight.bold,
@@ -112,15 +113,12 @@ class NavDrawer extends StatelessWidget {
               },
             ),
             Material(
-                color: Color(0xFFa23e48),
-                child: Container(
-                    height: 25.0,
-
-                    child: ListTile())),
+                color: Theme.of(context).primaryColor,
+                child: Container(height: 25.0, child: ListTile())),
             ListTile(
-              leading: Icon(Icons.settings),
+              leading: Icon(Icons.help_outline),
               title: Text(
-                'Settings',
+                'Help',
                 style: TextStyle(
                   fontSize: 22.0,
                   fontWeight: FontWeight.bold,
@@ -140,11 +138,16 @@ class NavDrawer extends StatelessWidget {
                   color: Colors.white,
                 ),
               ),
-              onTap: () => {
+              onTap: () =>
+              {
                 _repository.signOut(),
                 Navigator.pushReplacement(context,
                     MaterialPageRoute(builder: (context) => SignUpScreen()))
               },
+            ),
+            SvgPicture.asset(
+              'assets/images/Pyggybank centered pig and words.svg',
+              height: 90,
             ),
           ],
         ),

@@ -1,6 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/message_model.dart';
+import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
+
+final User currentUser = User(
+  uid: "user id",
+  displayName: 'Current User',
+  photoUrl: 'https://i.pravatar.cc/150?img=3',
+);
 
 class RecentChats extends StatelessWidget {
   @override
@@ -37,7 +44,7 @@ class RecentChats extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   decoration: BoxDecoration(
-                    color: chat.unread ? Color(0xFFFFEFEE) : Colors.white,
+                    color: Colors.white,
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0),
@@ -92,25 +99,6 @@ class RecentChats extends StatelessWidget {
                             ),
                           ),
                           SizedBox(height: 5.0),
-                          chat.unread
-                              ? Container(
-                                  width: 40.0,
-                                  height: 20.0,
-                                  decoration: BoxDecoration(
-                                    color: Theme.of(context).primaryColor,
-                                    borderRadius: BorderRadius.circular(30.0),
-                                  ),
-                                  alignment: Alignment.center,
-                                  child: Text(
-                                    'NEW',
-                                    style: TextStyle(
-                                      color: Colors.white,
-                                      fontSize: 12.0,
-                                      fontWeight: FontWeight.bold,
-                                    ),
-                                  ),
-                                )
-                              : Text(''),
                         ],
                       ),
                     ],

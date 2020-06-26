@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/models/group_model.dart';
-import 'package:pyggybank/widgets_group/category_selector.dart';
+import 'package:pyggybank/models/request_model.dart';
+import 'package:pyggybank/pages/placeholder_screen.dart';
+import 'package:pyggybank/pages/requests_screen.dart';
 import 'package:pyggybank/widgets_group/favorite_groups.dart';
+import 'package:pyggybank/widgets_group/recent_chats.dart';
 import 'package:pyggybank/widgets_group/recent_groups.dart';
 
 final Group dancing = Group(
@@ -90,12 +94,45 @@ List<Group> allGroups = [
   film
 ];
 
+List<Request> money_requests = [
+  Request(
+      amount: 22.32,
+      groupID: "Dancing Lessons",
+      userID: "",
+      description: "for Tacos"),
+  Request(
+      amount: 25.32,
+      groupID: "SunnyVale Tennis Club",
+      userID: "",
+      description: "for Pizza"),
+  Request(
+      amount: 26.32,
+      groupID: "Savings",
+      userID: "",
+      description: "for Burgers"),
+  Request(
+      amount: 28.32,
+      groupID: "UCB Film Club",
+      userID: "",
+      description: "for Noodles"),
+  Request(
+      amount: 29.32,
+      groupID: "Gym Equipment",
+      userID: "",
+      description: "for Falafel's"),
+  Request(
+      amount: 122.32, groupID: "Other", userID: "", description: "Onion Rings"),
+];
+
 class GroupScreenBuild extends StatefulWidget {
   @override
   _GroupScreenBuildState createState() => _GroupScreenBuildState();
 }
 
 class _GroupScreenBuildState extends State<GroupScreenBuild> {
+  int selectedIndex = 0;
+  final List<String> categories = ['Groups', 'Friends', 'Requests', 'Activity'];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -105,13 +142,21 @@ class _GroupScreenBuildState extends State<GroupScreenBuild> {
           icon: Icon(Icons.menu),
           iconSize: 30.0,
           color: Colors.white,
-          onPressed: () {Scaffold.of(context).openDrawer();},
+          onPressed: () {
+            Scaffold.of(context).openDrawer();
+          },
         ),
-        title: Text(
-          'Pyggy Banks',
-          textAlign: TextAlign.center,
-          style: TextStyle(
-              fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.white),
+//        title: Text(
+//          'Pyggy Banks',
+//          textAlign: TextAlign.center,
+//          style: TextStyle(
+//              fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.white),
+//        ),
+        title: Center(
+          child: SvgPicture.asset(
+            'assets/images/word pyggybank.svg',
+            height: 40,
+          ),
         ),
         elevation: 0.0,
         actions: <Widget>[
@@ -125,28 +170,75 @@ class _GroupScreenBuildState extends State<GroupScreenBuild> {
       ),
       body: Column(
         children: <Widget>[
-          CategorySelector(),
-          Expanded(
-            child: Container(
-              decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
-              ),
-              child: Column(
-                children: <Widget>[
-                  FavoriteGroups(
-                    groups: favoriteGroups,
+//          CategorySelector(),
+          Container(
+            height: 90.0,
+            color: Theme
+                .of(context)
+                .primaryColor,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: categories.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () {
+                    setState(() {
+                      selectedIndex = index;
+                    });
+                  },
+                  child: Padding(
+                    padding: EdgeInsets.symmetric(
+                      horizontal: 20.0,
+                      vertical: 30.0,
+                    ),
+                    child: Text(
+                      categories[index],
+                      style: TextStyle(
+                        color: index == selectedIndex
+                            ? Colors.white
+                            : Colors.white60,
+                        fontSize: 24.0,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.2,
+                      ),
+                    ),
                   ),
-                  RecentGroups(
-                    groups: allGroups,
-                  ),
-                ],
-              ),
+                );
+              },
             ),
           ),
+          if (selectedIndex == 0)
+            Expanded(
+              child: Container(
+                decoration: BoxDecoration(
+                  color: Theme
+                      .of(context)
+                      .accentColor,
+                  borderRadius: BorderRadius.only(
+                    topLeft: Radius.circular(30.0),
+                    topRight: Radius.circular(30.0),
+                  ),
+                ),
+                child: Column(
+                  children: <Widget>[
+                    FavoriteGroups(
+                      groups: favoriteGroups,
+                    ),
+                    RecentGroups(
+                      groups: allGroups,
+                    ),
+                  ],
+                ),
+              ),
+            ),
+          if (selectedIndex == 1) RecentChats(),
+          if (selectedIndex == 2)
+            Expanded(
+                child: Requests(
+                  requests: money_requests,
+                )),
+          if (selectedIndex == 3)
+            Expanded(child: PlaceHolderWidget(Colors.amberAccent)),
         ],
       ),
     );

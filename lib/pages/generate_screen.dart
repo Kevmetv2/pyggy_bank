@@ -21,6 +21,7 @@ String d = current_qr.admin;
 String data2 = '$a,$b,$c,$d';
 var hello = "Maria says help";
 var testdata = "testdata";
+
 GlobalKey globalKey = new GlobalKey();
 
 class _GenState extends State<GenScreen> {
