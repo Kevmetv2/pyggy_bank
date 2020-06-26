@@ -14,7 +14,7 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-PageController pageController;
+
 
 class _HomeScreenState extends State<HomeScreen> {
   var _repository = Repository();
@@ -26,7 +26,7 @@ class _HomeScreenState extends State<HomeScreen> {
     PlaceHolderWidget(Colors.green),
     PlaceHolderWidget(Colors.pink)
   ];
-  final PageController pageController = new PageController();
+
   int _page = 0;
 //  void getData() async {
 //    FirebaseUser currentUser = await _repository.getCurrentUser();
@@ -38,10 +38,8 @@ class _HomeScreenState extends State<HomeScreen> {
 
   void navigationTapped(int page) {
     //Animating Page
-    setState(() {
-      _page = page;
-    });
-    pageController.jumpToPage(page);
+
+
   }
 
   void onPageChanged(int page) {
@@ -60,15 +58,17 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-    pageController.dispose();
+
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       drawer: NavDrawer(),
-      body: _children[_page],
+      body: _children[_page]
+      ,
       bottomNavigationBar: new CupertinoTabBar(
+
         activeColor: Colors.orange,
         items: <BottomNavigationBarItem>[
           new BottomNavigationBarItem(
@@ -98,6 +98,7 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.white),
         ],
         onTap: navigationTapped,
+
         currentIndex: _page,
       ),
     );

@@ -115,15 +115,7 @@ class NavDrawer extends StatelessWidget {
                 color: Color(0xFFa23e48),
                 child: Container(
                     height: 25.0,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.all(Radius.circular(90.0)),
-                      border: Border(
-                        bottom: BorderSide(
-                          color: Colors.black,
-                        ),
-                        top: BorderSide(color: Colors.black),
-                      ),
-                    ),
+
                     child: ListTile())),
             ListTile(
               leading: Icon(Icons.settings),

@@ -6,13 +6,19 @@ import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:pyggybank/models/qr_model.dart';
 
 class GenScreen extends StatefulWidget {
   @override
   _GenState createState() => new _GenState();
 }
 
-var data2 = {"groupid": "Maria", "main": "maria", "time": "17/01/2020"};
+String a = current_qr.limit.toString();
+String b = current_qr.groupId;
+String c = current_qr.timestamp;
+String d = current_qr.admin;
+
+String data2 = '$a,$b,$c,$d';
 var hello = "Maria says help";
 var testdata = "testdata";
 GlobalKey globalKey = new GlobalKey();
@@ -22,7 +28,7 @@ class _GenState extends State<GenScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("TETSTUB"),
+        title: Text("Pyggy bank"),
       ),
       body: Center(
         child: Column(
@@ -31,8 +37,9 @@ class _GenState extends State<GenScreen> {
             Container(
               child: Center(
                 child: Text(
-                  'Scan the QR code to join this group.',
+                  "Allow others to scan this QR code to allow them to join your group",
                   style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                  textAlign: TextAlign.center,
                 ),
               ),
             ),
@@ -45,16 +52,20 @@ class _GenState extends State<GenScreen> {
                 child: RepaintBoundary(
                   key: globalKey,
                   child: Image.network(
-                      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$hello"),
+                      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$data2"),
                 ),
               ),
               height: 300,
               width: 300,
             ),
             SizedBox(height: 25.0),
+            Text("Or share it with them on other apps",
+                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
+                textAlign: TextAlign.center),
             IconButton(
-              icon: Icon(Icons.share),
+              icon: Icon(Icons.share, size: 55,color: Color(0xffC0C0C0),),
               onPressed: capture_n_share,
+alignment: Alignment.center,
             )
           ],
         ),
@@ -65,7 +76,7 @@ class _GenState extends State<GenScreen> {
   Future<Uint8List> capture_n_share() async {
     try {
       RenderRepaintBoundary boundary =
-      globalKey.currentContext.findRenderObject();
+          globalKey.currentContext.findRenderObject();
       var image = await boundary.toImage(pixelRatio: 3.0);
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       var pngBytes = byteData.buffer.asUint8List();
