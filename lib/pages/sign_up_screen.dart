@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/pages/log_in_screen.dart';
 import 'package:pyggybank/services/constants.dart';
@@ -175,7 +176,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
     Widget _buildLogInBtn() {
       return GestureDetector(
-        onTap: () => Navigator.push(
+        onTap: () => Navigator.pushReplacement(
             context, MaterialPageRoute(builder: (context) => LogInScreen())),
         child: RichText(
           text: TextSpan(
@@ -219,12 +220,14 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           end: Alignment.bottomCenter,
                           colors: [
                             //Color(0xFF6930c3),
-                            Color(0xFFa23e48),
-                            Color(0xFFfe7f2d),
+//                            Color(0xFFa23e48),
+//                            Color(0xFFfe7f2d),
+                            Color(0xFFE59938),
+                            //Color(0xFF657883),
 
 //                            Color(0xFF72efdd),
                           ],
-                          stops: [0.2, 0.9],
+                          stops: [0.3],
                         ),
                       ),
                     ),
@@ -241,6 +244,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
+                              SvgPicture.asset(
+                                'assets/images/Pyggybank centered pig and words.svg',
+                                height: 160,
+                              ),
+                              SizedBox(height: 40),
                               Text(
                                 'Sign Up',
                                 style: TextStyle(

@@ -26,37 +26,37 @@ final User currentUser = User(
 
 // USERS
 final User greg = User(
-  uid: "user id",
+  uid: "user id2",
   displayName: 'Dancing Lessons',
   photoUrl: 'https://i.pravatar.cc/150?img=4',
 );
 final User james = User(
-  uid: "user id",
+  uid: "user id3",
   displayName: 'Gym equipment',
   photoUrl: 'https://i.pravatar.cc/150?img=5',
 );
 final User john = User(
-  uid: "user id",
+  uid: "user id4",
   displayName: 'Sunnyvale Tennis Club',
   photoUrl: 'https://i.pravatar.cc/150?img=6',
 );
 final User olivia = User(
-  uid: "user id",
+  uid: "user id5",
   displayName: 'Vacation- Italy',
   photoUrl: 'https://i.pravatar.cc/150?img=7',
 );
 final User sam = User(
-  uid: "user id",
+  uid: "user id6",
   displayName: 'Savings',
   photoUrl: 'https://i.pravatar.cc/150?img=8',
 );
 final User sophia = User(
-  uid: "user id ",
+  uid: "user id7",
   displayName: 'UCB Film club',
   photoUrl: 'https://i.pravatar.cc/150?img=9',
 );
 final User steven = User(
-  uid: "user id",
+  uid: "user id8",
   displayName: 'San Jose - Soup Kitchen',
   photoUrl: 'https://i.pravatar.cc/150?img=10',
 );

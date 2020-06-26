@@ -26,8 +26,10 @@ class MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: new ThemeData(
           primarySwatch: Colors.blue,
-          primaryColor: Color(0xFFa23e48),
-          accentColor: Color(0xFF14213d),
+//          primaryColor: Color(0xFFa23e48),
+//          accentColor: Color(0xFF14213d),
+          primaryColor: Color(0xFFE59938),
+          accentColor: Color(0xFF154153),
           primaryIconTheme: IconThemeData(color: Colors.black),
 //            primaryTextTheme: TextTheme(
 //                title: TextStyle(color: Colors.black, fontFamily: "Aveny"),),

@@ -15,6 +15,7 @@ class GenScreen extends StatefulWidget {
 var data2 = {"groupid": "Maria", "main": "maria", "time": "17/01/2020"};
 var hello = "Maria says help";
 var testdata = "testdata";
+
 GlobalKey globalKey = new GlobalKey();
 
 class _GenState extends State<GenScreen> {
@@ -65,7 +66,7 @@ class _GenState extends State<GenScreen> {
   Future<Uint8List> capture_n_share() async {
     try {
       RenderRepaintBoundary boundary =
-      globalKey.currentContext.findRenderObject();
+          globalKey.currentContext.findRenderObject();
       var image = await boundary.toImage(pixelRatio: 3.0);
       ByteData byteData = await image.toByteData(format: ImageByteFormat.png);
       var pngBytes = byteData.buffer.asUint8List();

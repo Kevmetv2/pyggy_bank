@@ -1,7 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/pages/group_page_build_screen.dart';
-import 'package:pyggybank/pages/group_screen.dart';
 import 'package:pyggybank/pages/placeholder_screen.dart';
 import 'package:pyggybank/pages/scan_screen.dart';
 import 'package:pyggybank/services/repository.dart';
