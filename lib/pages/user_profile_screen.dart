@@ -3,17 +3,27 @@ import 'package:flutter/material.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/widgets/nav_drawer.dart';
 
-class UserProfileScreen extends StatelessWidget {
+class UserProfileScreen extends StatefulWidget {
+  @override
+  // TODO: implement createState
+  _UserScreenState createState() => _UserScreenState();
+}
+
+class _UserScreenState extends State<UserProfileScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(
-            leading: IconButton(
-          icon: Icon(Icons.menu),
-          iconSize: 30.0,
-          color: Colors.white,
-          onPressed: () {
-            Scaffold.of(context).openDrawer();
+
+            leading:Builder(
+              builder: (BuildContext context){
+                return IconButton(
+                  icon: Icon(Icons.menu),
+                  iconSize: 30.0,
+                  color: Colors.white,
+                  onPressed: () {
+                    Scaffold.of(context).openDrawer();
+              },);
           },
         )),
         drawer: NavDrawer(),
