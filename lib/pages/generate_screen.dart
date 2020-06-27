@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
@@ -17,14 +18,20 @@ String a = current_qr.limit.toString();
 String b = current_qr.groupId;
 String c = current_qr.timestamp.toString();
 String d = current_qr.admin;
+String _unecryData = '$d,$b,$a,$c';
+String packet;
 
-String data2 = '$d,$b,$a,$c';
-var hello = "Maria says help";
-var testdata = "testdata";
 
 GlobalKey globalKey = new GlobalKey();
 
 class _GenState extends State<GenScreen> {
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+    initEncrypt();
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -43,6 +50,8 @@ class _GenState extends State<GenScreen> {
             borderRadius: BorderRadius.only(
               topLeft: Radius.circular(30.0),
               topRight: Radius.circular(30.0),
+              bottomRight: Radius.circular(30.0),
+              bottomLeft: Radius.circular(30.0)
             ),
             child: Column(
               children: <Widget>[
@@ -66,7 +75,7 @@ class _GenState extends State<GenScreen> {
                     child: RepaintBoundary(
                       key: globalKey,
                       child: Image.network(
-                          "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$data2"),
+                          "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$packet"),
                     ),
                   ),
                   height: 300,
@@ -103,5 +112,18 @@ class _GenState extends State<GenScreen> {
     } catch (e) {
       print('error: $e');
     }
+  }
+  initEncrypt() async{
+    final cryptor = new PlatformStringCryptor();
+
+    final key = await cryptor.generateRandomKey();
+    final encrypted = await cryptor.encrypt(_unecryData, key);
+
+    setState(() {
+      packet = '$key,$encrypted';
+
+    });
+
+
   }
 }

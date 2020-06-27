@@ -24,7 +24,7 @@ class _UserInGroupsState extends State<UserInGroups> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: <Widget>[
         Padding(
-          padding: const EdgeInsets.only(left: 18.0),
+          padding: const EdgeInsets.only(left: 10.0),
           child: Row(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: <Widget>[

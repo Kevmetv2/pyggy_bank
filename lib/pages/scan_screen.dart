@@ -1,5 +1,6 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/qr_model.dart';
@@ -25,6 +26,7 @@ class _ScanState extends State<ScanScreen> {
   bool isValid = false;
 
   List<String> components;
+  List<String> unEncrypt;
 
   @override
   Widget build(BuildContext context) {
@@ -70,11 +72,14 @@ class _ScanState extends State<ScanScreen> {
 
   void _filter_data() {
     components = qrtext.split(',');
-    print(Timestamp.now());
-    Qr_info group_info = Qr_info(admin: components[0],
-        groupId: components[1],
-        timestamp: DateTime.parse(components[3]),
-        limit: double.tryParse(components[2]));
+    final key = components[0];
+    final cryptor = new PlatformStringCryptor();
+    final decrypted =  cryptor.decrypt(components[1], key);
+    unEncrypt = decrypted.toString().split(',');
+    Qr_info group_info = Qr_info(admin: unEncrypt[0],
+        groupId: unEncrypt[1],
+        timestamp: DateTime.parse(unEncrypt[3]),
+        limit: double.tryParse(unEncrypt[2]));
     //TODO VERIFY GROUP SITUATION IN RELATION TO APPLICATION
     isValid = true;
   }
