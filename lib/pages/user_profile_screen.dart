@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/widgets/nav_drawer.dart';
 
-class UserProfileScreen extends StatelessWidget  {
+class UserProfileScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -123,7 +123,8 @@ class UserProfileScreen extends StatelessWidget  {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      currentUser.email,
+//                      currentUser.email,
+                      "email here",
                       style: TextStyle(fontSize: 18.0),
                     )
                   ],

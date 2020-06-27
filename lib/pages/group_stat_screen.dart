@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/transaction_model.dart';
 import 'package:pyggybank/models/user.dart';
@@ -201,10 +202,33 @@ class _GroupStatState extends State<GroupStat> {
     final _media = MediaQuery.of(context).size;
     return Scaffold(
       backgroundColor: Theme.of(context).accentColor,
+      appBar: AppBar(
+        leading: IconButton(
+          icon: Icon(Icons.arrow_back),
+          iconSize: 30.0,
+          color: Colors.white,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+        ),
+//        title: Text(
+//          'Pyggy Banks',
+//          textAlign: TextAlign.center,
+//          style: TextStyle(
+//              fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.white),
+//        ),
+        title: Center(
+          child: SvgPicture.asset(
+            'assets/images/word pyggybank.svg',
+            height: 40,
+          ),
+        ),
+        elevation: 10.0,
+      ),
       body: ListView(
         children: <Widget>[
           SizedBox(
-            height: 30,
+            height: 8,
           ),
           Text(
             widget.group.name,

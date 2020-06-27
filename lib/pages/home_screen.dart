@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pyggybank/pages/add_money_selector.dart';
 import 'package:pyggybank/pages/group_page_build_screen.dart';
 import 'package:pyggybank/pages/placeholder_screen.dart';
 import 'package:pyggybank/pages/scan_screen.dart';
@@ -22,7 +23,8 @@ class _HomeScreenState extends State<HomeScreen> {
     GroupScreenBuild(),
     PlaceHolderWidget(Colors.redAccent),
     ScanScreen(),
-    PlaceHolderWidget(Colors.green),
+//    PlaceHolderWidget(Colors.green),
+    AddMoney(),
     PlaceHolderWidget(Colors.pink)
   ];
   final PageController pageController = new PageController();
@@ -86,7 +88,7 @@ class _HomeScreenState extends State<HomeScreen> {
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
-              icon: new Icon(Icons.add_circle_outline,
+              icon: new Icon(Icons.monetization_on,
                   color: (_page == 3) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
