@@ -15,10 +15,10 @@ class GenScreen extends StatefulWidget {
 
 String a = current_qr.limit.toString();
 String b = current_qr.groupId;
-String c = current_qr.timestamp;
+String c = current_qr.timestamp.toString();
 String d = current_qr.admin;
 
-String data2 = '$a,$b,$c,$d';
+String data2 = '$d,$b,$a,$c';
 var hello = "Maria says help";
 var testdata = "testdata";
 
@@ -28,50 +28,64 @@ class _GenState extends State<GenScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Pyggy bank"),
-      ),
+      backgroundColor: Theme.of(context).accentColor,
       body: Center(
-        child: Column(
-          children: <Widget>[
-            SizedBox(height: 25.0),
-            Container(
-              child: Center(
-                child: Text(
-                  "Allow others to scan this QR code to allow them to join your group",
-                  style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-                  textAlign: TextAlign.center,
-                ),
-              ),
+        child: Container(
+          margin: EdgeInsets.all(20.0),
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
             ),
-            SizedBox(height: 25.0),
-            Container(
-              decoration: BoxDecoration(
-                border: Border.all(style: BorderStyle.solid, width: 2.0),
-              ),
-              child: Center(
-                child: RepaintBoundary(
-                  key: globalKey,
-                  child: Image.network(
-                      "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$data2"),
-                ),
-              ),
-              height: 300,
-              width: 300,
+          ),
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
             ),
-            SizedBox(height: 25.0),
-            Text("Or share it with them on other apps",
-                style: TextStyle(fontSize: 25.0, fontWeight: FontWeight.bold),
-                textAlign: TextAlign.center),
-            IconButton(
-              icon: Icon(Icons.share, size: 55,color: Color(0xffC0C0C0),),
-              onPressed: capture_n_share,
-alignment: Alignment.center,
-            )
-          ],
-        ),
-      ),
-    );
+            child: Column(
+              children: <Widget>[
+                SizedBox(height: 45.0),
+                Container(
+                  child: Center(
+                    child: Text(
+                      "Allow others to scan this QR code to allow them to join your group",
+                      style: TextStyle(
+                          fontSize: 25.0, fontWeight: FontWeight.bold),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ),
+                SizedBox(height: 25.0),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(style: BorderStyle.solid, width: 2.0),
+                  ),
+                  child: Center(
+                    child: RepaintBoundary(
+                      key: globalKey,
+                      child: Image.network(
+                          "https://api.qrserver.com/v1/create-qr-code/?size=250x250&data=$data2"),
+                    ),
+                  ),
+                  height: 300,
+                  width: 300,
+                ),
+                SizedBox(height: 25.0),
+                Text("Or share it with them on other apps",
+                    style: TextStyle(
+                        fontSize: 25.0, fontWeight: FontWeight.bold),
+                    textAlign: TextAlign.center),
+                IconButton(
+                  icon: Icon(Icons.share, size: 45, color: Color(0xffC0C0C0),),
+                  onPressed: capture_n_share,
+                  alignment: Alignment.center,
+                )
+              ],
+            ),
+          ),
+        ),),);
   }
 
   Future<Uint8List> capture_n_share() async {

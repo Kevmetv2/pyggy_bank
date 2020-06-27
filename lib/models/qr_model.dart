@@ -1,14 +1,11 @@
-import 'dart:ffi';
-
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:pyggybank/models/user.dart';
 
 
 class Qr_info {
    String admin;
-   String groupId;
-   double limit;
-   String timestamp;
+  String groupId;
+  double limit;
+  DateTime timestamp;
 
   Qr_info({this.admin, this.groupId, this.limit, this.timestamp});
 
@@ -63,6 +60,6 @@ final User james = User(
   admin : james.uid,
 limit:2.0,
 groupId:"ajdoncsnf",
-   timestamp: "17/08/22"
+     timestamp: DateTime.parse('1974-03-20 00:00:00.000')
 
 );

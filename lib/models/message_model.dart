@@ -22,6 +22,7 @@ final User currentUser = User(
   uid: "user id",
   displayName: 'Current User',
   photoUrl: 'https://i.pravatar.cc/150?img=3',
+  email: 'testing@u.com',
 );
 
 // USERS

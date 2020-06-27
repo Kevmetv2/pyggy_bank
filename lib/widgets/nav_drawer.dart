@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/models/message_model.dart';
-import 'package:pyggybank/pages/generate_screen.dart';
 import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/pages/user_profile_screen.dart';
 import 'package:pyggybank/services/repository.dart';
@@ -96,21 +95,6 @@ class NavDrawer extends StatelessWidget {
               ),
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () => {},
-            ),
-            ListTile(
-              leading: Icon(Icons.archive),
-              title: Text(
-                'Rewards ( BRN gen screen)- will be put into groups',
-                style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () => {
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => GenScreen()))
-              },
             ),
             Material(
                 color: Theme.of(context).primaryColor,

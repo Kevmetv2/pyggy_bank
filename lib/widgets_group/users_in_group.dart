@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
+import 'package:pyggybank/pages/generate_screen.dart';
 import 'package:pyggybank/widgets_group/user_in_group_cards.dart';
 
 User currentUser = new User(
@@ -102,7 +103,10 @@ class _UserInGroupsState extends State<UserInGroups> {
               Icons.add_circle,
               color: Colors.purple,
             ),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(context,
+                  MaterialPageRoute(builder: (context) => GenScreen()));
+            },
             iconSize: 32.0,
           ),
           Padding(
