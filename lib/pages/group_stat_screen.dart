@@ -30,158 +30,146 @@ var series = [
 ];
 
 List<TransactionM> transactions = [
-  TransactionM(
-      receiverID: "Netflix",
-      senderID: "",
-      category: "Entertainment",
-      receiverImg:
-          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
-      amount: 100,
-      timestamp: Timestamp.now(),
-      paymentType: true),
-  TransactionM(
-      receiverID: "Coca Cola",
-      senderID: "",
-      category: "Food and Snacks",
-      receiverImg:
-          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
-      amount: 300,
-      timestamp: Timestamp.now(),
-      paymentType: false),
-  TransactionM(
-      receiverID: "Coursera",
-      senderID: "",
-      category: "Learning",
-      receiverImg:
-          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
-      amount: 22,
-      timestamp: Timestamp.now(),
-      paymentType: true),
-  TransactionM(
-      receiverID: "Random Company",
-      senderID: "",
-      category: "",
-      receiverImg:
-          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
-      amount: 120,
-      timestamp: Timestamp.now(),
-      paymentType: false),
-  TransactionM(
-      receiverID: "Netflix",
-      senderID: "",
-      category: "Entertainment",
-      receiverImg:
-          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
-      amount: 100,
-      timestamp: Timestamp.now(),
-      paymentType: true),
-  TransactionM(
-      receiverID: "Coca Cola",
-      senderID: "",
-      category: "Food and Snacks",
-      receiverImg:
-          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
-      amount: 300,
-      timestamp: Timestamp.now(),
-      paymentType: false),
-  TransactionM(
-      receiverID: "Coursera",
-      senderID: "",
-      category: "Learning",
-      receiverImg:
-          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
-      amount: 22,
-      timestamp: Timestamp.now(),
-      paymentType: true),
-  TransactionM(
-      receiverID: "Random Company",
-      senderID: "",
-      category: "",
-      receiverImg:
-          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
-      amount: 120,
-      timestamp: Timestamp.now(),
-      paymentType: false),
-  TransactionM(
-      receiverID: "Netflix",
-      senderID: "",
-      category: "Entertainment",
-      receiverImg:
-          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
-      amount: 100,
-      timestamp: Timestamp.now(),
-      paymentType: true),
-  TransactionM(
-      receiverID: "Coca Cola",
-      senderID: "",
-      category: "Food and Snacks",
-      receiverImg:
-          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
-      amount: 300,
-      timestamp: Timestamp.now(),
-      paymentType: false),
-  TransactionM(
-      receiverID: "Coursera",
-      senderID: "",
-      category: "Learning",
-      receiverImg:
-          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
-      amount: 22,
-      timestamp: Timestamp.now(),
-      paymentType: true),
-  TransactionM(
-      receiverID: "Random Company",
-      senderID: "",
-      category: "",
-      receiverImg:
-          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
-      amount: 120,
-      timestamp: Timestamp.now(),
-      paymentType: false),
+//  TransactionM(
+//      senderID: "Netflix",
+//      category: "Entertainment",
+//      receiverImg:
+//          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
+//      amount: 100,
+//      timestamp: Timestamp.now(),
+//      paymentType: true),
+//  TransactionM(
+//      senderID: "Coca Cola",
+//      category: "Food and Snacks",
+//      receiverImg:
+//          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
+//      amount: 300,
+//      timestamp: Timestamp.now(),
+//      paymentType: false),
+//  TransactionM(
+//      senderID: "Coursera",
+//      category: "Learning",
+//      receiverImg:
+//          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
+//      amount: 22,
+//      timestamp: Timestamp.now(),
+//      paymentType: true),
+//  TransactionM(
+//      senderID: "Random Company",
+//      category: "",
+//      receiverImg:
+//          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
+//      amount: 120,
+//      timestamp: Timestamp.now(),
+//      paymentType: false),
+//  TransactionM(
+//      senderID: "Netflix",
+//      category: "Entertainment",
+//      receiverImg:
+//          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
+//      amount: 100,
+//      timestamp: Timestamp.now(),
+//      paymentType: true),
+//  TransactionM(
+//      senderID: "Coca Cola",
+//      category: "Food and Snacks",
+//      receiverImg:
+//          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
+//      amount: 300,
+//      timestamp: Timestamp.now(),
+//      paymentType: false),
+//  TransactionM(
+//      senderID: "Coursera",
+//      category: "Learning",
+//      receiverImg:
+//          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
+//      amount: 22,
+//      timestamp: Timestamp.now(),
+//      paymentType: true),
+//  TransactionM(
+//      senderID: "Random Company",
+//      category: "",
+//      receiverImg:
+//          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
+//      amount: 120,
+//      timestamp: Timestamp.now(),
+//      paymentType: false),
+//  TransactionM(
+//      senderID: "Netflix",
+//      category: "Entertainment",
+//      receiverImg:
+//          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
+//      amount: 100,
+//      timestamp: Timestamp.now(),
+//      paymentType: true),
+//  TransactionM(
+//      senderID: "Coca Cola",
+//      category: "Food and Snacks",
+//      receiverImg:
+//          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
+//      amount: 300,
+//      timestamp: Timestamp.now(),
+//      paymentType: false),
+//  TransactionM(
+//      senderID: "Coursera",
+//      category: "Learning",
+//      receiverImg:
+//          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
+//      amount: 22,
+//      timestamp: Timestamp.now(),
+//      paymentType: true),
+//  TransactionM(
+//      senderID: "Random Company",
+//      category: "",
+//      receiverImg:
+//          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
+//      amount: 120,
+//      timestamp: Timestamp.now(),
+//      paymentType: false),
 ];
 
-List<User> users = [
-  new User(
-      uid: "13",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=18",
-      displayName: "Wevin"),
-  new User(
-      uid: "14",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=19",
-      displayName: "Mevin"),
-  new User(
-      uid: "15",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=20",
-      displayName: "Kevin"),
-  new User(
-      uid: "16",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=21",
-      displayName: "Eleven"),
-  new User(
-      uid: "17",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=28",
-      displayName: "Tevin"),
-  new User(
-      uid: "18",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=23",
-      displayName: "Revin"),
-  new User(
-      uid: "19",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=27",
-      displayName: "Lenin"),
-  new User(
-      uid: "20",
-      email: "",
-      photoUrl: "https://i.pravatar.cc/150?img=38",
-      displayName: "Qenin"),
-];
+//List<User> users = [
+//  new User(
+//      uid: "13",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=18",
+//      displayName: "Wevin"),
+//  new User(
+//      uid: "14",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=19",
+//      displayName: "Mevin"),
+//  new User(
+//      uid: "15",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=20",
+//      displayName: "Kevin"),
+//  new User(
+//      uid: "16",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=21",
+//      displayName: "Eleven"),
+//  new User(
+//      uid: "17",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=28",
+//      displayName: "Tevin"),
+//  new User(
+//      uid: "18",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=23",
+//      displayName: "Revin"),
+//  new User(
+//      uid: "19",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=27",
+//      displayName: "Lenin"),
+//  new User(
+//      uid: "20",
+//      email: "",
+//      photoUrl: "https://i.pravatar.cc/150?img=38",
+//      displayName: "Qenin"),
+//];
 
 class GroupStat extends StatefulWidget {
   final Group group;
@@ -275,7 +263,7 @@ class _GroupStatState extends State<GroupStat> {
             height: 20,
           ),
           UserInGroups(
-            users: users,
+            groupID: widget.group.groupId,
           ),
           Padding(
             padding: const EdgeInsets.only(left: 18.0),

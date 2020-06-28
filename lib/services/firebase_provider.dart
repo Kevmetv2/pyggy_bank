@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/user.dart';
 
 class FirebaseProvider {
@@ -17,7 +18,6 @@ class FirebaseProvider {
   Future<FirebaseUser> getCurrentUser() async {
     FirebaseUser currentUser;
     currentUser = await _auth.currentUser();
-    print("EMAIL ID : ${currentUser.email}");
     return currentUser;
   }
 
@@ -126,5 +126,60 @@ class FirebaseProvider {
     DocumentSnapshot documentSnapshot =
         await _firestore.collection("users").document(uid).get();
     return User.fromMap(documentSnapshot.data);
+  }
+
+  Future<List<User>> fetchAllUserFriends(String uid) async {
+    List<User> friendsList = List<User>();
+    final userRef = Firestore.instance.collection('users');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("user_friends")
+        .document(uid)
+        .collection("friends")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s =
+          await userRef.document(querySnapshot.documents[i].documentID).get();
+      friendsList.add(User.fromMap(s.data));
+    }
+
+    return friendsList;
+  }
+
+  Future<List<Group>> fetchAllUserFavGroups(String uid) async {
+    List<Group> groupsList = List<Group>();
+    final groupsRef = Firestore.instance.collection('groups');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("user_groups_fav")
+        .document(uid)
+        .collection("favorites")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s =
+          await groupsRef.document(querySnapshot.documents[i].documentID).get();
+
+      groupsList.add(Group.fromMap(s.data));
+    }
+
+    return groupsList;
+  }
+
+  Future<List<Group>> fetchAllUserGroups(String uid) async {
+    List<Group> groupsList = List<Group>();
+    final groupsRef = Firestore.instance.collection('groups');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("user_groups")
+        .document(uid)
+        .collection("user_group_relation")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s =
+          await groupsRef.document(querySnapshot.documents[i].documentID).get();
+      groupsList.add(Group.fromMap(s.data));
+    }
+
+    return groupsList;
   }
 }

@@ -8,8 +8,12 @@ final User currentUser = User(
   displayName: 'Current User',
   photoUrl: 'https://i.pravatar.cc/150?img=3',
 );
+final List<Message> lastMessages =
+    []; // for each friend get their most recent message and add to last Message
 
 class RecentChats extends StatelessWidget {
+  final List<User> friends; // get users friends from DB
+  RecentChats({this.friends});
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -27,15 +31,16 @@ class RecentChats extends StatelessWidget {
             topRight: Radius.circular(30.0),
           ),
           child: ListView.builder(
-            itemCount: chats.length,
+            itemCount: friends.length,
             itemBuilder: (BuildContext context, int index) {
-              final Message chat = chats[index];
+              final Message lastMessage = lastMessages[
+                  index]; // query most recent message from DB for each friend_chat
               return GestureDetector(
                 onTap: () => Navigator.push(
                   context,
                   MaterialPageRoute(
                     builder: (_) => ChatScreen(
-                      user: chat.sender,
+                      user: friends[index],
                     ),
                   ),
                 ),
@@ -57,14 +62,15 @@ class RecentChats extends StatelessWidget {
                         children: <Widget>[
                           CircleAvatar(
                             radius: 35.0,
-                            backgroundImage: NetworkImage(chat.sender.photoUrl),
+                            backgroundImage:
+                                NetworkImage(friends[index].photoUrl),
                           ),
                           SizedBox(width: 10.0),
                           Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: <Widget>[
                               Text(
-                                chat.sender.displayName,
+                                friends[index].displayName,
                                 style: TextStyle(
                                   color: Colors.grey,
                                   fontSize: 15.0,
@@ -75,7 +81,7 @@ class RecentChats extends StatelessWidget {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.45,
                                 child: Text(
-                                  chat.text,
+                                  lastMessage.text,
                                   style: TextStyle(
                                     color: Colors.blueGrey,
                                     fontSize: 15.0,
@@ -91,7 +97,7 @@ class RecentChats extends StatelessWidget {
                       Column(
                         children: <Widget>[
                           Text(
-                            chat.time,
+                            lastMessage.time,
                             style: TextStyle(
                               color: Colors.grey,
                               fontSize: 15.0,

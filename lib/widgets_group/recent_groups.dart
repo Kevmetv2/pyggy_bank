@@ -4,7 +4,7 @@ import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/pages/group_stat_screen.dart';
 
 class RecentGroups extends StatelessWidget {
-  List<Group> groups;
+  final List<Group> groups;
   RecentGroups({this.groups});
   @override
   Widget build(BuildContext context) {
@@ -23,7 +23,7 @@ class RecentGroups extends StatelessWidget {
             topRight: Radius.circular(30.0),
           ),
           child: ListView.builder(
-            itemCount: chats.length,
+            itemCount: groups.length,
             itemBuilder: (BuildContext context, int index) {
 //              final Message chat = chats[index];
               final Group group = groups[index];
@@ -49,7 +49,9 @@ class RecentGroups extends StatelessWidget {
                   padding:
                       EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
                   decoration: BoxDecoration(
-                    color: group.hasUnread ? Color(0xFFFFEFEE) : Colors.white,
+                    color: group.name != null
+                        ? Color(0xFFFFEFEE)
+                        : Colors.white, // should check unread
                     borderRadius: BorderRadius.only(
                       topRight: Radius.circular(20.0),
                       bottomRight: Radius.circular(20.0),
@@ -104,7 +106,7 @@ class RecentGroups extends StatelessWidget {
 //                            ),
 //                          ),
                           SizedBox(height: 5.0),
-                          group.hasUnread
+                          group.name != null // should check name
                               ? Container(
                                   width: 40.0,
                                   height: 20.0,

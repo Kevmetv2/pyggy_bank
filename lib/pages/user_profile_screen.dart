@@ -1,8 +1,9 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-
-import 'package:pyggybank/models/message_model.dart';
+import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/widgets/nav_drawer.dart';
+
+User currentUser;
 
 class UserProfileScreen extends StatelessWidget {
   @override

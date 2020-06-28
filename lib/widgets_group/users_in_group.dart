@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
 import 'package:pyggybank/widgets_group/user_in_group_cards.dart';
@@ -7,16 +8,20 @@ User currentUser = new User(
     uid: "56",
     email: "",
     photoUrl: "https://i.pravatar.cc/150?img=18",
-    displayName: "Other guy");
+    displayName: "Other guy"); // get the user from the DB to give to the chat.
 
 class UserInGroups extends StatefulWidget {
-  final List<User> users;
-  UserInGroups({this.users});
+  final groupID;
+  UserInGroups({this.groupID});
   @override
   State<StatefulWidget> createState() => _UserInGroupsState();
 }
 
 class _UserInGroupsState extends State<UserInGroups> {
+  List<User> users; // get the users from the DB with the groupID.
+  List<Message>
+      messages; // get the messages using the groupID. to pass to the chat.
+
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -65,7 +70,7 @@ class _UserInGroupsState extends State<UserInGroups> {
               if (index == 0) {
                 return _addButton();
               }
-              User user = widget.users[index - 1];
+              User user = users[index - 1];
               return Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: UserWidget(
@@ -73,7 +78,7 @@ class _UserInGroupsState extends State<UserInGroups> {
                 ),
               );
             },
-            itemCount: widget.users.length + 1,
+            itemCount: users.length + 1,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,

@@ -1,11 +1,9 @@
 class Group {
-  final double balance;
-  final String name;
-  final String description;
-  final String groupImg;
-  final String groupId;
-  final bool isFav;
-  final bool hasUnread;
+  double balance;
+  String name;
+  String description;
+  String groupImg;
+  String groupId;
 
   Group({
     this.balance,
@@ -13,7 +11,23 @@ class Group {
     this.description,
     this.groupImg,
     this.groupId,
-    this.isFav,
-    this.hasUnread,
   });
+
+  Map toMap(Group group) {
+    var data = Map<String, dynamic>();
+    data['balance'] = group.balance;
+    data['name'] = group.name;
+    data['description'] = group.description;
+    data['groupImg'] = group.groupImg;
+    data['groupId'] = group.groupId;
+    return data;
+  }
+
+  Group.fromMap(Map<String, dynamic> mapData) {
+    this.groupId = mapData['groupId'];
+    this.groupImg = mapData['groupImg'];
+    this.description = mapData['description'];
+    this.name = mapData['name'];
+    this.balance = mapData['balance'];
+  }
 }

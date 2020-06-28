@@ -1,5 +1,8 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:pyggybank/models/group_model.dart';
+import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/add_money_selector.dart';
 import 'package:pyggybank/pages/group_page_build_screen.dart';
 import 'package:pyggybank/pages/placeholder_screen.dart';
@@ -17,14 +20,47 @@ class HomeScreen extends StatefulWidget {
 PageController pageController;
 
 class _HomeScreenState extends State<HomeScreen> {
-  var _repository = Repository();
+//  var _repository = Repository();
 //  User currentUser;
+  @override
+  void initState() {
+    super.initState();
+//    testingDB();
+  }
+
+//  void testingDB() async {
+//    FirebaseUser currentUser = await _repository.getCurrentUser();
+//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+//
+//    setState(() {
+//      this.currentUser = user;
+//    });
+//    // Test complete
+//
+//    //List<User> friends = await _repository.fetchAllUserFriends(currentUser.uid);
+//    //    print(friends[0].displayName);
+//    //    print(friends[1].displayName);
+//
+//    // Test complete
+//
+//    //List<Group> groups = await _repository.fetchAllUserGroups(currentUser.uid);
+//    //print(groups[0].name);
+//
+//    // Test complete
+//
+//    //    List<Group> groups =
+//    //        await _repository.fetchAllUserFavGroups(currentUser.uid);
+//    //    print(groups[0].name);
+//
+//    print(user.displayName);
+//  }
+
   final List<Widget> _children = [
     GroupScreenBuild(),
     PlaceHolderWidget(Colors.redAccent),
-    ScanScreen(),
+    //ScanScreen(),
 //    PlaceHolderWidget(Colors.green),
-    AddMoney(),
+    //AddMoney(),
     PlaceHolderWidget(Colors.pink)
   ];
   final PageController pageController = new PageController();
@@ -49,13 +85,6 @@ class _HomeScreenState extends State<HomeScreen> {
     setState(() {
       _page = page;
     });
-  }
-
-  @override
-  void initState() {
-    super.initState();
-
-//    getData();
   }
 
   @override

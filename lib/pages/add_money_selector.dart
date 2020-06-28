@@ -22,45 +22,45 @@ class _AddMoneyState extends State<AddMoney> {
 //    ReceiverModel('Robert', '0937110938', '5678 0000 0099 0909'),
 //  ];
 
-  List<Group> groups = [
-    Group(
-      balance: 1490.92,
-      name: "San Jose - Soup Kitchen",
-      description: "Volunteering fund to help those in the area.",
-      groupImg: "https://i.pravatar.cc/150?img=10",
-      groupId: "",
-      isFav: false,
-      hasUnread: false,
-    ),
-    Group(
-      balance: 1490.92,
-      name: "test 2",
-      description: "Volunteering fund to help those in the area.",
-      groupImg: "https://i.pravatar.cc/150?img=10",
-      groupId: "",
-      isFav: false,
-      hasUnread: false,
-    ),
-    Group(
-      balance: 1490.92,
-      name: "test1",
-      description: "Volunteering fund to help those in the area.",
-      groupImg: "https://i.pravatar.cc/150?img=10",
-      groupId: "",
-      isFav: false,
-      hasUnread: false,
-    ),
-    Group(
-      balance: 1490.92,
-      name: "other",
-      description: "Volunteering fund to help those in the area.",
-      groupImg: "https://i.pravatar.cc/150?img=10",
-      groupId: "",
-      isFav: false,
-      hasUnread: false,
-    )
-  ];
-
+//  List<Group> groups = [
+//    Group(
+//      balance: 1490.92,
+//      name: "San Jose - Soup Kitchen",
+//      description: "Volunteering fund to help those in the area.",
+//      groupImg: "https://i.pravatar.cc/150?img=10",
+//      groupId: "",
+//      isFav: false,
+//      hasUnread: false,
+//    ),
+//    Group(
+//      balance: 1490.92,
+//      name: "test 2",
+//      description: "Volunteering fund to help those in the area.",
+//      groupImg: "https://i.pravatar.cc/150?img=10",
+//      groupId: "",
+//      isFav: false,
+//      hasUnread: false,
+//    ),
+//    Group(
+//      balance: 1490.92,
+//      name: "test1",
+//      description: "Volunteering fund to help those in the area.",
+//      groupImg: "https://i.pravatar.cc/150?img=10",
+//      groupId: "",
+//      isFav: false,
+//      hasUnread: false,
+//    ),
+//    Group(
+//      balance: 1490.92,
+//      name: "other",
+//      description: "Volunteering fund to help those in the area.",
+//      groupImg: "https://i.pravatar.cc/150?img=10",
+//      groupId: "",
+//      isFav: false,
+//      hasUnread: false,
+//    )
+//  ];
+  List<Group> groups = []; // get all the groups from the DB.
   List<Group> searchResults = [];
 
   @override
@@ -73,7 +73,7 @@ class _AddMoneyState extends State<AddMoney> {
           children: <Widget>[
             Padding(
                 padding:
-                    const EdgeInsets.only(top: 30.0, left: 16.0, right: 16.0),
+                    const EdgeInsets.only(top: 24.0, left: 12.0, right: 12.0),
                 child: Row(
                   children: <Widget>[
                     IconButton(
@@ -344,7 +344,7 @@ class _AddMoneyState extends State<AddMoney> {
                       )));
       },
       child: Container(
-        padding: EdgeInsets.all(16.0),
+        padding: EdgeInsets.all(13.0),
         child: Row(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -362,6 +362,7 @@ class _AddMoneyState extends State<AddMoney> {
                 Text(
                   receiver.name,
                   style: TextStyle(fontWeight: FontWeight.w700, fontSize: 15),
+                  overflow: TextOverflow.ellipsis,
                 ),
                 Row(
                   children: <Widget>[
@@ -373,14 +374,16 @@ class _AddMoneyState extends State<AddMoney> {
                         color: Color(0xFF929091),
                       ),
                     ),
-                    Text(
-                      receiver.description,
-                      style: TextStyle(
-                          fontSize: 14.0,
-                          color: Color(
-                            0xFF929091,
-                          )),
-                      overflow: TextOverflow.ellipsis,
+                    Flexible(
+                      child: Container(
+                        child: Text(
+                          receiver.description,
+                          style: TextStyle(
+                              fontSize: 14.0,
+                              color: Colors.blueGrey,
+                              fontWeight: FontWeight.bold),
+                        ),
+                      ),
                     ),
                   ],
                 ),

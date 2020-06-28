@@ -94,12 +94,16 @@ class _RequestMoneyFinalState extends State<RequestMoneyFinal> {
                     child: Icon(Icons.account_balance,
                         size: 13.0, color: Color(0xFF929091)),
                   ),
-                  Text(
-                    receiver.description,
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.bold),
+                  Flexible(
+                    child: Container(
+                      child: Text(
+                        receiver.description,
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ],
               )

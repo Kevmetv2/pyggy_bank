@@ -9,7 +9,7 @@ class FavoriteGroups extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: 10.0),
+      padding: EdgeInsets.symmetric(vertical: 4.0),
       child: Column(
         children: <Widget>[
           Padding(
@@ -21,7 +21,7 @@ class FavoriteGroups extends StatelessWidget {
                   'Favorite Groups',
                   style: TextStyle(
                     color: Colors.white,
-                    fontSize: 18.0,
+                    fontSize: 16.0,
                     fontWeight: FontWeight.bold,
                     letterSpacing: 1.0,
                   ),
@@ -47,7 +47,7 @@ class FavoriteGroups extends StatelessWidget {
                 if (index == 0) {
                   return GestureDetector(
                     child: Padding(
-                      padding: EdgeInsets.all(10.0),
+                      padding: EdgeInsets.all(8.0),
                       child: Column(
                         children: <Widget>[
                           SizedBox(height: 16.0),
@@ -57,12 +57,12 @@ class FavoriteGroups extends StatelessWidget {
                                 AssetImage("assets/images/icons8-plus-48.png"),
 //                          AssetImage(favorites[index].photoUrl),
                           ),
-                          SizedBox(height: 16.0),
+                          SizedBox(height: 15.0),
                           Text(
                             "Create a group",
                             style: TextStyle(
                               color: Colors.white,
-                              fontSize: 16.0,
+                              fontSize: 14.0,
                               fontWeight: FontWeight.w600,
                             ),
                           ),
@@ -82,11 +82,11 @@ class FavoriteGroups extends StatelessWidget {
                     ),
                   ),
                   child: Padding(
-                    padding: EdgeInsets.all(10.0),
+                    padding: EdgeInsets.all(8.0),
                     child: Column(
                       children: <Widget>[
                         CircleAvatar(
-                          radius: 35.0,
+                          radius: 32.0,
                           backgroundImage:
                               NetworkImage(groups[index - 1].groupImg),
 //                          AssetImage(favorites[index].photoUrl),
@@ -96,7 +96,7 @@ class FavoriteGroups extends StatelessWidget {
                           groups[index - 1].name,
                           style: TextStyle(
                             color: Colors.white,
-                            fontSize: 16.0,
+                            fontSize: 14.0,
                             fontWeight: FontWeight.w600,
                           ),
                         ),

@@ -4,8 +4,9 @@ import 'package:pyggybank/models/user.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
+  final List<Message> messages;
 
-  ChatScreen({this.user});
+  ChatScreen({this.user, this.messages});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -155,10 +156,10 @@ class _ChatScreenState extends State<ChatScreen> {
                   child: ListView.builder(
                     reverse: true,
                     padding: EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
+                    itemCount: widget.messages.length,
                     itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.sender.uid == currentUser.uid;
+                      final Message message = widget.messages[index];
+                      final bool isMe = message.sender.uid == widget.user.uid;
                       return _buildMessage(message, isMe);
                     },
                   ),

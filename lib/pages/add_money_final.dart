@@ -89,6 +89,7 @@ class _AddMoneyFinalState extends State<AddMoneyFinal> {
               Text(
                 receiver.name,
                 style: TextStyle(fontWeight: FontWeight.w700),
+                overflow: TextOverflow.ellipsis,
               ),
               Row(
                 children: <Widget>[
@@ -97,12 +98,16 @@ class _AddMoneyFinalState extends State<AddMoneyFinal> {
                     child: Icon(Icons.account_balance,
                         size: 13.0, color: Color(0xFF929091)),
                   ),
-                  Text(
-                    receiver.description,
-                    style: TextStyle(
-                        fontSize: 14.0,
-                        color: Colors.blueGrey,
-                        fontWeight: FontWeight.bold),
+                  Flexible(
+                    child: Container(
+                      child: Text(
+                        receiver.description,
+                        style: TextStyle(
+                            fontSize: 14.0,
+                            color: Colors.blueGrey,
+                            fontWeight: FontWeight.bold),
+                      ),
+                    ),
                   ),
                 ],
               )
