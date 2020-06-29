@@ -4,6 +4,7 @@ import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/request_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/placeholder_screen.dart';
+import 'package:pyggybank/pages/requests_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
 import 'package:pyggybank/widgets_group/favorite_groups.dart';
@@ -275,16 +276,16 @@ class _GroupScreenBuildState extends State<GroupScreenBuild> {
                       ),
                     ),
                   ),
-//                if (selectedIndex == 1)
-//                  RecentChats(
-//                    friends: friends,
-//                  ),
-//          if (selectedIndex == 2)
-//            Expanded(
-//              child: Requests(
-//                requests: money_requests,
-//              ),
-//            ),
+                if (selectedIndex == 1)
+                  RecentChats(
+                    friends: friends,
+                  ),
+                if (selectedIndex == 2)
+                  Expanded(
+                    child: Requests(
+                      requests: money_requests,
+                    ),
+                  ),
                 if (selectedIndex == 3)
                   Expanded(child: PlaceHolderWidget(Colors.amberAccent)),
               ],

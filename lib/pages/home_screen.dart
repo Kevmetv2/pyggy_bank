@@ -58,9 +58,9 @@ class _HomeScreenState extends State<HomeScreen> {
   final List<Widget> _children = [
     GroupScreenBuild(),
     PlaceHolderWidget(Colors.redAccent),
-    //ScanScreen(),
-//    PlaceHolderWidget(Colors.green),
-    //AddMoney(),
+    ScanScreen(),
+    //PlaceHolderWidget(Colors.green),
+    AddMoney(),
     PlaceHolderWidget(Colors.pink)
   ];
   final PageController pageController = new PageController();

@@ -51,7 +51,7 @@ class _TransactionWidgetState extends State<TransactionWidget> {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: <Widget>[
             Text(
-              transaction.senderID,
+              transaction.senderName,
               style: TextStyle(
                   inherit: true, fontWeight: FontWeight.w700, fontSize: 16.0),
             ),

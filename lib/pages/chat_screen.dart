@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
 
@@ -43,7 +44,9 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            message.time,
+            message.time.toDate().hour.toString() +
+                ':' +
+                message.time.toDate().minute.toString(),
             style: TextStyle(
               color: Colors.blueGrey,
               fontSize: 16.0,
@@ -120,20 +123,12 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        title: Text(
-          widget.user.displayName,
-          style: TextStyle(
-              fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.white),
-        ),
-        elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.more_horiz),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {},
+        title: Center(
+          child: SvgPicture.asset(
+            'assets/images/word pyggybank.svg',
+            height: 40,
           ),
-        ],
+        ),
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
@@ -159,7 +154,7 @@ class _ChatScreenState extends State<ChatScreen> {
                     itemCount: widget.messages.length,
                     itemBuilder: (BuildContext context, int index) {
                       final Message message = widget.messages[index];
-                      final bool isMe = message.sender.uid == widget.user.uid;
+                      final bool isMe = message.senderID == widget.user.uid;
                       return _buildMessage(message, isMe);
                     },
                   ),

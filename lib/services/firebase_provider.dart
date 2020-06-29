@@ -2,6 +2,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pyggybank/models/group_model.dart';
+import 'package:pyggybank/models/message_model.dart';
+import 'package:pyggybank/models/transaction_model.dart';
 import 'package:pyggybank/models/user.dart';
 
 class FirebaseProvider {
@@ -163,6 +165,78 @@ class FirebaseProvider {
     }
 
     return groupsList;
+  }
+
+  Future<List<TransactionM>> fetchAllTransactionsGroup(String groupID) async {
+    List<TransactionM> transactionsList = List<TransactionM>();
+    final transactionRef = Firestore.instance.collection('transactions');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("group_transactions")
+        .document(groupID)
+        .collection("trans")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s = await transactionRef
+          .document(querySnapshot.documents[i].documentID)
+          .get();
+      transactionsList.add(TransactionM.fromMap(s.data));
+    }
+    return transactionsList;
+  }
+
+  Future<List<User>> fetchAllMembersGroup(String groupID) async {
+    List<User> usersList = List<User>();
+    final usersRef = Firestore.instance.collection('users');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("group_members")
+        .document(groupID)
+        .collection("members")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s =
+          await usersRef.document(querySnapshot.documents[i].documentID).get();
+      usersList.add(User.fromMap(s.data));
+    }
+    return usersList;
+  }
+
+  Future<List<Message>> fetchAllMessagesGroup(String groupID) async {
+    List<Message> messagesList = List<Message>();
+    final messagesRef = Firestore.instance.collection('messages');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("group_messages")
+        .document(groupID)
+        .collection("messages")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s = await messagesRef
+          .document(querySnapshot.documents[i].documentID)
+          .get();
+      messagesList.add(Message.fromMap(s.data));
+    }
+    return messagesList;
+  }
+
+  Future<List<Message>> fetchAllFriendMessages(String crossID) async {
+    List<Message> messagesList = List<Message>();
+
+    final messagesRef = Firestore.instance.collection('messages');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("user_friends_messages")
+        .document(crossID)
+        .collection("messages")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s = await messagesRef
+          .document(querySnapshot.documents[i].documentID)
+          .get();
+      messagesList.add(Message.fromMap(s.data));
+    }
+    return messagesList;
   }
 
   Future<List<Group>> fetchAllUserGroups(String uid) async {

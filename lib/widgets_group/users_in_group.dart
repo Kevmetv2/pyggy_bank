@@ -1,26 +1,49 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
+import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets_group/user_in_group_cards.dart';
 
-User currentUser = new User(
-    uid: "56",
-    email: "",
-    photoUrl: "https://i.pravatar.cc/150?img=18",
-    displayName: "Other guy"); // get the user from the DB to give to the chat.
+//User currentUser = new User(
+//    uid: "56",
+//    email: "",
+//    photoUrl: "https://i.pravatar.cc/150?img=18",
+//    displayName: "Other guy"); // get the user from the DB to give to the chat.
 
 class UserInGroups extends StatefulWidget {
   final groupID;
-  UserInGroups({this.groupID});
+  final List<User> users;
+  UserInGroups({this.groupID, this.users});
   @override
   State<StatefulWidget> createState() => _UserInGroupsState();
 }
 
 class _UserInGroupsState extends State<UserInGroups> {
-  List<User> users; // get the users from the DB with the groupID.
-  List<Message>
-      messages; // get the messages using the groupID. to pass to the chat.
+  //List<User> users = []; // get the users from the DB with the groupID.
+  var _repository = Repository();
+  User currentUser;
+  List<Message> messages;
+
+  void getData() async {
+    FirebaseUser currentUser = await _repository.getCurrentUser();
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+    List<Message> messages =
+        await _repository.fetchAllMessagesGroup(widget.groupID);
+
+    setState(() {
+      this.currentUser = user;
+      this.messages = messages;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  } // get the messages using the groupID. to pass to the chat.
 
   @override
   Widget build(BuildContext context) {
@@ -56,6 +79,7 @@ class _UserInGroupsState extends State<UserInGroups> {
                       MaterialPageRoute(
                           builder: (context) => ChatScreen(
                                 user: currentUser,
+                                messages: messages,
                               )));
                 },
               )
@@ -70,7 +94,7 @@ class _UserInGroupsState extends State<UserInGroups> {
               if (index == 0) {
                 return _addButton();
               }
-              User user = users[index - 1];
+              User user = widget.users[index - 1];
               return Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: UserWidget(
@@ -78,7 +102,7 @@ class _UserInGroupsState extends State<UserInGroups> {
                 ),
               );
             },
-            itemCount: users.length + 1,
+            itemCount: widget.users.length + 1,
             shrinkWrap: true,
             physics: BouncingScrollPhysics(),
             scrollDirection: Axis.horizontal,

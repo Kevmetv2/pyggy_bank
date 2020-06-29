@@ -6,6 +6,7 @@ import 'package:pyggybank/pages/group_stat_screen.dart';
 class FavoriteGroups extends StatelessWidget {
   final List<Group> groups;
   FavoriteGroups({this.groups});
+
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -73,14 +74,16 @@ class FavoriteGroups extends StatelessWidget {
                   );
                 }
                 return GestureDetector(
-                  onTap: () => Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => GroupStat(
-                        group: groups[index - 1],
+                  onTap: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (_) => GroupStat(
+                          group: groups[index - 1],
+                        ),
                       ),
-                    ),
-                  ),
+                    );
+                  },
                   child: Padding(
                     padding: EdgeInsets.all(8.0),
                     child: Column(

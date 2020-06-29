@@ -1,7 +1,11 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/group_model.dart';
+import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/add_money_final.dart';
 import 'package:pyggybank/pages/request_money_final.dart';
+import 'package:pyggybank/services/repository.dart';
+import 'package:pyggybank/widgets/progress.dart';
 
 class AddMoney extends StatefulWidget {
   @override
@@ -12,6 +16,9 @@ class _AddMoneyState extends State<AddMoney> {
   final TextEditingController searchController = TextEditingController();
   bool isShowSearchButton = false;
   int selectedIndex = 0;
+  bool isLoading = false;
+  var _repository = Repository();
+  User currentUser;
 
 //  List<ReceiverModel> receivers = [
 //    // should be a list of groups
@@ -64,39 +71,67 @@ class _AddMoneyState extends State<AddMoney> {
   List<Group> searchResults = [];
 
   @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
+  void getData() async {
+    FirebaseUser currentUser = await _repository.getCurrentUser();
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+
+    setState(() {
+      this.currentUser = user;
+    });
+    await getLists();
+    setState(() {
+      isLoading = true;
+    });
+  }
+
+  void getLists() async {
+    List<Group> s = await _repository.fetchAllUserGroups(currentUser.uid);
+    setState(() {
+      this.groups = s;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: Color(0xFFF4F4F4),
-      body: Center(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: <Widget>[
-            Padding(
-                padding:
-                    const EdgeInsets.only(top: 24.0, left: 12.0, right: 12.0),
-                child: Row(
-                  children: <Widget>[
-                    IconButton(
-                        icon: Icon(Icons.arrow_back),
-                        onPressed: () {
-                          Navigator.of(context).pop();
-                        }),
-                    Text(
-                      'Move Money',
-                      style: TextStyle(
-                          fontWeight: FontWeight.w700, fontSize: 20.0),
-                    ),
-                  ],
-                )),
-            _getSearchSection(),
-            _getAccountTypeSection(),
-            selectedIndex == 0
-                ? _getContactListSection()
-                : _getAccountListSection(),
-          ],
-        ),
-      ),
-    );
+    return isLoading
+        ? Scaffold(
+            backgroundColor: Color(0xFFF4F4F4),
+            body: Center(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: <Widget>[
+                  Padding(
+                      padding: const EdgeInsets.only(
+                          top: 24.0, left: 12.0, right: 12.0),
+                      child: Row(
+                        children: <Widget>[
+                          IconButton(
+                              icon: Icon(Icons.arrow_back),
+                              onPressed: () {
+                                Navigator.of(context).pop();
+                              }),
+                          Text(
+                            'Move Money',
+                            style: TextStyle(
+                                fontWeight: FontWeight.w700, fontSize: 20.0),
+                          ),
+                        ],
+                      )),
+                  _getSearchSection(),
+                  _getAccountTypeSection(),
+                  selectedIndex == 0
+                      ? _getContactListSection()
+                      : _getAccountListSection(),
+                ],
+              ),
+            ),
+          )
+        : circularProgress();
   }
 
   Widget _getAccountListSection() {
