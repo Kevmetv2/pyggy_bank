@@ -13,14 +13,13 @@ class GenScreen extends StatefulWidget {
   @override
   _GenState createState() => new _GenState();
 }
-
+///SPLITING AND ENCRYPTING OF DATA
 String a = current_qr.limit.toString();
 String b = current_qr.groupId;
 String c = current_qr.timestamp.toString();
 String d = current_qr.admin;
 String _unecryData = '$d,$b,$a,$c';
 String packet;
-
 
 GlobalKey globalKey = new GlobalKey();
 
@@ -29,12 +28,11 @@ class _GenState extends State<GenScreen> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
     initEncrypt();
   }
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return       Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       body: Center(
         child: Container(
@@ -94,7 +92,14 @@ class _GenState extends State<GenScreen> {
               ],
             ),
           ),
-        ),),);
+        ),
+              ),
+    );
+
+
+
+
+
   }
 
   Future<Uint8List> capture_n_share() async {
