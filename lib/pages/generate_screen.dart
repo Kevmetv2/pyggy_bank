@@ -1,38 +1,60 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
+import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/qr_model.dart';
+import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/services/repository.dart';
+import 'package:pyggybank/widgets/progress.dart';
 
 class GenScreen extends StatefulWidget {
   @override
   _GenState createState() => new _GenState();
 }
 ///SPLITING AND ENCRYPTING OF DATA
-String a = current_qr.limit.toString();
-String b = current_qr.groupId;
-String c = current_qr.timestamp.toString();
-String d = current_qr.admin;
-String _unecryData = '$d,$b,$a,$c';
+
+String b ;
+String c ;
+String d;
+String _unecryData;
 String packet;
 
 GlobalKey globalKey = new GlobalKey();
 
 class _GenState extends State<GenScreen> {
+  final Group current_group;
+  _GenState({this.current_group});
+  var _repository = Repository();
+  bool isLoading = false;
+  void getData() async {
+    FirebaseUser currentUser = await _repository.getCurrentUser();
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+
+     b =current_group.groupId;
+     c = Timestamp.now().toString();
+     d = currentUser.uid;
+     setState(() {
+       _unecryData = '$d,$b,$c';
+     });
+  }
   @override
   void initState() {
+    getData();
     // TODO: implement initState
     super.initState();
     initEncrypt();
   }
   @override
   Widget build(BuildContext context) {
-    return       Scaffold(
+    return    isLoading?   Scaffold(
       backgroundColor: Theme.of(context).accentColor,
       body: Center(
         child: Container(
@@ -94,7 +116,7 @@ class _GenState extends State<GenScreen> {
           ),
         ),
               ),
-    );
+    ): circularProgress();
 
 
 

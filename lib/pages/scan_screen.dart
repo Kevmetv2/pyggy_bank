@@ -1,15 +1,18 @@
 import 'package:barcode_scan/barcode_scan.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/qr_model.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
+import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/services/repository.dart';
+import 'package:pyggybank/widgets/progress.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code_scanner/qr_scanner_overlay_shape.dart';
 import 'package:pyggybank/models/group_model.dart';
 
-import 'group_page_build_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -17,12 +20,21 @@ class ScanScreen extends StatefulWidget {
 }
 
 class _ScanState extends State<ScanScreen> {
-  ScanResult scanResult;
-  Qr_info group_info;
-  Group new_group = italy;
+  final Group current_group;
+  _ScanState({this.current_group});
 
+  bool isLoading = false;
+  Qr_info group_info;
+  Group new_group_data ;
+  var _repository = Repository();
+  void getData() async {
+    FirebaseUser currentUser = await _repository.getCurrentUser();
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+
+  }
   @override
   initState() {
+    getData();
     scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.offset >=
@@ -55,7 +67,7 @@ class _ScanState extends State<ScanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Stack(
+    return isLoading ?Stack(
       children: <Widget>[
         Scaffold(
             appBar: new AppBar(
@@ -151,7 +163,7 @@ class _ScanState extends State<ScanScreen> {
                                     child: CircleAvatar(
                                       radius: 50,
                                       backgroundImage: NetworkImage(
-                                          new_group.groupImg),
+                                          new_group_data.groupImg),
                                     ),
                                   ),
                                   SizedBox(height: 10.0,),
@@ -161,7 +173,7 @@ class _ScanState extends State<ScanScreen> {
                                           fontSize: 20.0,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.2)),
-                                  Text(new_group.name,
+                                  Text(new_group_data.name,
                                       textAlign: TextAlign.center,
                                       style: new TextStyle(
                                           color: Colors.white60,
@@ -174,7 +186,7 @@ class _ScanState extends State<ScanScreen> {
                                           fontSize: 20.0,
                                           fontWeight: FontWeight.bold,
                                           letterSpacing: 1.2)),
-                                  Text(new_group.description,
+                                  Text(new_group_data.description,
                                       textAlign: TextAlign.center,
                                       style: new TextStyle(
                                           color: Colors.white60,
@@ -217,7 +229,7 @@ class _ScanState extends State<ScanScreen> {
           enableOnTap: true, //Enable the onTap callback for control bar.
         )
       ],
-    );
+    ):circularProgress() ;
   }
 
   @override
