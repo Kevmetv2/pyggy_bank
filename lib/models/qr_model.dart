@@ -57,9 +57,7 @@ final User james = User(
   photoUrl: 'https://i.pravatar.cc/150?img=5',
 );
  final Qr_info current_qr = Qr_info(
-  admin : james.uid,
-limit:2.0,
-groupId:"ajdoncsnf",
-     timestamp: DateTime.parse('1974-03-20 00:00:00.000')
-
-);
+  admin: james.uid,
+    limit: 2.0,
+    groupId: "1234",
+    timestamp: DateTime.parse('1974-03-20 00:00:00.000'));

@@ -7,6 +7,9 @@ import 'package:pyggybank/models/qr_model.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code_scanner/qr_scanner_overlay_shape.dart';
+import 'package:pyggybank/models/group_model.dart';
+
+import 'group_page_build_screen.dart';
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -15,17 +18,19 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanState extends State<ScanScreen> {
   ScanResult scanResult;
+  Qr_info group_info;
+  Group new_group = italy;
 
   @override
   initState() {
     scrollController = ScrollController();
     scrollController.addListener(() {
       if (scrollController.offset >=
-              scrollController.position.maxScrollExtent &&
+          scrollController.position.maxScrollExtent &&
           !scrollController.position.outOfRange) {
         panelController.expand();
       } else if (scrollController.offset <=
-              scrollController.position.minScrollExtent &&
+          scrollController.position.minScrollExtent &&
           !scrollController.position.outOfRange) {
         panelController.anchor();
       } else {}
@@ -70,6 +75,7 @@ class _ScanState extends State<ScanScreen> {
                     onQRViewCreated: _onQRViewCreate),
               ),
             ])),SlidingUpPanelWidget(
+
           child: Container(
             margin: EdgeInsets.symmetric(horizontal: 15.0),
             decoration: ShapeDecoration(
@@ -91,22 +97,15 @@ class _ScanState extends State<ScanScreen> {
               children: <Widget>[
                 Container(
                   alignment: Alignment.center,
-                  child: Row(
-                    
-                    children: <Widget>[
-                      Icon(
-                        Icons.menu,
-                        size: 30,
 
-                      ),
-                      Padding(
-                        padding: EdgeInsets.only(
-                          left: 30.0,
-                        ),
-                      ),
-                      Text(
-                        "No Group Found",
-                      )
+                  child: Row(
+
+                    children: <Widget>[
+
+                      isValid ? Text("Group Found !", style: new TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.bold)) : Text(
+                          "No Group Found", style: new TextStyle(fontSize: 18)),
+
                     ],
                     mainAxisAlignment: MainAxisAlignment.center,
                   ),
@@ -119,6 +118,85 @@ class _ScanState extends State<ScanScreen> {
                 Flexible(
                   child: Container(
 
+                      child: Column(
+
+                        children: <Widget>[
+                          SizedBox(
+                            height: 25.0,
+                          ),
+                          isValid ? Container(
+                              margin: EdgeInsets.all(2.0),
+                              height: 360.0,
+                              width: 250.0,
+                              decoration: BoxDecoration(
+                                color: Theme
+                                    .of(context)
+                                    .accentColor,
+                                borderRadius: BorderRadius.only(
+                                    topLeft: Radius.circular(30.0),
+                                    topRight: Radius.circular(30.0),
+                                    bottomLeft: Radius.circular(30.0),
+                                    bottomRight: Radius.circular(30.0)
+                                ),
+                              ),
+                              child: Column(
+
+                                mainAxisAlignment: MainAxisAlignment.center,
+
+                                children: <Widget>[
+
+                                  CircleAvatar(
+                                    radius: 52,
+                                    backgroundColor: Colors.black,
+                                    child: CircleAvatar(
+                                      radius: 50,
+                                      backgroundImage: NetworkImage(
+                                          new_group.groupImg),
+                                    ),
+                                  ),
+                                  SizedBox(height: 10.0,),
+                                  Text("Group name:",
+                                      textAlign: TextAlign.center,
+                                      style: new TextStyle(color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.2)),
+                                  Text(new_group.name,
+                                      textAlign: TextAlign.center,
+                                      style: new TextStyle(
+                                          color: Colors.white60,
+                                          fontSize: 20.0,
+                                          letterSpacing: 1.2)),
+                                  SizedBox(height: 10.0),
+                                  Text("Group Function:",
+                                      textAlign: TextAlign.center,
+                                      style: new TextStyle(color: Colors.white,
+                                          fontSize: 20.0,
+                                          fontWeight: FontWeight.bold,
+                                          letterSpacing: 1.2)),
+                                  Text(new_group.description,
+                                      textAlign: TextAlign.center,
+                                      style: new TextStyle(
+                                          color: Colors.white60,
+                                          fontSize: 20.0,
+
+                                          letterSpacing: 1.2)),
+                                  RaisedButton(onPressed: () {},
+                                    child: const Text("Join Group",
+                                        textAlign: TextAlign.center,
+                                        style: TextStyle(fontSize: 20.0,
+                                            fontWeight: FontWeight.bold,
+                                            letterSpacing: 1.2)),
+
+                                  )
+
+                                ],
+                              )
+
+                          ) : Text(
+                              "Please Scan a valid qr code to join a group"),
+                        ],
+                      )
                   ),
                 ),
               ],
@@ -164,12 +242,12 @@ class _ScanState extends State<ScanScreen> {
     final cryptor = new PlatformStringCryptor();
     final decrypted = cryptor.decrypt(components[1], key);
     unEncrypt = decrypted.toString().split(',');
-    Qr_info group_info = Qr_info(
+    group_info = new Qr_info(
         admin: unEncrypt[0],
         groupId: unEncrypt[1],
         timestamp: DateTime.parse(unEncrypt[3]),
         limit: double.tryParse(unEncrypt[2]));
-    //TODO VERIFY GROUP SITUATION IN RELATION TO APPLICATION
+    //TODO VERIFY GROUP SITUATION IN RELATION TO APPLICATION and then get back the group infomation
     isValid = true;
   }
 }

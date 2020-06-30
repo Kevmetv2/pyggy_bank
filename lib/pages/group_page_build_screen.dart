@@ -58,7 +58,7 @@ final Group italy = Group(
   name: "Vacation - Italy",
   description: "Savings goals for vacation",
   groupImg: "https://i.pravatar.cc/150?img=8",
-  groupId: "",
+  groupId: "1234",
   isFav: false,
   hasUnread: true,
 );
