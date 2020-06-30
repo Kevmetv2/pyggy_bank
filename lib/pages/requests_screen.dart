@@ -1,7 +1,13 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/request_model.dart';
+import 'package:pyggybank/models/transaction_model.dart';
+import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/services/repository.dart';
 import 'package:toast/toast.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 
 //final List<String> items = List.generate(
 //  20,
@@ -18,6 +24,25 @@ class Requests extends StatefulWidget {
 
 class _RequestsState extends State<Requests> {
   final SlidableController slidableController = SlidableController();
+  var _repository = Repository();
+
+  User currentUser;
+
+  void getData() async {
+    FirebaseUser currentUser = await _repository.getCurrentUser();
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+
+    setState(() {
+      this.currentUser = user;
+    });
+  }
+
+  @override
+  void initState() {
+    super.initState();
+    getData();
+  }
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -35,10 +60,47 @@ class _RequestsState extends State<Requests> {
                   color: Colors.green,
                   icon: Icons.check_box,
                   onTap: () {
-                    widget.requests.removeAt(index);
-                    Toast.show("Money sent!", context,
-                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
-                    setState(() {});
+                    showDialog(
+                        context: context,
+                        builder: (_) => AssetGiffyDialog(
+                              image: Image.asset(
+                                  "assets/images/pyggy_deposit.gif"),
+                              title: Text(
+                                'Success!',
+                                style: TextStyle(
+                                    fontSize: 22.0,
+                                    fontWeight: FontWeight.w600),
+                              ),
+                              description: Text(
+                                'Your funds have been sent!',
+                                textAlign: TextAlign.center,
+                                style: TextStyle(),
+                              ),
+                              entryAnimation: EntryAnimation.BOTTOM,
+                              onOkButtonPressed: () {
+                                Navigator.popUntil(
+                                    context, ModalRoute.withName('/'));
+                              },
+                            ));
+//                    Toast.show("Money sent!", context,
+//                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+                    setState(() {
+                      TransactionM transaction = new TransactionM(
+                          senderName: currentUser.displayName,
+                          category: "Request",
+                          receiverImg: currentUser.photoUrl,
+                          amount: widget.requests[index].amount,
+                          timestamp: Timestamp.now(),
+                          paymentType: true);
+                      _repository.createTransaction(
+                          transaction, widget.requests[index].groupID);
+
+                      _repository.addMoneyToGroup(
+                          widget.requests[index].groupID,
+                          widget.requests[index].amount);
+                      widget.requests.removeAt(index);
+                      //function to create a new transaction for that group too!
+                    });
                   },
                 ),
                 IconSlideAction(
@@ -63,8 +125,7 @@ class _RequestsState extends State<Requests> {
                           title: Padding(
                             padding: const EdgeInsets.only(left: 4),
                             child: Text(
-                              widget.requests[index].groupID,
-                              // should be groupId.name whenever we get it.
+                              widget.requests[index].groupName,
                               style: TextStyle(
                                   fontSize: 20, fontWeight: FontWeight.w500),
                             ),

@@ -7,6 +7,7 @@ import 'package:pyggybank/models/transaction_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/services/constants.dart';
 import 'package:pyggybank/services/repository.dart';
+import 'package:pyggybank/widgets/bank_card.dart';
 import 'package:pyggybank/widgets/progress.dart';
 import 'package:pyggybank/widgets_group/donut_card.dart';
 import 'package:pyggybank/widgets_group/donut_chart.dart';
@@ -171,7 +172,7 @@ var series = [
 //];
 
 class GroupStat extends StatefulWidget {
-  final Group group;
+  Group group;
 
   GroupStat({this.group});
 
@@ -185,14 +186,22 @@ class _GroupStatState extends State<GroupStat> {
   var _repository = new Repository();
   bool isLoading = false;
 
+  final List<BankCardModel> cards = [
+    BankCardModel(
+        'assets/images/bg_red_card.png', '', '4221 5168 7464 2283', '08/20', 0),
+  ];
+
   void getTransactions() async {
     List<TransactionM> transactions =
         await _repository.fetchAllTransactionsGroup(widget.group.groupId);
     List<User> members =
         await _repository.fetchAllMembersGroup(widget.group.groupId);
+    Group g = await _repository.groupById(
+        widget.group.groupId); // refresh after transaction goes through.
     setState(() {
       this.transactions = transactions;
       this.members = members;
+      this.widget.group = g;
     });
   }
 
@@ -201,6 +210,13 @@ class _GroupStatState extends State<GroupStat> {
     setState(() {
       isLoading = true;
     });
+  }
+
+  Widget _getBankCard(int index) {
+    return Padding(
+      padding: const EdgeInsets.all(8.0),
+      child: Center(child: BankCard(card: cards[index])),
+    );
   }
 
   @override
@@ -284,6 +300,20 @@ class _GroupStatState extends State<GroupStat> {
                 ),
                 SizedBox(
                   height: 20,
+                ),
+                Center(
+                  child: Container(
+                    margin: EdgeInsets.only(top: 20.0),
+                    child: Column(
+                      children: <Widget>[
+                        Center(
+                          child: Container(
+                            child: _getBankCard(0),
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
                 ),
                 UserInGroups(
                   users: members,

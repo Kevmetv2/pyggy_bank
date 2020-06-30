@@ -1,5 +1,5 @@
 class Group {
-  double balance;
+  var balance;
   String name;
   String description;
   String groupImg;

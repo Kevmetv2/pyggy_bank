@@ -2,14 +2,36 @@ class Request {
   String groupID;
   String userID;
   String description;
-  double amount;
+  String groupName;
+  var amount;
 
   Request({
     this.amount,
     this.description,
     this.groupID,
     this.userID,
+    this.groupName,
   });
+
+  Map toMap(Request request) {
+    var data = Map<String, dynamic>();
+
+    data['groupID'] = request.groupID;
+    data['userID'] = request.userID;
+    data['description'] = request.description;
+    data['amount'] = request.amount;
+    data['groupName'] = request.groupName;
+
+    return data;
+  }
+
+  Request.fromMap(Map<String, dynamic> mapData) {
+    this.groupID = mapData['groupID'];
+    this.description = mapData['description'];
+    this.amount = mapData['amount'];
+    this.userID = mapData['userID'];
+    this.groupName = mapData['groupName'];
+  }
 }
 
 //Request l = new Request(

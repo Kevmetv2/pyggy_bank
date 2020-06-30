@@ -86,28 +86,31 @@ class _UserInGroupsState extends State<UserInGroups> {
             ],
           ),
         ),
-        Container(
-          margin: EdgeInsets.symmetric(horizontal: 4.0),
-          height: 130.0,
-          child: ListView.builder(
-            itemBuilder: (context, index) {
-              if (index == 0) {
-                return _addButton();
-              }
-              User user = widget.users[index - 1];
-              return Padding(
-                padding: const EdgeInsets.all(12.0),
-                child: UserWidget(
-                  user: user,
-                ),
-              );
-            },
-            itemCount: widget.users.length + 1,
-            shrinkWrap: true,
-            physics: BouncingScrollPhysics(),
-            scrollDirection: Axis.horizontal,
-          ),
-        ),
+        if (widget.users != null)
+          Container(
+            margin: EdgeInsets.symmetric(horizontal: 4.0),
+            height: 130.0,
+            child: ListView.builder(
+              itemBuilder: (context, index) {
+                if (index == 0) {
+                  return _addButton();
+                }
+                User user = widget.users[index - 1];
+                return Padding(
+                  padding: const EdgeInsets.all(12.0),
+                  child: UserWidget(
+                    user: user,
+                  ),
+                );
+              },
+              itemCount: widget.users.length + 1,
+              shrinkWrap: true,
+              physics: BouncingScrollPhysics(),
+              scrollDirection: Axis.horizontal,
+            ),
+          )
+        else
+          _addButton(),
       ],
     );
   }

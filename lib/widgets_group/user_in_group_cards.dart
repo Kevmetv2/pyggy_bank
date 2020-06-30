@@ -30,13 +30,15 @@ class UserWidget extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.center,
         children: <Widget>[
           CircleAvatar(
-            backgroundImage: NetworkImage(user.photoUrl),
+            backgroundImage: user.photoUrl.isNotEmpty
+                ? NetworkImage(user.photoUrl)
+                : AssetImage('assets/images/placeholder.jpg'),
             backgroundColor: Color(0xfff1f3f5),
           ),
           Padding(
             padding: const EdgeInsets.only(top: 8.0),
             child: Text(
-              user.displayName,
+              user?.displayName,
               style: TextStyle(
                   inherit: true, fontWeight: FontWeight.w500, fontSize: 14.0),
               overflow: TextOverflow.fade,
