@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/message_model.dart';
+import 'package:pyggybank/models/request_model.dart';
 import 'package:pyggybank/models/transaction_model.dart';
 import 'package:pyggybank/models/user.dart';
 
@@ -162,7 +163,9 @@ class FirebaseProvider {
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       DocumentSnapshot s =
           await userRef.document(querySnapshot.documents[i].documentID).get();
-      friendsList.add(User.fromMap(s.data));
+      if (s.exists) {
+        friendsList.add(User.fromMap(s.data));
+      }
     }
 
     return friendsList;
@@ -180,8 +183,7 @@ class FirebaseProvider {
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       DocumentSnapshot s =
           await groupsRef.document(querySnapshot.documents[i].documentID).get();
-
-      groupsList.add(Group.fromMap(s.data));
+      if (s.exists) groupsList.add(Group.fromMap(s.data));
     }
 
     return groupsList;
@@ -200,7 +202,7 @@ class FirebaseProvider {
       DocumentSnapshot s = await transactionRef
           .document(querySnapshot.documents[i].documentID)
           .get();
-      transactionsList.add(TransactionM.fromMap(s.data));
+      if (s.exists) transactionsList.add(TransactionM.fromMap(s.data));
     }
     return transactionsList;
   }
@@ -220,6 +222,45 @@ class FirebaseProvider {
       usersList.add(User.fromMap(s.data));
     }
     return usersList;
+  }
+
+  Future<List<Request>> fetchAllUserRequests(String uid) async {
+    List<Request> requestsList = List<Request>();
+    final usersRef = Firestore.instance.collection('requests');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("user_money_requests")
+        .document(uid)
+        .collection("requests")
+        .getDocuments();
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s =
+          await usersRef.document(querySnapshot.documents[i].documentID).get();
+      requestsList.add(Request.fromMap(s.data));
+    }
+
+    return requestsList;
+  }
+
+  Future<void> addMoneyToGroup(String groupId, var amount) async {
+    final groupsRef = Firestore.instance.collection('groups');
+    DocumentSnapshot s = await groupsRef.document(groupId).get();
+    Group n = new Group.fromMap(s.data);
+    n.balance += amount;
+    groupsRef.document(groupId).setData(n.toMap(n));
+  }
+
+  Future<void> createTransaction(
+      TransactionM transaction, String groupId) async {
+    final groupsRef = Firestore.instance.collection('transactions');
+    final group_transactions_ref = Firestore.instance
+        .collection('group_transactions')
+        .document(groupId)
+        .collection('trans');
+    var documentId = await groupsRef.add(transaction.toMap(transaction));
+    var s = documentId.documentID;
+    print(documentId.documentID);
+    await group_transactions_ref.document(s).setData({});
   }
 
   Future<List<Message>> fetchAllMessagesGroup(String groupID) async {
@@ -242,7 +283,7 @@ class FirebaseProvider {
 
   Future<List<Message>> fetchAllFriendMessages(String crossID) async {
     List<Message> messagesList = List<Message>();
-
+    print(crossID);
     final messagesRef = Firestore.instance.collection('messages');
     QuerySnapshot querySnapshot = await _firestore
         .collection("user_friends_messages")
@@ -254,9 +295,25 @@ class FirebaseProvider {
       DocumentSnapshot s = await messagesRef
           .document(querySnapshot.documents[i].documentID)
           .get();
-      messagesList.add(Message.fromMap(s.data));
+      if (s.exists) {
+        messagesList.add(Message.fromMap(s.data));
+      }
     }
     return messagesList;
+  }
+
+  Future<String> groupNameById(String groupID) async {
+    final groupsRef = Firestore.instance.collection('groups');
+    DocumentSnapshot s = await groupsRef.document(groupID).get();
+    Group sp = Group.fromMap(s.data);
+    return sp.name;
+  }
+
+  Future<Group> groupById(String groupID) async {
+    final groupsRef = Firestore.instance.collection('groups');
+    DocumentSnapshot s = await groupsRef.document(groupID).get();
+    Group sp = Group.fromMap(s.data);
+    return sp;
   }
 
   Future<List<Group>> fetchAllUserGroups(String uid) async {
@@ -271,7 +328,7 @@ class FirebaseProvider {
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       DocumentSnapshot s =
           await groupsRef.document(querySnapshot.documents[i].documentID).get();
-      groupsList.add(Group.fromMap(s.data));
+      if (s.exists) groupsList.add(Group.fromMap(s.data));
     }
 
     return groupsList;

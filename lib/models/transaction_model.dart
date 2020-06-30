@@ -4,7 +4,7 @@ class TransactionM {
   String senderName;
   String category;
   String receiverImg;
-  double amount;
+  var amount;
   Timestamp timestamp;
   bool paymentType;
 

@@ -1,5 +1,11 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:giffy_dialog/giffy_dialog.dart';
 import 'package:pyggybank/models/group_model.dart';
+import 'package:pyggybank/models/transaction_model.dart';
+import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/services/repository.dart';
 
 class AddMoneyFinal extends StatefulWidget {
   final Group receiver;
@@ -243,12 +249,50 @@ class _AddMoneyFinalState extends State<AddMoneyFinal> {
     );
   }
 
+  void sendMoney() async {
+    var _repository = new Repository();
+    FirebaseUser currentUser = await _repository.getCurrentUser();
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+
+    _repository.addMoneyToGroup(
+        widget.receiver.groupId, int.parse(amountController.text));
+    TransactionM transaction = new TransactionM(
+        senderName: user.displayName,
+        category: "Request",
+        receiverImg: user.photoUrl,
+        amount: int.parse(amountController.text),
+        timestamp: Timestamp.now(),
+        paymentType: true);
+    _repository.createTransaction(transaction, widget.receiver.groupId);
+  }
+
   Widget _getSendSection() {
     return Container(
       margin: EdgeInsets.all(16.0),
       child: GestureDetector(
         onTapUp: (tapDetail) {
-          Navigator.popUntil(context, ModalRoute.withName('/'));
+          // change this
+          sendMoney();
+          // show cool gif pop up
+          showDialog(
+              context: context,
+              builder: (_) => AssetGiffyDialog(
+                    image: Image.asset("assets/images/pyggy_deposit.gif"),
+                    title: Text(
+                      'Success!',
+                      style: TextStyle(
+                          fontSize: 22.0, fontWeight: FontWeight.w600),
+                    ),
+                    description: Text(
+                      'Your funds have been sent!',
+                      textAlign: TextAlign.center,
+                      style: TextStyle(),
+                    ),
+                    entryAnimation: EntryAnimation.BOTTOM,
+                    onOkButtonPressed: () {
+                      Navigator.popUntil(context, ModalRoute.withName('/'));
+                    },
+                  ));
         },
         child: Container(
           width: double.infinity,

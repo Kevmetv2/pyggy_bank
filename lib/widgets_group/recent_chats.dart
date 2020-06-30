@@ -5,9 +5,6 @@ import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 
-final List<Message> lastMessages =
-    []; // for each friend get their most recent message and add to last Message
-
 class RecentChats extends StatefulWidget {
   final List<User> friends; // get users friends from DB
   RecentChats({this.friends});
@@ -18,7 +15,7 @@ class RecentChats extends StatefulWidget {
 
 class _RecentChatsState extends State<RecentChats> {
   User currentUser;
-
+  List<Message> messages;
   var _repository = Repository();
 
   void getData() async {
@@ -30,8 +27,26 @@ class _RecentChatsState extends State<RecentChats> {
     });
   }
 
-  Future<List<Message>> getMessages(String x) async {
-    return _repository.fetchAllFriendMessages(x);
+  Future<Null> getMessages(int index) async {
+    String x;
+    if (currentUser.uid.compareTo(widget.friends[index].uid) < 0) {
+      x = currentUser.uid + widget.friends[index].uid;
+    } else {
+      x = widget.friends[index].uid + currentUser.uid;
+    }
+    print(x);
+    messages = await _repository.fetchAllFriendMessages(x);
+    setState(() {
+      this.messages = messages;
+    });
+
+    Navigator.push(
+        context,
+        MaterialPageRoute(
+            builder: (context) => ChatScreen(
+                  user: currentUser,
+                  messages: messages,
+                )));
   }
 
   @override
@@ -42,84 +57,66 @@ class _RecentChatsState extends State<RecentChats> {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Container(
-        decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
+    if (widget.friends != null)
+      return Expanded(
+        child: Container(
+          decoration: BoxDecoration(
+            color: Colors.white,
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
           ),
-        ),
-        child: ClipRRect(
-          borderRadius: BorderRadius.only(
-            topLeft: Radius.circular(30.0),
-            topRight: Radius.circular(30.0),
-          ),
-          child: ListView.builder(
-            itemCount: widget.friends.length,
-            itemBuilder: (BuildContext context, int index) {
-//              final Message lastMessage = lastMessages[
-//                  index]; // query most recent message from DB for each friend_chat
-              return GestureDetector(
-                onTap: () async {
-                  String x;
-                  print(currentUser.uid);
-                  setState(() {
-                    if (currentUser.uid.compareTo(widget.friends[index].uid) <
-                        0) {
-                      x = currentUser.uid + widget.friends[index].uid;
-                    } else {
-                      x = widget.friends[index].uid + currentUser.uid;
-                    }
-                  });
-                  print(x);
-                  List<Message> messages = await getMessages(x);
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (_) => ChatScreen(
-                        user: currentUser,
-                        messages: messages,
+          child: ClipRRect(
+            borderRadius: BorderRadius.only(
+              topLeft: Radius.circular(30.0),
+              topRight: Radius.circular(30.0),
+            ),
+            child: ListView.builder(
+              itemCount: widget.friends.length,
+              itemBuilder: (BuildContext context, int index) {
+                return GestureDetector(
+                  onTap: () async => await getMessages(index),
+                  child: Container(
+                    margin: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 20.0),
+                    padding:
+                        EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.only(
+                        topRight: Radius.circular(20.0),
+                        bottomRight: Radius.circular(20.0),
                       ),
                     ),
-                  );
-                },
-                child: Container(
-                  margin: EdgeInsets.only(top: 5.0, bottom: 5.0, right: 20.0),
-                  padding:
-                      EdgeInsets.symmetric(horizontal: 20.0, vertical: 10.0),
-                  decoration: BoxDecoration(
-                    color: Colors.white,
-                    borderRadius: BorderRadius.only(
-                      topRight: Radius.circular(20.0),
-                      bottomRight: Radius.circular(20.0),
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: <Widget>[
-                      Row(
-                        children: <Widget>[
-                          CircleAvatar(
-                            radius: 35.0,
-                            //backgroundImage: NetworkImage(widget.friends[index].photoUrl),
-                          ),
-                          SizedBox(width: 10.0),
-                          Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: <Widget>[
-                              Text(
-                                widget.friends[index].displayName,
-                                style: TextStyle(
-                                  color: Colors.grey,
-                                  fontSize: 15.0,
-                                  fontWeight: FontWeight.bold,
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Row(
+                          children: <Widget>[
+                            CircleAvatar(
+                              radius: 35.0,
+                              backgroundImage: widget == null
+                                  ? NetworkImage(
+                                      widget?.friends[index]?.photoUrl)
+                                  : AssetImage(
+                                      'assets/images/placeholder2.jpg'),
+                            ),
+                            SizedBox(width: 10.0),
+                            Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: <Widget>[
+                                Text(
+                                  widget.friends[index].displayName,
+                                  style: TextStyle(
+                                    color: Colors.grey,
+                                    fontSize: 15.0,
+                                    fontWeight: FontWeight.bold,
+                                  ),
                                 ),
-                              ),
-                              SizedBox(height: 5.0),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.45,
+                                SizedBox(height: 5.0),
+                                Container(
+                                  width:
+                                      MediaQuery.of(context).size.width * 0.45,
 //                                child: Text(
 //                                  lastMessage.text,
 //                                  style: TextStyle(
@@ -129,13 +126,13 @@ class _RecentChatsState extends State<RecentChats> {
 //                                  ),
 //                                  overflow: TextOverflow.ellipsis,
 //                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: <Widget>[
+                                ),
+                              ],
+                            ),
+                          ],
+                        ),
+                        Column(
+                          children: <Widget>[
 //                          Text(
 //                            '$lastMessage.time.toDate().hour' +
 //                                ':' +
@@ -146,17 +143,17 @@ class _RecentChatsState extends State<RecentChats> {
 //                              fontWeight: FontWeight.bold,
 //                            ),
 //                          ),
-                          SizedBox(height: 5.0),
-                        ],
-                      ),
-                    ],
+                            SizedBox(height: 5.0),
+                          ],
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              );
-            },
+                );
+              },
+            ),
           ),
         ),
-      ),
-    );
+      );
   }
 }
