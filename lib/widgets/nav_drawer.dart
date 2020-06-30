@@ -53,11 +53,17 @@ class NavDrawer extends StatelessWidget {
                     color: Colors.white),
               ),
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () => {
+//              onTap: () => {
+//                Navigator.push(
+//                    context,
+//                    MaterialPageRoute(
+//                        builder: (context) => UserProfileScreen()))
+//              },
+              onTap: () {
                 Navigator.push(
                     context,
                     MaterialPageRoute(
-                        builder: (context) => UserProfileScreen()))
+                        builder: (context) => UserProfileScreen()));
               },
             ),
             ListTile(

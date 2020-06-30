@@ -27,7 +27,6 @@ class _RequestsState extends State<Requests> {
       child: ListView.builder(
         itemCount: widget.requests.length,
         itemBuilder: (context, index) {
-          final item = widget.requests[index];
           return Slidable(
               key: ValueKey(index),
               actionPane: SlidableDrawerActionPane(),

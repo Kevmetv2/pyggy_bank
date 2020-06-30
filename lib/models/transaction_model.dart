@@ -1,8 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 class TransactionM {
-  String receiverID;
-  String senderID;
+  String senderName;
   String category;
   String receiverImg;
   double amount;
@@ -13,8 +12,7 @@ class TransactionM {
   // payment true  is receiving money i.e positive
 
   TransactionM({
-    this.receiverID,
-    this.senderID,
+    this.senderName,
     this.category,
     this.receiverImg,
     this.amount,
@@ -24,8 +22,8 @@ class TransactionM {
 
   Map toMap(TransactionM transaction) {
     var data = Map<String, dynamic>();
-    data['receiverID'] = transaction.receiverID;
-    data['senderID'] = transaction.senderID;
+
+    data['senderName'] = transaction.senderName;
     data['category'] = transaction.category;
     data['receiverImg'] = transaction.receiverImg;
     data['amount'] = transaction.amount;
@@ -35,10 +33,9 @@ class TransactionM {
   }
 
   TransactionM.fromMap(Map<String, dynamic> mapData) {
-    this.receiverID = mapData['uid'];
-    this.senderID = mapData['email'];
-    this.category = mapData['photoUrl'];
-    this.receiverImg = mapData['displayName'];
+    this.senderName = mapData['senderName'];
+    this.category = mapData['category'];
+    this.receiverImg = mapData['receiverImg'];
     this.amount = mapData['amount'];
     this.timestamp = mapData['timestamp'];
     this.paymentType = mapData['paymentType'];
