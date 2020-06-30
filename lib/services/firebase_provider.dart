@@ -43,7 +43,22 @@ class FirebaseProvider {
         (await _auth.signInWithCredential(credential)).user;
     return user;
   }
-
+  Future<bool> authenticateQR(gid,uid)async{
+    final QuerySnapshot result = await _firestore
+        .collection("group_members")
+    .where("members", isEqualTo: uid).getDocuments();
+    final QuerySnapshot gresult = await _firestore
+    .collection("groups")
+    .where("groupId", isEqualTo: gid)
+    .getDocuments();
+    final List<DocumentSnapshot> docs = result.documents;
+    final List<DocumentSnapshot> docs2 = gresult.documents;
+    if(docs.length ==1 && docs2.length ==1){
+      return true;
+    }else{
+      return false;
+    }
+  }
   Future<bool> authenticateUser(FirebaseUser user) async {
     print("Inside authenticateUser");
     final QuerySnapshot result = await _firestore
@@ -85,6 +100,11 @@ class FirebaseProvider {
         .setData(user.toMap(user));
   }
 
+  Future<void> addtoGroup(gid,uid){
+    return _firestore
+        .collection("group_members")
+        .document(gid).collection("members").document(uid).setData({});
+  }
   Future<void> signUpUser(context, name, email, password) async {
     try {
       AuthResult authResult = await _auth.createUserWithEmailAndPassword(

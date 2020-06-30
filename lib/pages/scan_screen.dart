@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:pyggybank/models/qr_model.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/pages/user_profile_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -24,12 +25,13 @@ class _ScanState extends State<ScanScreen> {
   _ScanState({this.current_group});
 
   bool isLoading = false;
+
   Qr_info group_info;
   Group new_group_data ;
   var _repository = Repository();
   void getData() async {
     FirebaseUser currentUser = await _repository.getCurrentUser();
-    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+
 
   }
   @override
@@ -67,7 +69,7 @@ class _ScanState extends State<ScanScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return isLoading ?Stack(
+    return Stack(
       children: <Widget>[
         Scaffold(
             appBar: new AppBar(
@@ -205,8 +207,8 @@ class _ScanState extends State<ScanScreen> {
                                 ],
                               )
 
-                          ) : Text(
-                              "Please Scan a valid qr code to join a group"),
+                          ) :(isLoading?circularProgress(): Text(
+                              "Please Scan a valid qr code to join a group")),
                         ],
                       )
                   ),
@@ -229,7 +231,7 @@ class _ScanState extends State<ScanScreen> {
           enableOnTap: true, //Enable the onTap callback for control bar.
         )
       ],
-    ):circularProgress() ;
+    );
   }
 
   @override
@@ -248,18 +250,35 @@ class _ScanState extends State<ScanScreen> {
     });
   }
 
-  void _filter_data() {
+  void _filter_data() async{
     components = qrtext.split(',');
     final key = components[0];
     final cryptor = new PlatformStringCryptor();
     final decrypted = cryptor.decrypt(components[1], key);
     unEncrypt = decrypted.toString().split(',');
+    setState(() {
+      isLoading = true;
+
+    });
+
     group_info = new Qr_info(
         admin: unEncrypt[0],
         groupId: unEncrypt[1],
-        timestamp: DateTime.parse(unEncrypt[3]),
-        limit: double.tryParse(unEncrypt[2]));
-    //TODO VERIFY GROUP SITUATION IN RELATION TO APPLICATION and then get back the group infomation
-    isValid = true;
+        timestamp: DateTime.parse(unEncrypt[3]));
+    _repository.authenticateGroup(group_info.groupId, group_info.admin).then((value) {
+      if(value){
+        /// ADD TO GROUP
+        _repository.addtoGroup(group_info.groupId, currentUser.uid);
+
+      }else{
+
+      }
+    });
+
+   setState(() {
+     isValid = true;
+     isLoading = false;
+
+   });
   }
 }

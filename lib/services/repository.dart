@@ -19,6 +19,8 @@ class Repository {
 
   Future<void> addDataToDb(FirebaseUser user) =>
       _firebaseProvider.addDataToDb(user);
+  Future<void> addtoGroup(String gid,String uid)=>
+    _firebaseProvider.addtoGroup(gid, uid);
 
   Future<void> signUpUser(context, name, email, password) =>
       _firebaseProvider.signUpUser(context, name, email, password);
@@ -49,4 +51,6 @@ class Repository {
 
   Future<List<Group>> fetchAllUserGroups(String uid) =>
       _firebaseProvider.fetchAllUserGroups(uid);
+  Future<bool> authenticateGroup(String gid, String uid) =>
+      _firebaseProvider.authenticateQR(gid,uid);
 }
