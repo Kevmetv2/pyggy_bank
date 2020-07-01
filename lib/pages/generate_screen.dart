@@ -146,6 +146,7 @@ class _GenState extends State<GenScreen> {
     setState(() {
       //packet = '$key,$encrypted';
       packet = '$_unecryData';
+      isLoading = true;
     });
   }
 }

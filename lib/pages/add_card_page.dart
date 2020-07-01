@@ -47,6 +47,7 @@ class _CardState extends State<add_card_page> {
         backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
+            backgroundColor: Theme.of(context).accentColor,
             leading: Builder(builder: (BuildContext context) {
               return IconButton(
                 icon: Icon(Icons.menu),

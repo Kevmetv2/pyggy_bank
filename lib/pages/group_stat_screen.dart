@@ -103,6 +103,7 @@ class _GroupStatState extends State<GroupStat> {
         ? Scaffold(
             backgroundColor: Theme.of(context).accentColor,
             appBar: AppBar(
+              backgroundColor: Theme.of(context).accentColor,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 iconSize: 30.0,

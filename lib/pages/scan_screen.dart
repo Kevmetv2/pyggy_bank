@@ -246,6 +246,7 @@ class _ScanState extends State<ScanScreen> {
   }
 
   void _filter_data() async{
+    print("stage 1 complete");
     components = qrtext.split(',');
     // final key = components[0];
     //   final cryptor = new PlatformStringCryptor();
@@ -255,8 +256,7 @@ class _ScanState extends State<ScanScreen> {
       isLoading = true;
     });
 
-    group_info = new Qr_info(
-        admin: components[0],
+    group_info = new Qr_info(admin: components[0],
         groupId: components[1]
     );
     _repository.authenticateGroup(group_info.groupId, group_info.admin).then((
@@ -271,10 +271,9 @@ class _ScanState extends State<ScanScreen> {
       }
     });
 
-   setState(() {
-     isValid = true;
-     isLoading = false;
-
-   });
+    setState(() {
+      isValid = true;
+      isLoading = false;
+    });
   }
 }

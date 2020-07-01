@@ -16,7 +16,7 @@ class UserProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: AppBar(leading: Builder(
-          builder: (BuildContext context) {
+            builder: (BuildContext context) {
             return IconButton(
               icon: Icon(Icons.menu),
               iconSize: 30.0,
@@ -26,9 +26,13 @@ class UserProfileScreen extends StatelessWidget {
               },
             );
           },
-        )),
+        ), backgroundColor: Theme
+            .of(context)
+            .accentColor,),
         drawer: NavDrawer(),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme
+            .of(context)
+            .accentColor,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,

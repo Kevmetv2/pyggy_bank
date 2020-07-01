@@ -3,7 +3,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/add_payment_page.dart';
-import 'package:pyggybank/pages/help_screen.dart';
 import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/pages/user_profile_screen.dart';
@@ -34,7 +33,6 @@ class _NavDrawer extends State<NavDrawer> {
     });
   }
 
-  }
   @override
   void initState() {
     getData();

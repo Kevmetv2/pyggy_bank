@@ -46,11 +46,14 @@ class _PaymentState extends State<payment_page> {
     List<card_bank> userCards = await _repository.fetchCard(currentUser.uid);
     setState(() {
       this.card = userCards;
-      if (card.length > 0) {
-        isempty = false;
-      }
-      print("test");
+      print("---");
       print(card.length);
+      if (card.length > 0) {
+        setState(() {
+          isempty = false;
+        });
+        print(isempty);
+      }
     });
   }
 
@@ -58,24 +61,27 @@ class _PaymentState extends State<payment_page> {
   Widget build(BuildContext context) {
     return isLoading
         ? Scaffold(
-            backgroundColor: Theme.of(context).primaryColor,
-            appBar: AppBar(
-                leading: Builder(builder: (BuildContext context) {
-                  return IconButton(
-                    icon: Icon(Icons.menu),
-                    iconSize: 30.0,
-                    color: Colors.white,
-                    onPressed: () {
-                      Scaffold.of(context).openDrawer();
-                    },
-                  );
-                }),
-                title: Center(
-                  child: SvgPicture.asset(
-                    'assets/images/word pyggybank.svg',
-                    height: 40,
-                  ),
-                )),
+        backgroundColor: Colors.white,
+        appBar: AppBar(
+            backgroundColor: Theme
+                .of(context)
+                .accentColor,
+            leading: Builder(builder: (BuildContext context) {
+              return IconButton(
+                icon: Icon(Icons.menu),
+                iconSize: 30.0,
+                color: Colors.white,
+                onPressed: () {
+                  Scaffold.of(context).openDrawer();
+                },
+              );
+            }),
+            title: Center(
+              child: SvgPicture.asset(
+                'assets/images/word pyggybank.svg',
+                height: 40,
+              ),
+            )),
             drawer: NavDrawer(),
             body: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -91,7 +97,7 @@ class _PaymentState extends State<payment_page> {
                           textAlign: TextAlign.center,
                           style: TextStyle(
                               fontSize: 24.0,
-                              color: Colors.white,
+                              color: Colors.black,
                               fontWeight: FontWeight.bold),
                         ),
                       ),
@@ -102,7 +108,7 @@ class _PaymentState extends State<payment_page> {
                   height: 30,
                   width: 200,
                   child: Divider(
-                    color: Colors.white,
+                    color: Colors.black38,
                   ),
                 ),
                 isempty
@@ -114,7 +120,7 @@ class _PaymentState extends State<payment_page> {
                               Text("No cards have been added",
                                   style: TextStyle(
                                       fontSize: 24.0,
-                                      color: Colors.white60,
+                                      color: Colors.black,
                                       fontWeight: FontWeight.bold)),
                               SizedBox(height: 20.0),
                               _addbutton()
