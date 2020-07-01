@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:pyggybank/models/card_bank_model.dart';
+import 'package:pyggybank/models/card_model.dart';
 import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/request_model.dart';
@@ -21,7 +22,6 @@ class Repository {
 
   Future<void> addDataToDb(FirebaseUser user) =>
       _firebaseProvider.addDataToDb(user);
-
   Future<void> addtoGroup(String gid, String uid) =>
       _firebaseProvider.addtoGroup(gid, uid);
 
@@ -52,6 +52,9 @@ class Repository {
   Future<void> createTransaction(TransactionM transaction, String groupID) =>
       _firebaseProvider.createTransaction(transaction, groupID);
 
+  Future<List<Cards>> getGroupCard(String groupId) =>
+      _firebaseProvider.getGroupCard(groupId);
+
   Future<List<TransactionM>> fetchAllTransactionsGroup(String groupID) =>
       _firebaseProvider.fetchAllTransactionsGroup(groupID);
 
@@ -72,7 +75,6 @@ class Repository {
 
   Future<List<Group>> fetchAllUserGroups(String uid) =>
       _firebaseProvider.fetchAllUserGroups(uid);
-
   Future<bool> authenticateGroup(String gid, String uid) =>
       _firebaseProvider.authenticateQR(gid, uid);
 

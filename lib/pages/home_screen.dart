@@ -12,59 +12,17 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
-//  var _repository = Repository();
-//  User currentUser;
-  @override
-  void initState() {
-    super.initState();
-//    testingDB();
-  }
-
-//  void testingDB() async {
-//    FirebaseUser currentUser = await _repository.getCurrentUser();
-//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
-//
-//    setState(() {
-//      this.currentUser = user;
-//    });
-//    // Test complete
-//
-//    //List<User> friends = await _repository.fetchAllUserFriends(currentUser.uid);
-//    //    print(friends[0].displayName);
-//    //    print(friends[1].displayName);
-//
-//    // Test complete
-//
-//    //List<Group> groups = await _repository.fetchAllUserGroups(currentUser.uid);
-//    //print(groups[0].name);
-//
-//    // Test complete
-//
-//    //    List<Group> groups =
-//    //        await _repository.fetchAllUserFavGroups(currentUser.uid);
-//    //    print(groups[0].name);
-//
-//    print(user.displayName);
-//  }
-
   final List<Widget> _children = [
     GroupScreenBuild(),
+   // PlaceHolderWidget(Colors.redAccent),
     ScanScreen(),
     //PlaceHolderWidget(Colors.green),
     AddMoney(),
+//    PlaceHolderWidget(Colors.pink)
   ];
 
   int _page = 0;
-//  void getData() async {
-//    FirebaseUser currentUser = await _repository.getCurrentUser();
-//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
-//    setState(() {
-//      this.currentUser = user;
-//    });
-//  }
 
   void navigationTapped(int page) {
     //Animating Page
@@ -82,7 +40,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-
   }
 
   @override
