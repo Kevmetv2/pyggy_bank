@@ -102,11 +102,34 @@ class FirebaseProvider {
         .setData(user.toMap(user));
   }
 
-  Future<void> addtoGroup(gid,uid){
-    return _firestore
+  Future<void> addtoGroup(gid, uid) async {
+    final group_ref = await _firestore
         .collection("group_members")
-        .document(gid).collection("members").document(uid).setData({});
+        .document(gid)
+        .collection("members");
+    final QuerySnapshot result = await _firestore
+        .collection("group_members")
+        .document(gid)
+        .collection("members")
+        .getDocuments();
+    final userRef = Firestore.instance.collection('user_groups');
+    List<User> inGroupList = List<User>();
+    final User_group_ref = _firestore
+        .collection("user_groups")
+        .document(uid)
+        .collection("user_group_relations");
+    for (var i = 0; i < result.documents.length; i++) {
+      DocumentSnapshot s =
+          await userRef.document(result.documents[i].documentID).get();
+      if (s.exists) {
+        inGroupList.add(User.fromMap(s.data));
+      }
+    }
+    if (inGroupList.length == 0) (await group_ref.document(uid).setData({}));
+    if (inGroupList.length == 0)
+      (await User_group_ref.document(gid).setData({}));
   }
+
   Future<void> signUpUser(context, name, email, password) async {
     try {
       AuthResult authResult = await _auth.createUserWithEmailAndPassword(

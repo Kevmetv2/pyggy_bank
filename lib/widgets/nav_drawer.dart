@@ -112,18 +112,6 @@ class _NavDrawer extends State<NavDrawer> {
                         )));
               },
             ),
-            ListTile(
-              leading: Icon(Icons.contacts),
-              title: Text(
-                'Contacts',
-                style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
                   ListTile(
               leading: Icon(Icons.credit_card),
               title: Text(
