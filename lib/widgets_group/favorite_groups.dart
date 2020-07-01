@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/models/group_model.dart';
+import 'package:pyggybank/pages/add_new_group.dart';
 import 'package:pyggybank/pages/group_stat_screen.dart';
 
 class FavoriteGroups extends StatelessWidget {
@@ -70,7 +71,14 @@ class FavoriteGroups extends StatelessWidget {
                         ],
                       ),
                     ),
-                    onTap: () {},
+                    onTap: () {Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => AddNewGroup(),
+
+                      ),
+                    );
+                    },
                   );
                 }
                 return GestureDetector(
