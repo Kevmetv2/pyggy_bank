@@ -17,61 +17,17 @@ class HomeScreen extends StatefulWidget {
   _HomeScreenState createState() => _HomeScreenState();
 }
 
-
-
 class _HomeScreenState extends State<HomeScreen> {
-//  var _repository = Repository();
-//  User currentUser;
-  @override
-  void initState() {
-    super.initState();
-//    testingDB();
-  }
-
-//  void testingDB() async {
-//    FirebaseUser currentUser = await _repository.getCurrentUser();
-//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
-//
-//    setState(() {
-//      this.currentUser = user;
-//    });
-//    // Test complete
-//
-//    //List<User> friends = await _repository.fetchAllUserFriends(currentUser.uid);
-//    //    print(friends[0].displayName);
-//    //    print(friends[1].displayName);
-//
-//    // Test complete
-//
-//    //List<Group> groups = await _repository.fetchAllUserGroups(currentUser.uid);
-//    //print(groups[0].name);
-//
-//    // Test complete
-//
-//    //    List<Group> groups =
-//    //        await _repository.fetchAllUserFavGroups(currentUser.uid);
-//    //    print(groups[0].name);
-//
-//    print(user.displayName);
-//  }
-
   final List<Widget> _children = [
     GroupScreenBuild(),
     PlaceHolderWidget(Colors.redAccent),
     ScanScreen(),
     //PlaceHolderWidget(Colors.green),
     AddMoney(),
-    PlaceHolderWidget(Colors.pink)
+//    PlaceHolderWidget(Colors.pink)
   ];
 
   int _page = 0;
-//  void getData() async {
-//    FirebaseUser currentUser = await _repository.getCurrentUser();
-//    User user = await _repository.fetchUserDetailsById(currentUser.uid);
-//    setState(() {
-//      this.currentUser = user;
-//    });
-//  }
 
   void navigationTapped(int page) {
     //Animating Page
@@ -89,7 +45,6 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   void dispose() {
     super.dispose();
-
   }
 
   @override
@@ -120,11 +75,11 @@ class _HomeScreenState extends State<HomeScreen> {
                   color: (_page == 3) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.star,
-                  color: (_page == 4) ? Colors.black : Colors.grey),
-              title: new Container(height: 0.0),
-              backgroundColor: Colors.white),
+//          new BottomNavigationBarItem(
+//              icon: new Icon(Icons.star,
+//                  color: (_page == 4) ? Colors.black : Colors.grey),
+//              title: new Container(height: 0.0),
+//              backgroundColor: Colors.white),
         ],
         onTap: navigationTapped,
         currentIndex: _page,

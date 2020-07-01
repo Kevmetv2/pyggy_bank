@@ -9,11 +9,6 @@ import 'package:pyggybank/services/repository.dart';
 import 'package:toast/toast.dart';
 import 'package:giffy_dialog/giffy_dialog.dart';
 
-//final List<String> items = List.generate(
-//  20,
-//  (i) => "hi $i",
-//);
-
 class Requests extends StatefulWidget {
   final List<Request> requests;
   Requests({this.requests});
@@ -82,8 +77,7 @@ class _RequestsState extends State<Requests> {
                                     context, ModalRoute.withName('/'));
                               },
                             ));
-//                    Toast.show("Money sent!", context,
-//                        duration: Toast.LENGTH_LONG, gravity: Toast.BOTTOM);
+
                     setState(() {
                       TransactionM transaction = new TransactionM(
                           senderName: currentUser.displayName,

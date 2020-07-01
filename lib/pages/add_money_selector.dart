@@ -20,53 +20,6 @@ class _AddMoneyState extends State<AddMoney> {
   var _repository = Repository();
   User currentUser;
 
-//  List<ReceiverModel> receivers = [
-//    // should be a list of groups
-//    ReceiverModel('Salina', '0937110938', '1234 0000 0099 0909'),
-//    ReceiverModel('Emily', '0937110938', '1234 0000 0099 0909'),
-//    ReceiverModel('Nichole', '0937110938', '1234 0000 0099 0909'),
-//    ReceiverModel('Jane', '0937110938', '1234 0000 0099 0909'),
-//    ReceiverModel('Robert', '0937110938', '5678 0000 0099 0909'),
-//  ];
-
-//  List<Group> groups = [
-//    Group(
-//      balance: 1490.92,
-//      name: "San Jose - Soup Kitchen",
-//      description: "Volunteering fund to help those in the area.",
-//      groupImg: "https://i.pravatar.cc/150?img=10",
-//      groupId: "",
-//      isFav: false,
-//      hasUnread: false,
-//    ),
-//    Group(
-//      balance: 1490.92,
-//      name: "test 2",
-//      description: "Volunteering fund to help those in the area.",
-//      groupImg: "https://i.pravatar.cc/150?img=10",
-//      groupId: "",
-//      isFav: false,
-//      hasUnread: false,
-//    ),
-//    Group(
-//      balance: 1490.92,
-//      name: "test1",
-//      description: "Volunteering fund to help those in the area.",
-//      groupImg: "https://i.pravatar.cc/150?img=10",
-//      groupId: "",
-//      isFav: false,
-//      hasUnread: false,
-//    ),
-//    Group(
-//      balance: 1490.92,
-//      name: "other",
-//      description: "Volunteering fund to help those in the area.",
-//      groupImg: "https://i.pravatar.cc/150?img=10",
-//      groupId: "",
-//      isFav: false,
-//      hasUnread: false,
-//    )
-//  ];
   List<Group> groups = []; // get all the groups from the DB.
   List<Group> searchResults = [];
 
@@ -111,10 +64,7 @@ class _AddMoneyState extends State<AddMoney> {
                       child: Row(
                         children: <Widget>[
                           IconButton(
-                              icon: Icon(Icons.arrow_back),
-                              onPressed: () {
-                                Navigator.of(context).pop();
-                              }),
+                              icon: Icon(Icons.arrow_back), onPressed: () {}),
                           Text(
                             'Move Money',
                             style: TextStyle(

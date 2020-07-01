@@ -278,9 +278,6 @@ class _SignUpScreenState extends State<SignUpScreen> {
                                           return "Enter a valid name";
                                         return null;
                                       },
-//                                      => input.trim().isEmpty
-//                                          ? 'Please enter a valid name'
-//                                          : null,
                                       onSaved: (input) => _name = input,
                                       keyboardType: TextInputType.emailAddress,
                                       style: TextStyle(

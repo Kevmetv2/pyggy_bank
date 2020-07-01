@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pyggybank/models/card_model.dart';
 import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/request_model.dart';
@@ -11,12 +12,8 @@ class FirebaseProvider {
   final FirebaseAuth _auth = FirebaseAuth.instance;
   final Firestore _firestore = Firestore.instance;
   User user;
-//  Post post;
-//  Like like;
-//  Message _message;
-//  Comment comment;
+
   final GoogleSignIn _googleSignIn = GoogleSignIn();
-//  StorageReference _storageReference;
 
   Future<FirebaseUser> getCurrentUser() async {
     FirebaseUser currentUser;
@@ -44,22 +41,25 @@ class FirebaseProvider {
         (await _auth.signInWithCredential(credential)).user;
     return user;
   }
-  Future<bool> authenticateQR(gid,uid)async{
+
+  Future<bool> authenticateQR(gid, uid) async {
     final QuerySnapshot result = await _firestore
         .collection("group_members")
-    .where("members", isEqualTo: uid).getDocuments();
+        .where("members", isEqualTo: uid)
+        .getDocuments();
     final QuerySnapshot gresult = await _firestore
-    .collection("groups")
-    .where("groupId", isEqualTo: gid)
-    .getDocuments();
+        .collection("groups")
+        .where("groupId", isEqualTo: gid)
+        .getDocuments();
     final List<DocumentSnapshot> docs = result.documents;
     final List<DocumentSnapshot> docs2 = gresult.documents;
-    if(docs.length ==1 && docs2.length ==1){
+    if (docs.length == 1 && docs2.length == 1) {
       return true;
-    }else{
+    } else {
       return false;
     }
   }
+
   Future<bool> authenticateUser(FirebaseUser user) async {
     print("Inside authenticateUser");
     final QuerySnapshot result = await _firestore
@@ -77,13 +77,6 @@ class FirebaseProvider {
   }
 
   Future<void> addDataToDb(FirebaseUser currentUser) async {
-//    print("Inside addDataToDb Method");
-//
-//    _firestore
-//        .collection("display_names")
-//        .document(currentUser.displayName)
-//        .setData({'displayName': currentUser.displayName});
-
     user = User(
       uid: currentUser.uid,
       email: currentUser.email,
@@ -91,21 +84,21 @@ class FirebaseProvider {
       photoUrl: currentUser.photoUrl,
     );
 
-    //  Map<String, String> mapdata = Map<String, dynamic>();
-
-    //  mapdata = user.toMap(user);
-
     return _firestore
         .collection("users")
         .document(currentUser.uid)
         .setData(user.toMap(user));
   }
 
-  Future<void> addtoGroup(gid,uid){
+  Future<void> addtoGroup(gid, uid) {
     return _firestore
         .collection("group_members")
-        .document(gid).collection("members").document(uid).setData({});
+        .document(gid)
+        .collection("members")
+        .document(uid)
+        .setData({});
   }
+
   Future<void> signUpUser(context, name, email, password) async {
     try {
       AuthResult authResult = await _auth.createUserWithEmailAndPassword(
@@ -219,7 +212,9 @@ class FirebaseProvider {
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       DocumentSnapshot s =
           await usersRef.document(querySnapshot.documents[i].documentID).get();
-      usersList.add(User.fromMap(s.data));
+      if (s.exists) {
+        usersList.add(User.fromMap(s.data));
+      }
     }
     return usersList;
   }
@@ -257,10 +252,47 @@ class FirebaseProvider {
         .collection('group_transactions')
         .document(groupId)
         .collection('trans');
+
     var documentId = await groupsRef.add(transaction.toMap(transaction));
     var s = documentId.documentID;
     print(documentId.documentID);
     await group_transactions_ref.document(s).setData({});
+  }
+
+//  Future<void> addCardtodb(cardNo, holder, ccv_, expiry,uid) async{
+//    final cardsRef = _firestore.collection("cards");
+//    final user_cards_ref =  _firestore.collection("user_cards").document(uid).collection("cards");
+//    try {
+//      card_bank card = new card_bank(
+//          cardnumber: cardNo,
+//          ccv: ccv,
+//          expiration: expiry,
+//          cardholder: holder
+//      );
+//
+//
+//      var documentId = await cardsRef.add(card.toMap(card));
+//      var s = documentId.documentID;
+//      await user_cards_ref.document(s).setData({});
+//    }catch(e){
+//      print(e);
+//    }
+//  }
+  Future<List<Cards>> getGroupCard(String groupId) async {
+    List<Cards> messagesList = List<Cards>();
+    final messagesRef = Firestore.instance.collection('cards');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("group_cards")
+        .document(groupId)
+        .collection("card")
+        .getDocuments();
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s = await messagesRef
+          .document(querySnapshot.documents[i].documentID)
+          .get();
+      if (s.exists) messagesList.add(Cards.fromMap(s.data));
+    }
+    return messagesList;
   }
 
   Future<List<Message>> fetchAllMessagesGroup(String groupID) async {
@@ -276,7 +308,7 @@ class FirebaseProvider {
       DocumentSnapshot s = await messagesRef
           .document(querySnapshot.documents[i].documentID)
           .get();
-      messagesList.add(Message.fromMap(s.data));
+      if (s.exists) messagesList.add(Message.fromMap(s.data));
     }
     return messagesList;
   }
