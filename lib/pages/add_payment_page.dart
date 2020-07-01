@@ -44,11 +44,10 @@ class _PaymentState extends State<payment_page> {
 
   void getLists() async {
     List<card_bank> userCards = await _repository.fetchCard(currentUser.uid);
-    print(userCards[0]);
     setState(() {
       this.card = userCards;
       if (card.length > 0) {
-        //isempty = false;
+        isempty = false;
       }
       print("test");
       print(card.length);
@@ -112,50 +111,85 @@ class _PaymentState extends State<payment_page> {
                         child: Column(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: <Widget>[
-                            Text("No cards have been added",
-                                style: TextStyle(
-                                    fontSize: 24.0,
-                                    color: Colors.white60,
-                                    fontWeight: FontWeight.bold)),
-                            SizedBox(height: 20.0),
-                            _addbutton()
-                          ],
-                        ),
-                      )
-                    : Card(
-                        margin: EdgeInsets.all(10.0),
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(11.0))),
-                        child: Padding(
-                          padding: const EdgeInsets.symmetric(vertical: 16.0),
-                          child: ListView.builder(
-                              itemCount: card.length,
-                              shrinkWrap: true,
-                              physics: ScrollPhysics(),
-                              itemBuilder: (BuildContext context, int index) {
-                                return _getBankCard(index);
-                              }),
-                        ),
-                      ),
-              ],
-            ),
-          )
+                              Text("No cards have been added",
+                                  style: TextStyle(
+                                      fontSize: 24.0,
+                                      color: Colors.white60,
+                                      fontWeight: FontWeight.bold)),
+                              SizedBox(height: 20.0),
+                              _addbutton()
+                            ],
+                          ),
+                        )
+                      : Container(
+                          child: Column(
+                            children: <Widget>[
+                              Card(
+                                margin: EdgeInsets.all(10.0),
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.all(
+                                        Radius.circular(11.0))),
+                                child: Padding(
+                                  padding: const EdgeInsets.symmetric(
+                                      vertical: 16.0),
+                                  child: ListView.builder(
+                                      itemCount: card.length,
+                                      shrinkWrap: true,
+                                      physics: ScrollPhysics(),
+                                      itemBuilder:
+                                          (BuildContext context, int index) {
+                                        return _getBankCard(index);
+                                      }),
+                                ),
+                              ),
+                              SizedBox(
+                                height: 20.0,
+                              ),
+                              _addbutton()
+                            ],
+                          ),
+                        )
+                ]))
         : circularProgress();
   }
 
   Widget _getBankCard(int index) {
-    card_bank current_c = card[0];
-
+    card_bank current_c = card[index];
+    print(current_c.cardholder);
+    print(current_c.expiration);
     return Container(
       margin: EdgeInsets.symmetric(horizontal: 16.0),
       child: Row(
         children: <Widget>[
+
           Expanded(
               child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text('XXXX XXXX XXXX ', style: TextStyle(fontSize: 18.0)),
-          ))
+                  padding: const EdgeInsets.all(8.0),
+                  child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: <Widget>[
+                        Text('XXXX XXXX XXXX ' +
+                            current_c.card_number.substring(15),
+                            style: TextStyle(
+                                fontSize: 20.0, fontWeight: FontWeight.bold)),
+                        Text('Expiration Date' + current_c.expiration,
+                            style: TextStyle(fontSize: 18.0)),
+                        Text('Card Holder: ' + current_c.cardholder,
+                            style: TextStyle(fontSize: 18.0)),
+                        if(index != card.length)(
+                            SizedBox(
+                              height: 30,
+                              width: 200,
+                              child: Divider(
+                                color: Colors.black,
+                              ),
+                            )
+                        ),
+
+
+                      ]
+
+                  )))
           //child:Text(card[index].),
         ],
       ),
@@ -172,6 +206,6 @@ class _PaymentState extends State<payment_page> {
               Navigator.push(context,
                   MaterialPageRoute(builder: (context) => add_card_page()));
             },
-            child: new Text('Add cards')));
+            child: new Text('Add a card')));
   }
 }

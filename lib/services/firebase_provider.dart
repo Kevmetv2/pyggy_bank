@@ -172,13 +172,13 @@ class FirebaseProvider {
     final userRef = Firestore.instance.collection('cards');
     QuerySnapshot querySnapshot = await _firestore
         .collection("user_cards")
-        .document(
-        '5fvXoPckSENfJcaCG62KzJ12vPs2').collection("cards").getDocuments();
-
+        .document(uid)
+        .collection("cards")
+        .getDocuments();
 
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       DocumentSnapshot s =
-      await userRef.document(querySnapshot.documents[i].documentID).get();
+          await userRef.document(querySnapshot.documents[i].documentID).get();
       if (s.exists) {
         cardList.add(card_bank.fromMap(s.data));
       }

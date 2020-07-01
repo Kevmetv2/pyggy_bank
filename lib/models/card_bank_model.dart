@@ -14,7 +14,7 @@ class card_bank {
   Map toMap(card_bank card) {
     var data = Map<String, dynamic>();
     data['card_number'] = card.card_number;
-    data['cardHolder'] = card.cardholder;
+    data['cardholder'] = card.cardholder;
     data['expriation'] = card.expiration;
     data['ccv'] = card.ccv;
     return data;
@@ -23,7 +23,7 @@ class card_bank {
   card_bank.fromMap(Map<String, dynamic> mapData) {
     this.card_number = mapData['card_number'];
     this.cardholder = mapData['cardholder'];
-    this.expiration = mapData['expriation'];
+    this.expiration = mapData['expiration'];
     this.ccv = mapData['ccv'];
   }
 }

@@ -44,7 +44,7 @@ class _CardState extends State<add_card_page> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Colors.white,
         resizeToAvoidBottomInset: true,
         appBar: AppBar(
             leading: Builder(builder: (BuildContext context) {
