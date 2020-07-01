@@ -1,11 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
 
 class ChatScreen extends StatefulWidget {
   final User user;
+  final List<Message> messages;
 
-  ChatScreen({this.user});
+  ChatScreen({this.user, this.messages});
 
   @override
   _ChatScreenState createState() => _ChatScreenState();
@@ -42,7 +44,9 @@ class _ChatScreenState extends State<ChatScreen> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: <Widget>[
           Text(
-            message.time,
+            message.time.toDate().hour.toString() +
+                ':' +
+                message.time.toDate().minute.toString(),
             style: TextStyle(
               color: Colors.blueGrey,
               fontSize: 16.0,
@@ -53,7 +57,7 @@ class _ChatScreenState extends State<ChatScreen> {
           Text(
             message.text,
             style: TextStyle(
-              color: Colors.blueGrey,
+              color: isMe ? Colors.white : Colors.blueGrey,
               fontSize: 16.0,
               fontWeight: FontWeight.w600,
             ),
@@ -119,54 +123,46 @@ class _ChatScreenState extends State<ChatScreen> {
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: AppBar(
-        title: Text(
-          widget.user.displayName,
-          style: TextStyle(
-            fontSize: 28.0,
-            fontWeight: FontWeight.bold,
+        title: Center(
+          child: SvgPicture.asset(
+            'assets/images/word pyggybank.svg',
+            height: 40,
           ),
         ),
-        elevation: 0.0,
-        actions: <Widget>[
-          IconButton(
-            icon: Icon(Icons.more_horiz),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {},
-          ),
-        ],
       ),
       body: GestureDetector(
         onTap: () => FocusScope.of(context).unfocus(),
         child: Column(
           children: <Widget>[
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
+            if (widget.messages != null)
+              Expanded(
+                child: Container(
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
                   ),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(30.0),
-                    topRight: Radius.circular(30.0),
-                  ),
-                  child: ListView.builder(
-                    reverse: true,
-                    padding: EdgeInsets.only(top: 15.0),
-                    itemCount: messages.length,
-                    itemBuilder: (BuildContext context, int index) {
-                      final Message message = messages[index];
-                      final bool isMe = message.sender.uid == currentUser.uid;
-                      return _buildMessage(message, isMe);
-                    },
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(30.0),
+                      topRight: Radius.circular(30.0),
+                    ),
+                    child: ListView.builder(
+                      reverse: true,
+                      padding: EdgeInsets.only(top: 15.0),
+                      itemCount: widget.messages.length,
+                      itemBuilder: (BuildContext context, int index) {
+                        final Message message = widget.messages[index];
+                        final bool isMe = message.senderID == widget.user.uid;
+                        return _buildMessage(message, isMe);
+                      },
+                    ),
+//                    child: StreamBuilder(stream: ,builder: (context,snapshot){return Container();},),
                   ),
                 ),
               ),
-            ),
             _buildMessageComposer(),
           ],
         ),

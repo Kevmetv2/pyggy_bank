@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 
+const double baseHeight = 650.0;
+
 final kHintTextStyle = TextStyle(
   color: Colors.white54,
   fontFamily: 'OpenSans',

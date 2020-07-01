@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/pages/log_in_screen.dart';
@@ -25,8 +26,10 @@ class MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         theme: new ThemeData(
           primarySwatch: Colors.blue,
-          primaryColor: Color(0xFFa23e48),
-          accentColor: Color(0xFF14213d),
+//          primaryColor: Color(0xFFa23e48),
+//          accentColor: Color(0xFF14213d),
+          primaryColor: Color(0xFFE59938),
+          accentColor: Color(0xFF154153),
           primaryIconTheme: IconThemeData(color: Colors.black),
 //            primaryTextTheme: TextTheme(
 //                title: TextStyle(color: Colors.black, fontFamily: "Aveny"),),

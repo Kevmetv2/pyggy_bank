@@ -8,6 +8,9 @@ class User {
 
   Map toMap(User user) {
     var data = Map<String, dynamic>();
+//    if (user.photoUrl == null) {
+//      user.photoUrl = "";
+//    }
     data['uid'] = user.uid;
     data['email'] = user.email;
     data['photoUrl'] = user.photoUrl;

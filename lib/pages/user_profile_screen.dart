@@ -1,24 +1,38 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pyggybank/models/message_model.dart';
-import 'package:pyggybank/widgets/nav-drawer.dart';
+import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/widgets/nav_drawer.dart';
+
+import 'add_payment_page.dart';
+
+User currentUser;
 
 class UserProfileScreen extends StatelessWidget {
+  final User currentUser_p;
+
+  UserProfileScreen({this.currentUser_p});
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: Icon(Icons.menu),
-            iconSize: 30.0,
-            color: Colors.white,
-            onPressed: () {
-              Scaffold.of(context).openDrawer();
-            },
-          ),
-        ),
+        appBar: AppBar(leading: Builder(
+            builder: (BuildContext context) {
+            return IconButton(
+              icon: Icon(Icons.menu),
+              iconSize: 30.0,
+              color: Colors.white,
+              onPressed: () {
+                Scaffold.of(context).openDrawer();
+              },
+            );
+          },
+        ), backgroundColor: Theme
+            .of(context)
+            .accentColor,),
         drawer: NavDrawer(),
-        backgroundColor: Theme.of(context).primaryColor,
+        backgroundColor: Theme
+            .of(context)
+            .accentColor,
         body: SingleChildScrollView(
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -28,18 +42,18 @@ class UserProfileScreen extends StatelessWidget {
                 backgroundColor: Colors.black,
                 child: CircleAvatar(
                   radius: 50,
-                  backgroundImage: NetworkImage(currentUser.photoUrl),
+                  backgroundImage: NetworkImage(currentUser_p.photoUrl),
                 ),
               ),
               Text(
-                currentUser.displayName,
+                currentUser_p.displayName,
                 style: TextStyle(
                     fontSize: 30,
                     fontWeight: FontWeight.bold,
                     color: Colors.black),
               ),
               Text(
-                "User since ...",
+                "User since 2020",
                 style: TextStyle(fontWeight: FontWeight.w400),
               ),
               SizedBox(
@@ -61,7 +75,7 @@ class UserProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      currentUser.displayName,
+                      currentUser_p.displayName,
                       style: TextStyle(fontSize: 18.0),
                     )
                   ],
@@ -78,9 +92,17 @@ class UserProfileScreen extends StatelessWidget {
                       color: Colors.black,
                     ),
                     SizedBox(width: 10),
-                    Text(
-                      "View Account Details",
-                      style: TextStyle(fontSize: 18.0),
+                    FlatButton(
+                      child: Text(
+                        "View Account Details",
+                        style: TextStyle(fontSize: 18.0),
+                      ),
+                      onPressed: () {
+                        Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                                builder: (context) => payment_page()));
+                      },
                     )
                   ],
                 ),
@@ -122,7 +144,8 @@ class UserProfileScreen extends StatelessWidget {
                     ),
                     SizedBox(width: 10),
                     Text(
-                      currentUser.email,
+//                      currentUser.email,
+                      "email here",
                       style: TextStyle(fontSize: 18.0),
                     )
                   ],

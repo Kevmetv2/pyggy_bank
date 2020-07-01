@@ -1,7 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:pyggybank/pages/home_screen.dart';
+import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/services/constants.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
@@ -181,7 +183,8 @@ class _LogInScreenState extends State<LogInScreen> {
 
     Widget _buildSignupBtn() {
       return GestureDetector(
-        onTap: () => Navigator.pop(context),
+        onTap: () => Navigator.pushReplacement(
+            context, MaterialPageRoute(builder: (context) => SignUpScreen())),
         child: RichText(
           text: TextSpan(
             children: [
@@ -223,10 +226,15 @@ class _LogInScreenState extends State<LogInScreen> {
                           begin: Alignment.topCenter,
                           end: Alignment.bottomCenter,
                           colors: [
-                            Color(0xFFa23e48),
-                            Color(0xFFfe7f2d),
+                            //Color(0xFF6930c3),
+//                            Color(0xFFa23e48),
+//                            Color(0xFFfe7f2d),
+                            Color(0xFFE59938),
+                            //Color(0xFF657883),
+
+//                            Color(0xFF72efdd),
                           ],
-                          stops: [0.2, 0.9],
+                          stops: [0.3],
                         ),
                       ),
                     ),
@@ -243,6 +251,11 @@ class _LogInScreenState extends State<LogInScreen> {
                           child: Column(
                             mainAxisAlignment: MainAxisAlignment.center,
                             children: <Widget>[
+                              SvgPicture.asset(
+                                'assets/images/Pyggybank centered pig and words.svg',
+                                height: 160,
+                              ),
+                              SizedBox(height: 40),
                               Text(
                                 'Sign In',
                                 style: TextStyle(
