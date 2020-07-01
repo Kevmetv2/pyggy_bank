@@ -1,13 +1,8 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pyggybank/models/group_model.dart';
-import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/add_money_selector.dart';
 import 'package:pyggybank/pages/group_page_build_screen.dart';
-import 'package:pyggybank/pages/placeholder_screen.dart';
 import 'package:pyggybank/pages/scan_screen.dart';
-import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/nav_drawer.dart';
 
 import 'group_page_build_screen.dart';
@@ -57,11 +52,9 @@ class _HomeScreenState extends State<HomeScreen> {
 
   final List<Widget> _children = [
     GroupScreenBuild(),
-    PlaceHolderWidget(Colors.redAccent),
     ScanScreen(),
     //PlaceHolderWidget(Colors.green),
     AddMoney(),
-    PlaceHolderWidget(Colors.pink)
   ];
 
   int _page = 0;
@@ -106,11 +99,6 @@ class _HomeScreenState extends State<HomeScreen> {
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
-              icon: new Icon(Icons.search,
-                  color: (_page == 1) ? Colors.black : Colors.grey),
-              title: new Container(height: 0.0),
-              backgroundColor: Colors.white),
-          new BottomNavigationBarItem(
               icon: new Icon(Icons.camera,
                   color: (_page == 2) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
@@ -118,11 +106,6 @@ class _HomeScreenState extends State<HomeScreen> {
           new BottomNavigationBarItem(
               icon: new Icon(Icons.monetization_on,
                   color: (_page == 3) ? Colors.black : Colors.grey),
-              title: new Container(height: 0.0),
-              backgroundColor: Colors.white),
-          new BottomNavigationBarItem(
-              icon: new Icon(Icons.star,
-                  color: (_page == 4) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
         ],

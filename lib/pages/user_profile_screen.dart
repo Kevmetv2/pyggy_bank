@@ -1,11 +1,7 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/user.dart';
-import 'package:pyggybank/models/message_model.dart';
-import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/nav_drawer.dart';
-import 'package:pyggybank/widgets/progress.dart';
 
 User currentUser;
 
@@ -56,9 +52,9 @@ class UserProfileScreen extends StatelessWidget {
                       color: Colors.black),
                 ),
                 Text(
-                  "User since ...",
-                  style: TextStyle(fontWeight: FontWeight.w400),
-                ),
+                  "User since 2020",
+                style: TextStyle(fontWeight: FontWeight.w400),
+              ),
                 SizedBox(
                   height: 30,
                   width: 200,

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:pyggybank/models/card_bank_model.dart';
 import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/request_model.dart';
@@ -130,6 +131,28 @@ class FirebaseProvider {
     }
   }
 
+  Future<void> addCardtodb(cardNo, holder, ccv_, expiry, uid) async {
+    final cardsRef = _firestore.collection("cards");
+    final user_cards_ref = _firestore.collection("user_cards")
+        .document(uid)
+        .collection("cards");
+    try {
+      card_bank card = new card_bank(
+          card_number: cardNo,
+          ccv: ccv_,
+          expiration: expiry,
+          cardholder: holder
+      );
+
+
+      var documentId = await cardsRef.add(card.toMap(card));
+      var s = documentId.documentID;
+      await user_cards_ref.document(s).setData({});
+    } catch (e) {
+      print(e);
+    }
+  }
+
   Future<FirebaseUser> signInEmail(email, password) async {
     try {
       AuthResult authResult = await _auth.signInWithEmailAndPassword(
@@ -139,12 +162,30 @@ class FirebaseProvider {
         addDataToDb(user);
         return user;
       }
-      return null;
     } catch (e) {
       print(e);
     }
   }
 
+  Future<List<card_bank>> fetchCard(String uid) async {
+    List<card_bank> cardList = List<card_bank>();
+    final userRef = Firestore.instance.collection('cards');
+    QuerySnapshot querySnapshot = await _firestore
+        .collection("user_cards")
+        .document(
+        '5fvXoPckSENfJcaCG62KzJ12vPs2').collection("cards").getDocuments();
+
+
+    for (var i = 0; i < querySnapshot.documents.length; i++) {
+      DocumentSnapshot s =
+      await userRef.document(querySnapshot.documents[i].documentID).get();
+      if (s.exists) {
+        cardList.add(card_bank.fromMap(s.data));
+      }
+    }
+
+    return cardList;
+  }
   Future<User> fetchUserDetailsById(String uid) async {
     DocumentSnapshot documentSnapshot =
         await _firestore.collection("users").document(uid).get();

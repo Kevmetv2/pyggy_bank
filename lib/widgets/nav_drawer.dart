@@ -1,8 +1,8 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
-import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/pages/add_payment_page.dart';
 import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/pages/sign_up_screen.dart';
 import 'package:pyggybank/pages/user_profile_screen.dart';
@@ -124,19 +124,7 @@ class _NavDrawer extends State<NavDrawer> {
               trailing: Icon(Icons.arrow_forward_ios),
               onTap: () => {Navigator.of(context).pop()},
             ),
-            ListTile(
-              leading: Icon(Icons.favorite),
-              title: Text(
-                'Favourites',
-                style: TextStyle(
-                    fontSize: 22.0,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.white),
-              ),
-              trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () => {Navigator.of(context).pop()},
-            ),
-            ListTile(
+                  ListTile(
               leading: Icon(Icons.credit_card),
               title: Text(
                 'Payment methods',
@@ -146,7 +134,11 @@ class _NavDrawer extends State<NavDrawer> {
                     color: Colors.white),
               ),
               trailing: Icon(Icons.arrow_forward_ios),
-              onTap: () => {},
+              onTap: () =>
+              { Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => payment_page()))},
             ),
             Material(
                 color: Theme.of(context).primaryColor,
