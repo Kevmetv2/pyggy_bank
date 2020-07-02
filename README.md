@@ -1,6 +1,6 @@
 # pyggybank
 
-A innovative way of sharing money with friends and your community
+An innovative and easy way of sharing money with your friends and community.
 
 ## Getting Started
 
