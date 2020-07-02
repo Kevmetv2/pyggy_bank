@@ -1,3 +1,6 @@
+import 'dart:async';
+import 'dart:io';
+import 'dart:convert';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -6,6 +9,9 @@ import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/transaction_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/services/repository.dart';
+import 'package:flutter/material.dart';
+import 'package:http/http.dart' as http;
+import 'package:http/io_client.dart';
 
 class AddMoneyFinal extends StatefulWidget {
   final Group receiver;
@@ -266,11 +272,53 @@ class _AddMoneyFinalState extends State<AddMoneyFinal> {
     _repository.createTransaction(transaction, widget.receiver.groupId);
   }
 
+  Future<String> pullfunds() async{
+    HttpClient client = new HttpClient();
+    client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+
+    String url ='https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pullfundstransactions';
+
+
+    String username = "3JX65Z01LW77UB2RPPQ121yUPgP7dkAMHn-0SwWjLfP3odTeQ";
+    String password = "G1SX61pBxfcnGRvXXFNO0wwdls7";
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    IOClient ioClient = new IOClient(client);
+    var response = await ioClient.post(url,
+        headers: <String, String>{username: password});
+    return response.body;
+  }
+
+  Future<String> pushfunds() async{
+    HttpClient client = new HttpClient();
+    client.badCertificateCallback = ((X509Certificate cert, String host, int port) => true);
+
+    String url ='https://sandbox.api.visa.com/visadirect/fundstransfer/v1/pushfundstransactions';
+
+
+    String username = "3JX65Z01LW77UB2RPPQ121yUPgP7dkAMHn-0SwWjLfP3odTeQ";
+    String password = "G1SX61pBxfcnGRvXXFNO0wwdls7";
+    String basicAuth =
+        'Basic ' + base64Encode(utf8.encode('$username:$password'));
+
+    IOClient ioClient = new IOClient(client);
+    var response = await ioClient.post(url,
+        headers: <String, String>{username: password});
+    return response.body;
+  }
+
+  void transferfunds(){
+    pullfunds();
+    pushfunds();
+  }
+
   Widget _getSendSection() {
     return Container(
       margin: EdgeInsets.all(16.0),
       child: GestureDetector(
         onTapUp: (tapDetail) {
+          transferfunds();
           // change this
           sendMoney();
           // show cool gif pop up
