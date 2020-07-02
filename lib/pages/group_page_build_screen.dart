@@ -78,12 +78,6 @@ class _GroupScreenBuildState extends State<GroupScreenBuild> {
                   Scaffold.of(context).openDrawer();
                 },
               ),
-//        title: Text(
-//          'Pyggy Banks',
-//          textAlign: TextAlign.center,
-//          style: TextStyle(
-//              fontSize: 28.0, fontWeight: FontWeight.bold, color: Colors.white),
-//        ),
               title: Center(
                 child: SvgPicture.asset(
                   'assets/images/word pyggybank.svg',

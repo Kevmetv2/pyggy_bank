@@ -1,16 +1,13 @@
 import 'dart:convert';
 import 'dart:typed_data';
 import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 
 import 'package:esys_flutter_share/esys_flutter_share.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
 import 'package:pyggybank/models/group_model.dart';
-import 'package:pyggybank/models/qr_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
@@ -39,10 +36,10 @@ class _GenState extends State<GenScreen> {
     User user = await _repository.fetchUserDetailsById(currentUser.uid);
 
      b =current_group.groupId;
-     c = Timestamp.now().toString();
-     d = currentUser.uid;
+
+    d = currentUser.uid;
      setState(() {
-       _unecryData = '$d,$b,$c';
+       _unecryData = '$d,$b';
      });
   }
   @override
@@ -140,17 +137,16 @@ class _GenState extends State<GenScreen> {
       print('error: $e');
     }
   }
-  initEncrypt() async{
-    final cryptor = new PlatformStringCryptor();
+  initEncrypt() async {
+    // final cryptor = new PlatformStringCryptor();
 
-    final key = await cryptor.generateRandomKey();
-    final encrypted = await cryptor.encrypt(_unecryData, key);
+    //final key = await cryptor.generateRandomKey();
+    //final encrypted = await cryptor.encrypt(_unecryData, key);
 
     setState(() {
-      packet = '$key,$encrypted';
-
+      //packet = '$key,$encrypted';
+      packet = '$_unecryData';
+      isLoading = true;
     });
-
-
   }
 }

@@ -1,13 +1,12 @@
 import 'package:pyggybank/models/user.dart';
 
-
 class Qr_info {
-   String admin;
+  String admin;
   String groupId;
 
   DateTime timestamp;
 
-  Qr_info({this.admin, this.groupId,  this.timestamp});
+  Qr_info({this.admin, this.groupId, this.timestamp});
 
   Qr_info.fromJson(Map<String, dynamic> json) {
     admin = json['admin'];
@@ -24,11 +23,11 @@ class Qr_info {
     data['timer'] = this.timestamp;
     return data;
   }
+
   Map toMap(Qr_info qr) {
     var data = Map<String, dynamic>();
     data['groupId'] = qr.groupId;
     data['admin'] = qr.admin;
-
 
     data['timestamp'] = qr.timestamp;
 
@@ -40,14 +39,5 @@ class Qr_info {
     this.groupId = mapData['admin'];
 
     this.timestamp = mapData['timestamp'];
-
   }
-  /*
-  @override
-  String toString(){
-    return " {"
-  }
-  */
-
-
 }

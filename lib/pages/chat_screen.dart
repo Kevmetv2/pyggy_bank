@@ -159,6 +159,7 @@ class _ChatScreenState extends State<ChatScreen> {
                         return _buildMessage(message, isMe);
                       },
                     ),
+//                    child: StreamBuilder(stream: ,builder: (context,snapshot){return Container();},),
                   ),
                 ),
               ),

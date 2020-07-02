@@ -1,19 +1,14 @@
-import 'package:barcode_scan/barcode_scan.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter_string_encryption/flutter_string_encryption.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:pyggybank/models/qr_model.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
-import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/models/group_model.dart';
+import 'package:pyggybank/models/qr_model.dart';
 import 'package:pyggybank/pages/user_profile_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
 import 'package:qr_code_scanner/qr_scanner_overlay_shape.dart';
-import 'package:pyggybank/models/group_model.dart';
-
 
 class ScanScreen extends StatefulWidget {
   @override
@@ -251,34 +246,34 @@ class _ScanState extends State<ScanScreen> {
   }
 
   void _filter_data() async{
+    print("stage 1 complete");
     components = qrtext.split(',');
-    final key = components[0];
-    final cryptor = new PlatformStringCryptor();
-    final decrypted = cryptor.decrypt(components[1], key);
-    unEncrypt = decrypted.toString().split(',');
+    // final key = components[0];
+    //   final cryptor = new PlatformStringCryptor();
+    //final decrypted = cryptor.decrypt(components[1], key);
+    //unEncrypt = decrypted.toString().split(',');
     setState(() {
       isLoading = true;
-
     });
 
-    group_info = new Qr_info(
-        admin: unEncrypt[0],
-        groupId: unEncrypt[1],
-        timestamp: DateTime.parse(unEncrypt[3]));
-    _repository.authenticateGroup(group_info.groupId, group_info.admin).then((value) {
-      if(value){
+    group_info = new Qr_info(admin: components[0],
+        groupId: components[1]
+    );
+    _repository.authenticateGroup(group_info.groupId, group_info.admin).then((
+        value) {
+      if (value) {
         /// ADD TO GROUP
+        /// then add to grouo
+        /// and add group to them
         _repository.addtoGroup(group_info.groupId, currentUser.uid);
-
-      }else{
+      } else {
 
       }
     });
 
-   setState(() {
-     isValid = true;
-     isLoading = false;
-
-   });
+    setState(() {
+      isValid = true;
+      isLoading = false;
+    });
   }
 }

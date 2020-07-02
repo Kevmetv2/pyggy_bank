@@ -85,6 +85,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.1"
+  credit_card:
+    dependency: "direct main"
+    description:
+      name: credit_card
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.8"
   cupertino_icons:
     dependency: "direct main"
     description:
@@ -394,6 +401,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "2.1.3"
+  sk_onboarding_screen:
+    dependency: "direct main"
+    description:
+      name: sk_onboarding_screen
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "1.0.1"
   sky_engine:
     dependency: transitive
     description: flutter
@@ -440,7 +454,7 @@ packages:
       name: test_api
       url: "https://pub.dartlang.org"
     source: hosted
-    version: "0.2.16"
+    version: "0.2.15"
   toast:
     dependency: "direct main"
     description:

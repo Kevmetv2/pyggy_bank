@@ -14,6 +14,7 @@ import 'package:pyggybank/widgets_group/donut_chart.dart';
 import 'package:pyggybank/widgets_group/transaction_history_group.dart';
 import 'package:charts_flutter/flutter.dart' as charts;
 import 'package:pyggybank/widgets_group/users_in_group.dart';
+import 'package:pyggybank/models/card_model.dart';
 
 var data = [
   new DataPerItem('Home', 35, Colors.red),
@@ -32,145 +33,6 @@ var series = [
   ),
 ];
 
-//  TransactionM(
-//      senderID: "Netflix",
-//      category: "Entertainment",
-//      receiverImg:
-//          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
-//      amount: 100,
-//      timestamp: Timestamp.now(),
-//      paymentType: true),
-//  TransactionM(
-//      senderID: "Coca Cola",
-//      category: "Food and Snacks",
-//      receiverImg:
-//          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
-//      amount: 300,
-//      timestamp: Timestamp.now(),
-//      paymentType: false),
-//  TransactionM(
-//      senderID: "Coursera",
-//      category: "Learning",
-//      receiverImg:
-//          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
-//      amount: 22,
-//      timestamp: Timestamp.now(),
-//      paymentType: true),
-//  TransactionM(
-//      senderID: "Random Company",
-//      category: "",
-//      receiverImg:
-//          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
-//      amount: 120,
-//      timestamp: Timestamp.now(),
-//      paymentType: false),
-//  TransactionM(
-//      senderID: "Netflix",
-//      category: "Entertainment",
-//      receiverImg:
-//          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
-//      amount: 100,
-//      timestamp: Timestamp.now(),
-//      paymentType: true),
-//  TransactionM(
-//      senderID: "Coca Cola",
-//      category: "Food and Snacks",
-//      receiverImg:
-//          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
-//      amount: 300,
-//      timestamp: Timestamp.now(),
-//      paymentType: false),
-//  TransactionM(
-//      senderID: "Coursera",
-//      category: "Learning",
-//      receiverImg:
-//          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
-//      amount: 22,
-//      timestamp: Timestamp.now(),
-//      paymentType: true),
-//  TransactionM(
-//      senderID: "Random Company",
-//      category: "",
-//      receiverImg:
-//          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
-//      amount: 120,
-//      timestamp: Timestamp.now(),
-//      paymentType: false),
-//  TransactionM(
-//      senderID: "Netflix",
-//      category: "Entertainment",
-//      receiverImg:
-//          "https://www.iosicongallery.com/icons/netflix-2018-11-01/512.png",
-//      amount: 100,
-//      timestamp: Timestamp.now(),
-//      paymentType: true),
-//  TransactionM(
-//      senderID: "Coca Cola",
-//      category: "Food and Snacks",
-//      receiverImg:
-//          "https://seeklogo.com/images/C/Coca-Cola-logo-108E6559A3-seeklogo.com.png",
-//      amount: 300,
-//      timestamp: Timestamp.now(),
-//      paymentType: false),
-//  TransactionM(
-//      senderID: "Coursera",
-//      category: "Learning",
-//      receiverImg:
-//          "https://i.pinimg.com/originals/f7/64/15/f76415d3d9779400d610a0f089f551e5.jpg",
-//      amount: 22,
-//      timestamp: Timestamp.now(),
-//      paymentType: true),
-//  TransactionM(
-//      senderID: "Random Company",
-//      category: "",
-//      receiverImg:
-//          "https://cdn-images-1.medium.com/fit/c/200/200/1*n8a5ynNw0XqBlgwugpFrtg.png",
-//      amount: 120,
-//      timestamp: Timestamp.now(),
-//      paymentType: false),
-//List<User> users = [
-//  new User(
-//      uid: "13",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=18",
-//      displayName: "Wevin"),
-//  new User(
-//      uid: "14",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=19",
-//      displayName: "Mevin"),
-//  new User(
-//      uid: "15",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=20",
-//      displayName: "Kevin"),
-//  new User(
-//      uid: "16",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=21",
-//      displayName: "Eleven"),
-//  new User(
-//      uid: "17",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=28",
-//      displayName: "Tevin"),
-//  new User(
-//      uid: "18",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=23",
-//      displayName: "Revin"),
-//  new User(
-//      uid: "19",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=27",
-//      displayName: "Lenin"),
-//  new User(
-//      uid: "20",
-//      email: "",
-//      photoUrl: "https://i.pravatar.cc/150?img=38",
-//      displayName: "Qenin"),
-//];
-
 class GroupStat extends StatefulWidget {
   Group group;
 
@@ -183,25 +45,30 @@ class GroupStat extends StatefulWidget {
 class _GroupStatState extends State<GroupStat> {
   List<TransactionM> transactions = [];
   List<User> members = [];
+  List<Cards> cards = [];
   var _repository = new Repository();
   bool isLoading = false;
 
-  final List<BankCardModel> cards = [
-    BankCardModel(
-        'assets/images/bg_red_card.png', '', '4221 5168 7464 2283', '08/20', 0),
-  ];
+//  final List<BankCardModel> card_list = [
+//    BankCardModel(
+//        'assets/images/bg_red_card.png', '', cards.card_number, '08/20', 0),
+//  ];
 
   void getTransactions() async {
+    List<Cards> cards = await _repository.getGroupCard(widget.group.groupId);
     List<TransactionM> transactions =
         await _repository.fetchAllTransactionsGroup(widget.group.groupId);
     List<User> members =
         await _repository.fetchAllMembersGroup(widget.group.groupId);
     Group g = await _repository.groupById(
         widget.group.groupId); // refresh after transaction goes through.
+
     setState(() {
       this.transactions = transactions;
       this.members = members;
       this.widget.group = g;
+      this.cards = cards;
+      print(cards[0].card_number);
     });
   }
 
@@ -236,6 +103,7 @@ class _GroupStatState extends State<GroupStat> {
         ? Scaffold(
             backgroundColor: Theme.of(context).accentColor,
             appBar: AppBar(
+              backgroundColor: Theme.of(context).accentColor,
               leading: IconButton(
                 icon: Icon(Icons.arrow_back),
                 iconSize: 30.0,
