@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/pages/add_new_member.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/pages/generate_screen.dart';
@@ -137,7 +138,7 @@ class _UserInGroupsState extends State<UserInGroups> {
             ),
             onPressed: () {
               Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GenScreen()));
+                  MaterialPageRoute(builder: (context) => AddNewMember()));
             },
             iconSize: 32.0,
           ),
@@ -150,9 +151,14 @@ class _UserInGroupsState extends State<UserInGroups> {
               overflow: TextOverflow.fade,
               textAlign: TextAlign.center,
             ),
-          )
+
+          ),
+
+
         ],
+
       ),
+
     );
   }
 }

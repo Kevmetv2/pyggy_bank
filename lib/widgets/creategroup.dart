@@ -33,7 +33,7 @@ class creategroupState extends State<creategroup> {
 
       body: Container(
         padding:
-        const EdgeInsets.symmetric(vertical: 16.0, horizontal: 16.0),
+        const EdgeInsets.symmetric(vertical: 14.0, horizontal: 14.0),
         child: Builder(
           builder: (context) =>
               Form(key: _formKey,
@@ -45,16 +45,22 @@ class creategroupState extends State<creategroup> {
                     CircleAvatar(
 
                       radius: 52,
-                      backgroundColor: Colors.orange,
+                      backgroundColor: Colors.amberAccent,
 
                       child: CircleAvatar(
                         radius: 50,
 
+
                       ),
                     ),
 
-                    Text(
+
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 20.0,horizontal: 20.0),
+                       child: Text(
                       'Add group icon',
+                      textAlign: TextAlign.center,
+                    ),
                     ),
 
                     new ListTile(
@@ -71,6 +77,7 @@ class creategroupState extends State<creategroup> {
                         decoration: new InputDecoration(
                           hintText: "Group Description",
                         ),
+
                       ),
 
                     ),
@@ -80,16 +87,31 @@ class creategroupState extends State<creategroup> {
                       child: RaisedButton(
                         onPressed: () {
                           // Validate returns true if the form is valid, or false
-                          // otherwise.
+                          // otherwise. v
                           if (_formKey.currentState.validate()) {
                             // If the form is valid, display a Snackbar.
 
                             Scaffold.of(context)
                                 .showSnackBar(SnackBar(content: Text(
-                                'Submitting form',textAlign: TextAlign.center,style: TextStyle() )));
+                                'Submitting form',textAlign: TextAlign.center,overflow: TextOverflow.fade,style: TextStyle() )));
                           }
+                          bool isButtonPressed = false;
+
+                          RaisedButton(
+                            color: isButtonPressed ? Colors.amberAccent : Colors.grey,
+                            onPressed: () {
+                              setState(() {
+                                isButtonPressed =!isButtonPressed;
+                              }
+                              );
+                            },
+                          );
+
                         },
-                        child: Text('Confirm',
+                        child: Text('Confirm',style: TextStyle(
+                            inherit: true, fontWeight: FontWeight.w500, fontSize: 16.0),
+                          overflow: TextOverflow.fade,
+                          textAlign: TextAlign.center,
                         ),
                       ),
                     ),
