@@ -7,19 +7,22 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
 import 'package:flutter/services.dart';
-import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
 
 class GenScreen extends StatefulWidget {
+  final String gp;
+
+  const GenScreen(this.gp);
+
   @override
   _GenState createState() => new _GenState();
 }
+
 ///SPLITING AND ENCRYPTING OF DATA
 
 String b ;
-String c ;
 String d;
 String _unecryData;
 String packet;
@@ -27,27 +30,29 @@ String packet;
 GlobalKey globalKey = new GlobalKey();
 
 class _GenState extends State<GenScreen> {
-  final Group current_group;
-  _GenState({this.current_group});
+
   var _repository = Repository();
   bool isLoading = false;
   void getData() async {
     FirebaseUser currentUser = await _repository.getCurrentUser();
     User user = await _repository.fetchUserDetailsById(currentUser.uid);
 
-     b =current_group.groupId;
+    b = widget.gp;
 
     d = currentUser.uid;
-     setState(() {
-       _unecryData = '$d,$b';
-     });
+    setState(() {
+      packet = '$d,$b';
+      print(packet);
+      print("!");
+      isLoading = true;
+    });
   }
   @override
   void initState() {
     getData();
     // TODO: implement initState
     super.initState();
-    initEncrypt();
+    //initEncrypt();
   }
   @override
   Widget build(BuildContext context) {

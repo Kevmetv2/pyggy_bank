@@ -1,11 +1,10 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:pyggybank/models/message_model.dart';
 import 'package:pyggybank/models/user.dart';
 import 'package:pyggybank/pages/chat_screen.dart';
-import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/pages/generate_screen.dart';
+import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets_group/user_in_group_cards.dart';
 
 //User currentUser = new User(
@@ -136,8 +135,10 @@ class _UserInGroupsState extends State<UserInGroups> {
               color: Colors.purple,
             ),
             onPressed: () {
-              Navigator.push(context,
-                  MaterialPageRoute(builder: (context) => GenScreen()));
+              Navigator.push(
+                  context,
+                  MaterialPageRoute(
+                      builder: (context) => GenScreen(widget.groupID)));
             },
             iconSize: 32.0,
           ),

@@ -15,7 +15,7 @@ class card_bank {
     var data = Map<String, dynamic>();
     data['card_number'] = card.card_number;
     data['cardholder'] = card.cardholder;
-    data['expriation'] = card.expiration;
+    data['expiration'] = card.expiration;
     data['ccv'] = card.ccv;
     return data;
   }

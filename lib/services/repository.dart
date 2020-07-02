@@ -37,6 +37,8 @@ class Repository {
   Future<User> fetchUserDetailsById(String uid) =>
       _firebaseProvider.fetchUserDetailsById(uid);
 
+  Future<Group> getGroupInfo(String gid) => _firebaseProvider.getGroupInfo(gid);
+
   Future<List<User>> fetchAllUserFriends(String uid) =>
       _firebaseProvider.fetchAllUserFriends(uid);
 

@@ -44,17 +44,13 @@ class FirebaseProvider {
   }
 
   Future<bool> authenticateQR(gid, uid) async {
-    final QuerySnapshot result = await _firestore
-        .collection("group_members")
-        .where("members", isEqualTo: uid)
-        .getDocuments();
     final QuerySnapshot gresult = await _firestore
         .collection("groups")
         .where("groupId", isEqualTo: gid)
         .getDocuments();
-    final List<DocumentSnapshot> docs = result.documents;
+
     final List<DocumentSnapshot> docs2 = gresult.documents;
-    if (docs.length == 1 && docs2.length == 1) {
+    if (docs2.length == 1) {
       return true;
     } else {
       return false;
@@ -95,27 +91,28 @@ class FirebaseProvider {
         .collection("group_members")
         .document(gid)
         .collection("members");
-    final QuerySnapshot result = await _firestore
-        .collection("group_members")
-        .document(gid)
-        .collection("members")
-        .getDocuments();
-    final userRef = Firestore.instance.collection('user_groups');
+
     List<User> inGroupList = List<User>();
     final User_group_ref = _firestore
         .collection("user_groups")
         .document(uid)
-        .collection("user_group_relations");
-    for (var i = 0; i < result.documents.length; i++) {
-      DocumentSnapshot s =
-          await userRef.document(result.documents[i].documentID).get();
-      if (s.exists) {
-        inGroupList.add(User.fromMap(s.data));
-      }
+        .collection("user_group_relation");
+
+    DocumentSnapshot s =
+    await User_group_ref.document(gid).get();
+    DocumentSnapshot sp =
+    await group_ref.document(uid).get();
+    if (s.exists) {
+      inGroupList.add(User.fromMap(s.data));
     }
-    if (inGroupList.length == 0) (await group_ref.document(uid).setData({}));
-    if (inGroupList.length == 0)
-      (await User_group_ref.document(gid).setData({}));
+    if (sp.exists) {
+      inGroupList.add(User.fromMap(s.data));
+    }
+
+    if (inGroupList.length == 0) {
+      await group_ref.document(uid).setData({'exists': true});
+      await User_group_ref.document(gid).setData({'exists': true});
+    };
   }
   Future<void> signUpUser(context, name, email, password) async {
     try {
@@ -197,10 +194,18 @@ class FirebaseProvider {
 
     return cardList;
   }
+
   Future<User> fetchUserDetailsById(String uid) async {
     DocumentSnapshot documentSnapshot =
-        await _firestore.collection("users").document(uid).get();
+    await _firestore.collection("users").document(uid).get();
     return User.fromMap(documentSnapshot.data);
+  }
+
+  Future<Group> getGroupInfo(String gid) async {
+    DocumentSnapshot documentSnapshot =
+    await _firestore.collection("groups").document(gid).get();
+
+    return Group.fromMap(documentSnapshot.data);
   }
 
   Future<List<User>> fetchAllUserFriends(String uid) async {
@@ -418,8 +423,11 @@ class FirebaseProvider {
 
     for (var i = 0; i < querySnapshot.documents.length; i++) {
       DocumentSnapshot s =
-          await groupsRef.document(querySnapshot.documents[i].documentID).get();
-      if (s.exists) groupsList.add(Group.fromMap(s.data));
+      await groupsRef.document(querySnapshot.documents[i].documentID).get();
+      if (s.exists) {
+        print(i);
+        groupsList.add(Group.fromMap(s.data));
+      } else {}
     }
 
     return groupsList;

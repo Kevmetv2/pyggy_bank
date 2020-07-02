@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_sliding_up_panel/flutter_sliding_up_panel.dart';
 import 'package:pyggybank/models/group_model.dart';
 import 'package:pyggybank/models/qr_model.dart';
-import 'package:pyggybank/pages/user_profile_screen.dart';
+import 'package:pyggybank/models/user.dart';
+import 'package:pyggybank/pages/home_screen.dart';
 import 'package:pyggybank/services/repository.dart';
 import 'package:pyggybank/widgets/progress.dart';
 import 'package:qr_code_scanner/qr_code_scanner.dart';
@@ -17,17 +18,22 @@ class ScanScreen extends StatefulWidget {
 
 class _ScanState extends State<ScanScreen> {
   final Group current_group;
+
   _ScanState({this.current_group});
 
   bool isLoading = false;
-
+  String id;
   Qr_info group_info;
-  Group new_group_data ;
+  Group new_group_data;
+
   var _repository = Repository();
+
   void getData() async {
     FirebaseUser currentUser = await _repository.getCurrentUser();
-
-
+    User user = await _repository.fetchUserDetailsById(currentUser.uid);
+    setState(() {
+      id = currentUser.uid;
+    });
   }
   @override
   initState() {
@@ -188,17 +194,23 @@ class _ScanState extends State<ScanScreen> {
                                       style: new TextStyle(
                                           color: Colors.white60,
                                           fontSize: 20.0,
-
                                           letterSpacing: 1.2)),
-                                  RaisedButton(onPressed: () {},
+                                  RaisedButton(
+                                    onPressed: () {
+                                      _join_group();
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  HomeScreen()));
+                                    },
                                     child: const Text("Join Group",
                                         textAlign: TextAlign.center,
-                                        style: TextStyle(fontSize: 20.0,
+                                        style: TextStyle(
+                                            fontSize: 20.0,
                                             fontWeight: FontWeight.bold,
                                             letterSpacing: 1.2)),
-
                                   )
-
                                 ],
                               )
 
@@ -240,14 +252,17 @@ class _ScanState extends State<ScanScreen> {
     controller.scannedDataStream.listen((scanData) {
       setState(() {
         qrtext = scanData;
+
         _filter_data();
       });
     });
   }
 
   void _filter_data() async{
-    print("stage 1 complete");
+    print("s1");
     components = qrtext.split(',');
+    print(qrtext);
+    print(components);
     // final key = components[0];
     //   final cryptor = new PlatformStringCryptor();
     //final decrypted = cryptor.decrypt(components[1], key);
@@ -255,25 +270,31 @@ class _ScanState extends State<ScanScreen> {
     setState(() {
       isLoading = true;
     });
-
-    group_info = new Qr_info(admin: components[0],
+    print("s2");
+    group_info = new Qr_info(
+        admin: components[0],
         groupId: components[1]
     );
+
     _repository.authenticateGroup(group_info.groupId, group_info.admin).then((
-        value) {
+        value) async {
       if (value) {
-        /// ADD TO GROUP
-        /// then add to grouo
-        /// and add group to them
-        _repository.addtoGroup(group_info.groupId, currentUser.uid);
-      } else {
-
-      }
+        print("s3");
+        Group grp = await _repository.getGroupInfo(group_info.groupId);
+        setState(() {
+          isValid = true;
+          new_group_data = grp;
+        });
+      } else {}
     });
-
     setState(() {
-      isValid = true;
       isLoading = false;
     });
   }
+
+  void _join_group() async {
+    print("hwlp");
+    await _repository.addtoGroup(group_info.groupId, id);
+  }
 }
+
