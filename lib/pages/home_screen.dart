@@ -57,12 +57,12 @@ class _HomeScreenState extends State<HomeScreen> {
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
               icon: new Icon(Icons.camera,
-                  color: (_page == 2) ? Colors.black : Colors.grey),
+                  color: (_page == 1) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
           new BottomNavigationBarItem(
               icon: new Icon(Icons.monetization_on,
-                  color: (_page == 3) ? Colors.black : Colors.grey),
+                  color: (_page == 2) ? Colors.black : Colors.grey),
               title: new Container(height: 0.0),
               backgroundColor: Colors.white),
         ],
